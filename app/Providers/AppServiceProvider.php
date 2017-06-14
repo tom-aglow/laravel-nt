@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Classes\AwesomeClass;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::share('isAdmin', false);
+
+        include app_path('helpers.php');
     }
 
     /**
@@ -23,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton('Awesome', function ($app) {
+            return new AwesomeClass();
+        });
     }
 }

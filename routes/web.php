@@ -24,6 +24,7 @@ Route::post('/', function () {
 
 
 
+//prefixes
 
 Route::group(['prefix' => 'test'], function () {
     Route::get('/1', 'TestController@index');
@@ -40,6 +41,7 @@ Route::group(['prefix' => 'test'], function () {
 
 
 
+//prefixes and namespaces
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('/', 'AdminController@index');
@@ -47,7 +49,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
 
 
-
+//pattern for variables
 
 //Route::get('/user/{id?}', function ($id = null) {
 //    return 'USER ' . $id;
@@ -59,3 +61,9 @@ Route::get('/user/{id}/{name}', 'TestController@user')
         'name' => '[a-zA-Z\-\_]+'
     ])
     ->name('getUser');
+
+
+//simple views
+Route::get('/view/page1', 'ViewController@page1');
+Route::get('/view/page2', 'ViewController@page2');
+

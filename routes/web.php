@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['namespace' => 'Client'], function () {
-    Route::get('/', function () {
-        return view('client.main');     // for static pages, for dynamic use controllers
-    });
+    Route::get('/', 'ClientController@index');
+    Route::get('/article/{id}', 'ClientController@showArticle');
+    Route::get('/about', 'ClientController@showAbout');
+    Route::get('/contact', 'ClientController@showContact');
+
 });
 
 

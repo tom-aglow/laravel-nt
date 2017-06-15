@@ -1,12 +1,11 @@
-<div class="search-panel">
+<footer class="copyrights">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
-                <form action="search-results.html">
-                    <input type="text" class="search-panel__form  js--search-panel-text" placeholder="Что ищем?">
-                    <p class="search-panel__text">Нажите Enter для поиска или ESC для выхода.</p>
-                </form>
+            <div class="col-xs-12 col-sm-6">
+                <div class="copyrights--right">
+                    Blog HTML Template © Copyright 2015.
+                </div>
             </div>
         </div>
     </div>
-</div>
+</footer>

@@ -1,5 +1,8 @@
-<div class="logo pull-left">
-    <a href="index.html">
-        <img src="img/logo.png" alt="Logo" width="352" height="140">
-    </a>
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#readable-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
 </div>

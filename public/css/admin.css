@@ -6,45 +6,6 @@ a {
     font-weight: 300;
 }
 
-/*client side*/
-
-.text_logo {
-    font-weight: 900;
-    font-size: 20px;
-}
-.media-object {
-    width: 200px;
-    opacity: 0.55;
-    border-radius: 3px;
-}
-.media {
-    min-height: 250px;
-    border: 1px solid #ececec;
-    background-color: #f6f6f6;
-    padding: 10px 15px;
-    border-radius: 5px;
-}
-.media:last-child {
-    margin-bottom: 75px;
-}
-@media screen and  (min-width: 768px) {
-    .navbar {
-        border-radius: 0;
-    }
-}
-
-.dropdown-menu li{
-    font: 300 14px/22px "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-.a_tag:hover {
-    text-decoration: none;
-    cursor: hand;
-    /*font-size: 18px;*/
-}
-
-
-/*admin side*/
-
 .tag {
     /*border: 1px solid #d0d0d0;*/
     /*border-radius: 5px;*/

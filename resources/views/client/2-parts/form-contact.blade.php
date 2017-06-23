@@ -5,7 +5,8 @@
                 <div class="contact">
                     <h2>Contact Us</h2>
                     <p class="contact__text">Ut ullamcorper, risus a rhoncus fringilla, dui nisl viverra nunc, quis consectetur massa purus a nulla. Quisque adipiscing, eros eget molestie feugiat, dui sem laoreet est, nec convallis dolor erat et tellus.</p>
-                    <form action="#">
+                    <form action="#" method="post">
+                        {{ csrf_field() }}
                         <div class="row">
                             <div class="col-xs-6">
                                 <input type="text" placeholder="Your Name *">

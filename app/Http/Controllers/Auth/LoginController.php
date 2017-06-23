@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class LoginController extends Controller
 {
@@ -18,22 +21,49 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+//    use AuthenticatesUsers;
+//
+//    /**
+//     * Where to redirect users after login.
+//     *
+//     * @var string
+//     */
+//    protected $redirectTo = '/home';
+//
+//    /**
+//     * Create a new controller instance.
+//     *
+//     * @return void
+//     */
+//    public function __construct()
+//    {
+//        $this->middleware('guest')->except('logout');
+//    }
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function showLoginForm()
     {
-        $this->middleware('guest')->except('logout');
+        return view('client.3-templates.single', [
+            'page' => 'client.4-pages.login',
+            'title' => 'Login',
+            'content' => '',
+            'activeMenu' => 'login',
+        ]);
+    }
+
+    public function login(Request $request) {
+        $remember = $request->input('remember') ? true : false;
+
+        $authResult = Auth::attempt([
+            'email' => $request->input('email'),
+            'password' => $request->input('password')
+        ], $remember);
+
+        if ($authResult) {
+            return redirect()->route('client.client.index');
+        } else {
+            return redirect()->route('client.auth.login')
+                ->with('authError', trans('wrongPassword'));
+        }
     }
 }

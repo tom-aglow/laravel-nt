@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //
 
-        View::share('isAuth', true);
+        View::share('isAuth', false);
     }
 
     /**

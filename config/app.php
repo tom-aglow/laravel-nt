@@ -177,6 +177,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * My addons...
+         */
+        Barryvdh\Debugbar\ServiceProvider::class,
+
+
     ],
 
     /*

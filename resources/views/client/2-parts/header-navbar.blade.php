@@ -1,8 +1,8 @@
 <nav class="navbar navbar-default" role="navigation">
-    <div class="collapse  navbar-collapse" id="readable-navbar-collapse">
+    <div class="" id="readable-navbar-collapse">
         <ul class="navigation">
             <li class="dropdown active">
-                <a href="/" class="dropdown-toggle" data-toggle="dropdown">Home page</a>
+                <a href="{{ route('client.client.index') }}" class="dropdown-toggle" data-toggle="dropdown">Home page</a>
             </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Test</a>
@@ -23,14 +23,17 @@
             <li class="">
                 <a href="/contact" class="dropdown-toggle" data-toggle="dropdown">Contact me</a>
             </li>
+            <li class="">
+                <a href="{{ route('client.auth.signup') }}" class="dropdown-toggle" data-toggle="dropdown">Sign up</a>
+            </li>
 
-            @if($isAuth)
-                <li class="login">
-                    You are tom<a href="/" class="dropdown-toggle" data-toggle="dropdown">Logout</a>
+            @if(Auth::check())
+                <li class="">
+                    You are {{ Auth::user()->name }}<a href="{{ route('client.auth.logout') }}" class="dropdown-toggle" data-toggle="dropdown">Logout</a>
                 </li>
             @else
-                <li class="login">
-                    <a href="/" class="dropdown-toggle" data-toggle="dropdown">Login</a>
+                <li class="">
+                    <a href="/login" class="dropdown-toggle" data-toggle="dropdown">Log in</a>
                 </li>
             @endif
         </ul>

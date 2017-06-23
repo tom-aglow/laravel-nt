@@ -15,7 +15,8 @@ class ClientController extends Controller
         ]);
     }
 
-    public function showArticle ($id) {
+//    TODO move to ArticleController
+    public function showArticle ($id ) {
         return view('client.3-templates.single', [
             'page' => 'client.4-pages.article',
             'title' => 'Article #' . $id,

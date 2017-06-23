@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Client;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Client\ClientController;
 
-class ArticleController extends AdminController
+class ArticleController extends ClientController
 {
     public function list() {
         echo 'list of articles';

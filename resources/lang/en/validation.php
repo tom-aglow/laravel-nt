@@ -116,6 +116,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'password2' => 'repeat password'
+    ],
 
 ];

@@ -11,12 +11,12 @@
                             @if ($errors->has('name'))
                                 <span style="margin-bottom: 20px; color: red;">{{ $errors->get('name')[0] }}</span>
                             @endif
-                            <input type="text" name="name" placeholder="Your Name *">
+                            <input type="text" name="name" value="{{ old('name') }}" placeholder="Your Name *">
 
                             @if ($errors->has('email'))
                                 <span style="margin-bottom: 20px; color: red;">{{ $errors->get('email')[0] }}</span>
                             @endif
-                            <input type="text" name="email" placeholder="E-mail Address *">
+                            <input type="text" name="email" value="{{ old('email') }}" placeholder="E-mail Address *">
 
                             @if ($errors->has('password'))
                                 <span style="margin-bottom: 20px; color: red;">{{ $errors->get('password')[0] }}</span>

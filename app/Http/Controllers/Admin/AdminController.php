@@ -14,6 +14,9 @@ class AdminController extends Controller
 
 
     public function index () {
-        echo 'This is index of admin side';
+        return view('admin.3-pages.home', [
+            'title' => 'Admin index',
+            'msg' => '',
+        ]);
     }
 }

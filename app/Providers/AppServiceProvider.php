@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Classes\AwesomeClass;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 
@@ -16,7 +17,9 @@ class AppServiceProvider extends ServiceProvider
     {
         //
 
-        View::share('isAuth', false);
+//        share variable for all views
+//        View::share('isAuth', false);
+
     }
 
     /**
@@ -26,8 +29,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
 
-        //TODO link helper class or create HelperServiceProvider
+        /**
+         * bind your own class
+         */
+        $this->app->singleton('Awesome', function ($app) {
+            return new AwesomeClass();
+        });
     }
 }

@@ -180,6 +180,7 @@ return [
         /*
          * My addons...
          */
+        App\Providers\HelperServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
 
 

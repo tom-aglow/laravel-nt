@@ -15,7 +15,7 @@ class ClientController extends Controller
         ]);
     }
 
-//    TODO move to ArticleController
+//    TODO move to ArticleController (maybe ???)
     public function showArticle ($id ) {
         return view('client.3-templates.single', [
             'page' => 'client.4-pages.article',
@@ -36,6 +36,13 @@ class ClientController extends Controller
         return view('client.3-templates.main', [
             'page' => 'client.4-pages.contact',
             'title' => 'Contact us',
+        ]);
+    }
+
+    public function show404 () {
+        return view('client.3-templates.single', [
+            'page' => 'client.4-pages.404',
+            'title' => 'Page not found',
         ]);
     }
 

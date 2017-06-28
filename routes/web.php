@@ -16,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/test3', 'TestController@getUsers');
 
 
+//    laravel's staff
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
 
 //ROUTES FOR USER SIDE OF THE SITE
 //-----------------------------------
@@ -30,6 +36,8 @@ Route::group(['namespace' => 'Client'], function () {
     Route::get('/article/{id}', 'ClientController@showArticle');
     Route::get('/about', 'ClientController@showAbout');
     Route::get('/contact', 'ClientController@showContact');
+
+    Route::get('/404', 'ClientController@show404');
 
 
 //    routes for login / logout
@@ -58,17 +66,42 @@ Route::group(['namespace' => 'Client'], function () {
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('/', 'AdminController@index');
 
+    //    routes for article
+
     Route::group(['prefix' => 'article'], function () {
-        Route::get('list', 'ArticleController@list');
-        Route::get('add', 'ArticleController@add');
-        Route::get('edit/{id}', 'ArticleController@edit');
-        Route::get('delete/{id}', 'ArticleController@delete');
+        Route::get('/', 'ArticleController@list')
+            ->name('admin.article.list');
+        Route::get('list', 'ArticleController@list')
+            ->name('admin.article.list');
+
+
+        Route::get('add', 'ArticleController@add')
+            ->name('admin.article.add');
+        Route::post('add', 'ArticleController@addPost')
+            ->name('admin.article.addPost');
+
+
+        Route::get('edit/{id}', 'ArticleController@edit')
+            ->name('admin.article.edit');
+        Route::post('edit/{id}', 'ArticleController@editPost')
+            ->name('admin.article.editPost');
+
+        Route::get('delete/{id}', 'ArticleController@delete')
+            ->name('admin.article.delete');
     });
+
+    //    routes for login / logout
+
+    Route::get('/login', 'AuthController@login')
+        ->name('admin.auth.login');
+    Route::post('/login', 'AuthController@loginPost')
+        ->name('admin.auth.loginPost');
+
+    Route::get('/logout', 'AuthController@logout')
+        ->name('admin.auth.logout');
 });
 
 
 
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

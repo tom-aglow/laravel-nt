@@ -33,7 +33,3 @@
 
 </body>
 </html>
-
-
-{{--TODO make template for error pages--}}
-{{--TODO what is tag 'base' with href (route(site.main.index))--}}

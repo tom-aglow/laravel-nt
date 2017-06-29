@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -36,5 +37,28 @@ class TestController extends Controller
         debug($users);
 
         return trans('custom.hello');
+    }
+
+//    testing ORM
+
+    public function testORM () {
+
+//        $newArticle = new Article();
+//        $newArticle->title = 'test ORM';
+//        $newArticle->author = 'tom';
+//        $newArticle->content = 'hello orm hello';
+//        $newArticle->save();
+
+
+
+        $articles = Article::all();
+
+        foreach ($articles as $article) {
+            echo $article->title . '<br>';
+            echo $article->content . '<br>';
+            echo '<hr>';
+        }
+
+        return 'OK';
     }
 }

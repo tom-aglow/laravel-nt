@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 
 //    test
 Route::get('/test3', 'TestController@getUsers');
-
+Route::get('/testorm', 'TestController@testORM');
 
 //    laravel's staff
 
@@ -90,8 +90,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             ->name('admin.article.delete');
     });
 
-    //      test ORM
-    Route::get('/testorm', 'ArticleController@testORM');
+
 
     //    routes for login / logout
 

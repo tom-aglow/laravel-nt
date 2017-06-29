@@ -13,8 +13,7 @@ class ArticleController extends AdminController
 
     public function list() {
 
-        $articles = DB::table($this->table)
-            ->orderBy('created_at', 'desc')
+        $articles = Article::orderBy('created_at', 'desc')
             ->get();
 
         return view('admin.3-pages.article-list', [
@@ -39,12 +38,10 @@ class ArticleController extends AdminController
             'content' => 'required',
         ]);
 
-        DB::table($this->table)->insert([
+        Article::create([
             'author' => 'tom',
             'title' => $request->input('title'),
-            'content' => $request->input('content'),
-            'created_at' => \Carbon\Carbon::createFromTimestamp(time())->format('Y-m-d H:i:s'),
-            'updated_at' => \Carbon\Carbon::createFromTimestamp(time())->format('Y-m-d H:i:s'),
+            'content' => $request->input('content')
         ]);
 
         return redirect()->route('admin.article.list')
@@ -52,13 +49,11 @@ class ArticleController extends AdminController
     }
 
     public function edit($id) {
-        $article = DB::table($this->table)
-            ->where('id', $id)
-            ->get();
+        $article = Article::find($id);
 
         return view('admin.3-pages.article-one', [
             'title' => 'Article #' . $id,
-            'article' => $article[0],
+            'article' => $article,
             'msg' => 'Edit article',
         ]);
     }
@@ -69,47 +64,21 @@ class ArticleController extends AdminController
             'content' => 'required',
         ]);
 
-        DB::table($this->table)
-            ->where('id', $id)
-            ->update([
-                'title' => $request->input('title'),
-                'content' => $request->input('content'),
-            ]);
+        $article = Article::find($id);
+        $article->title = $request->input('title');
+        $article->content = $request->input('content');
+        $article->save();
 
         return redirect()->route('admin.article.list')
             ->with('msg', 'Article was updated');
     }
 
     public function delete($id) {
-        DB::table($this->table)
-            ->where('id', $id)
-            ->delete();
+        $article = Article::find($id);
+        $article->delete();
 
         return redirect()->route('admin.article.list')
             ->with('msg', 'Article was deleted');
     }
 
-
-    // testing ORM
-
-    public function testORM () {
-
-//        $newArticle = new Article();
-//        $newArticle->title = 'test ORM';
-//        $newArticle->author = 'tom';
-//        $newArticle->content = 'hello orm hello';
-//        $newArticle->save();
-
-
-
-        $articles = Article::all();
-
-        foreach ($articles as $article) {
-            echo $article->title . '<br>';
-            echo $article->content . '<br>';
-            echo '<hr>';
-        }
-
-        return 'OK';
-    }
 }

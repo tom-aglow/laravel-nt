@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Article;
 
 class ArticlesTableSeeder extends Seeder
 {
@@ -14,13 +15,18 @@ class ArticlesTableSeeder extends Seeder
         $faker = Faker\Factory::create();
 
         for ($i = 0; $i <  10; $i++) {
-            DB::table('articles')->insert([
+            Article::create([
                 'author' => $faker->name,
                 'title' => $faker->unique()->sentence(6),
                 'content' => $faker->realText(1000),
-                'created_at' => $faker->dateTime,
-                'updated_at' => $faker->dateTime,
+                'is_active' => $faker->numberBetween(0, 1),
+                'active_from' => $faker->dateTimeBetween('-10 days', 'now'),
+                'active_to' => $faker->optional()->dateTimeBetween('-5 days', '+ 10 days'),
+                'created_at' => $faker->dateTimeBetween('-2 years', 'now'),
+                'updated_at' => $faker->dateTimeBetween('-2 years', 'now'),
             ]);
         }
+
+//        look for function mt_rand
     }
 }

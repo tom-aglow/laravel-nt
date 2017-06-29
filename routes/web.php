@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/test3', 'TestController@getUsers');
 Route::get('/testorm', 'TestController@testORM');
 
+Route::get('/uploader', 'TestController@uploaderGet');
+Route::post('/uploader', 'TestController@uploaderPost');
+
 //    laravel's staff
 
 Auth::routes();
@@ -64,6 +67,8 @@ Route::group(['namespace' => 'Client'], function () {
 //-----------------------------------
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+//    TODO add middleware Auth for the whole admin site
+
     Route::get('/', 'AdminController@index');
 
     //    routes for article
@@ -102,7 +107,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('/logout', 'AuthController@logout')
         ->name('admin.auth.logout');
 
-//    TODO make authorisation for admin side
+//    TODO make authorisation for admin side and change the author of the article when it is added or edited to current user
 });
 
 

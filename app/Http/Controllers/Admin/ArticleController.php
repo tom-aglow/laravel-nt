@@ -9,12 +9,10 @@ use Illuminate\Support\Facades\DB;
 
 class ArticleController extends AdminController
 {
-    private $table = 'articles';
-
     public function list() {
 
-        $articles = Article::orderBy('created_at', 'desc')
-            ->get();
+        $articles = Article::all()
+            ->sortByDesc('created_at');
 
         return view('admin.3-pages.article-list', [
             'title' => 'Article list',
@@ -49,7 +47,11 @@ class ArticleController extends AdminController
     }
 
     public function edit($id) {
-        $article = Article::find($id);
+        $article = Article::findOrFail($id);
+
+//        if (!$article) {
+//            abort(404);
+//        }
 
         return view('admin.3-pages.article-one', [
             'title' => 'Article #' . $id,
@@ -64,18 +66,21 @@ class ArticleController extends AdminController
             'content' => 'required',
         ]);
 
-        $article = Article::find($id);
-        $article->title = $request->input('title');
-        $article->content = $request->input('content');
-        $article->save();
+        $requestAll = $request->all();
+        unset($requestAll['save']);
+        unset($requestAll['cancel']);
+
+        $article = Article::findOrFail($id);
+        $article->fill($requestAll)
+            ->save();
 
         return redirect()->route('admin.article.list')
             ->with('msg', 'Article was updated');
     }
 
     public function delete($id) {
-        $article = Article::find($id);
-        $article->delete();
+        $article = Article::findOrFail($id)
+            ->delete();
 
         return redirect()->route('admin.article.list')
             ->with('msg', 'Article was deleted');

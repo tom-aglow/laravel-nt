@@ -90,6 +90,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             ->name('admin.article.delete');
     });
 
+    //      test ORM
+    Route::get('/testorm', 'ArticleController@testORM');
+
     //    routes for login / logout
 
     Route::get('/login', 'AuthController@login')
@@ -99,6 +102,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
     Route::get('/logout', 'AuthController@logout')
         ->name('admin.auth.logout');
+
+//    TODO make authorisation for admin side
 });
 
 

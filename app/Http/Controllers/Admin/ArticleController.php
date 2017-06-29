@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -86,5 +87,29 @@ class ArticleController extends AdminController
 
         return redirect()->route('admin.article.list')
             ->with('msg', 'Article was deleted');
+    }
+
+
+    // testing ORM
+
+    public function testORM () {
+
+//        $newArticle = new Article();
+//        $newArticle->title = 'test ORM';
+//        $newArticle->author = 'tom';
+//        $newArticle->content = 'hello orm hello';
+//        $newArticle->save();
+
+
+
+        $articles = Article::all();
+
+        foreach ($articles as $article) {
+            echo $article->title . '<br>';
+            echo $article->content . '<br>';
+            echo '<hr>';
+        }
+
+        return 'OK';
     }
 }

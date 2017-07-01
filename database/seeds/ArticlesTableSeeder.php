@@ -16,9 +16,10 @@ class ArticlesTableSeeder extends Seeder
 
         for ($i = 0; $i <  10; $i++) {
             Article::create([
-                'author' => $faker->name,
+                'user_id' => mt_rand(1, 10),
                 'title' => $faker->unique()->sentence(6),
-                'content' => $faker->realText(1000),
+                'subheading' => $faker->unique()->sentence(6),
+                'content' => $faker->realText(3000),
                 'is_active' => $faker->numberBetween(0, 1),
                 'active_from' => $faker->dateTimeBetween('-10 days', 'now'),
                 'active_to' => $faker->optional()->dateTimeBetween('-5 days', '+ 10 days'),
@@ -26,7 +27,5 @@ class ArticlesTableSeeder extends Seeder
                 'updated_at' => $faker->dateTimeBetween('-2 years', 'now'),
             ]);
         }
-
-//        look for function mt_rand
     }
 }

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Upload;
+use App\Models\Comment;
+use App\Models\Tag;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Classes\Uploader;
@@ -112,4 +115,20 @@ class TestController extends Controller
 
         return $uploader->getErrors();
     }
+
+
+    /**
+     * MODEL RELATIONSHIPS
+     */
+
+    public function testRel () {
+        $articles = User::find(1)
+            ->articles;
+
+        dump($articles);
+
+
+        return 'OK';
+    }
+
 }

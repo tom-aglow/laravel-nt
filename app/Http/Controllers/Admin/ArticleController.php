@@ -19,6 +19,8 @@ class ArticleController extends AdminController
             'articles' => $articles,
             'msg' => session('msg') ?? '',
         ]);
+
+//        TODO revise list view in admin side
     }
 
 

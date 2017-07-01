@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Article extends Model
 {
@@ -33,5 +34,19 @@ class Article extends Model
             });
         });
     }
+
+    /**
+     * RELATIONSHIPS
+     */
+
+    public function comments () {
+        return $this->hasMany('App\Models\Comment');
+    }
+
+    public function user () {
+        return $this->belongsTo('App\User');
+    }
 //    TODO show list of active article in client side (+ think about pagination)
+
+//    TODO make casting for is_active attribute
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -9,18 +10,31 @@ class ClientController extends Controller
 {
 
     public function index () {
+        $articles = Article::active()
+            ->inTime()
+            ->latest()
+            ->get();
+
+        foreach ($articles as $article) {
+            $article->comments;
+        }
+
         return view('client.3-templates.main', [
             'page' => 'client.4-pages.index',
             'title' => 'Index',
+            'articles' => $articles,
         ]);
     }
 
 //    TODO move to ArticleController (maybe ???)
     public function showArticle ($id ) {
+        $article = Article::findOrFail($id);
+
         return view('client.3-templates.single', [
             'page' => 'client.4-pages.article',
-            'title' => 'Article #' . $id,
-            'id' => $id
+            'title' => $article->title,
+            'id' => $id,
+            'article' => $article
         ]);
     }
 
@@ -47,4 +61,5 @@ class ClientController extends Controller
     }
 
     // TODO add method for menu (or wait ORM???)
+
 }

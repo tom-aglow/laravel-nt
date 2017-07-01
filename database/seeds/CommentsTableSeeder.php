@@ -14,9 +14,10 @@ class CommentsTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        for ($i = 0; $i <  10; $i++) {
+        for ($i = 0; $i <  30; $i++) {
             DB::table('comments')->insert([
                 'user_id' => $faker->numberBetween(1, 10),
+                'article_id' => $faker->numberBetween(1, 10),
                 'user_comment' => $faker->realText(200),
                 'created_at' => $faker->dateTimeBetween('-2 years', 'now'),
                 'updated_at' => $faker->dateTimeBetween('-2 years', 'now'),

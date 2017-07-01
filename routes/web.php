@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 //    test
 Route::get('/test3', 'TestController@getUsers');
 Route::get('/testorm', 'TestController@testORM');
+Route::get('/testrel', 'TestController@testRel');
 
 Route::get('/uploader', 'TestController@uploaderGet');
 Route::post('/uploader', 'TestController@uploaderPost');

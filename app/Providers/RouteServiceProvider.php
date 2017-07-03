@@ -37,6 +37,8 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
 
+        $this->mapImageRoutes();
+
         $this->mapWebRoutes();
 
         //
@@ -69,5 +71,19 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Define the "image" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapImageRoutes()
+    {
+        Route::prefix('image')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/image.php'));
     }
 }

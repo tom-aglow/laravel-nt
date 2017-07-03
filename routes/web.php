@@ -38,6 +38,7 @@ Route::group(['namespace' => 'Client'], function () {
         // namespace . controller name . method
 
     Route::get('/article/{id}', 'ClientController@showArticle');
+    // !!! DON'T FORGET ABOUT MASKS WHILE USING VARIABLES IN URI
     Route::get('/about', 'ClientController@showAbout');
     Route::get('/contact', 'ClientController@showContact');
 

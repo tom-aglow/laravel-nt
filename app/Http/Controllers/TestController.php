@@ -80,10 +80,11 @@ class TestController extends Controller
             <input type="submit" value="Go!" />
         </form>';
     }
+
     public function uploaderPost(Request $request, Uploader $uploader, Upload $uploadModel)
     {
         $rules = [
-            'maxSize' => 5 * 1024 * 1024,
+            'maxSize' => 10 * 1024 * 1024,
             'minSize' => 10 * 1024,
             'allowedExt' => [
                 'jpeg',
@@ -91,26 +92,32 @@ class TestController extends Controller
                 'png',
                 'gif',
                 'bmp',
-                'tiff'
+                'tiff',
+                'pdf'
             ],
             'allowedMime' => [
                 'image/jpeg',
                 'image/png',
                 'image/gif',
                 'image/bmp',
-                'image/tiff'
+                'image/tiff',
+                'application/pdf'
             ],
         ];
+
+
         if ($uploader->validate($request, 'file', $rules)) {
-            $uploadedPath = $uploader->upload();
+            $uploadedPath = $uploader->upload('images');
+//            TODO pick parameter for upload method according MIME type of the file
             if ($uploadedPath !== false) {
                 $uploadsModel = $uploader->register($uploadModel);
                 $uploadedProps = $uploader->getProps();
             }
-            return $uploadedPath !== false ? 'OK' : 'NE OK';
+            return $uploadedPath !== false ? 'OK' : 'NOT OK';
         }
         else {
-//            dump($uploader->getErrors());
+            dump($uploader->getProps());
+            dump($uploader->getErrors());
         }
 
         return $uploader->getErrors();

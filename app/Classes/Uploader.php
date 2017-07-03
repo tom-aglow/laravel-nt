@@ -60,11 +60,12 @@ class Uploader {
         return !$validationFailed;
     }
 
-    public function upload($basePath = null) {
+    public function upload($section = null) {
 
 //        define the upload path (see folder 'storage/app/uploads')
-        $basePath = $basePath ?? ltrim(config('blog.storagePath', storage_path()) . '/' . config('blog.storageSection', ''), '/');
-//        TODO solve the issue with file uploading path (now all files go to public directory)
+        $basePath = !is_null($section) ?  config('blog.uploadPath', storage_path()) . '/'. $section : config('blog.uploadPath', storage_path()) . '/' . config('blog.defaultUploadSection', 'files');
+
+        dump($basePath);
 
 //        rename user file to hash and make directory structure ('uploads/5/5e6/{filenamehash}')
         $newName = sha1($this->props['oldname'] . microtime(true));

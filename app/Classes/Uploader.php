@@ -65,8 +65,6 @@ class Uploader {
 //        define the upload path (see folder 'storage/app/uploads')
         $basePath = !is_null($section) ?  config('blog.uploadPath', storage_path()) . '/'. $section : config('blog.uploadPath', storage_path()) . '/' . config('blog.defaultUploadSection', 'files');
 
-        dump($basePath);
-
 //        rename user file to hash and make directory structure ('uploads/5/5e6/{filenamehash}')
         $newName = sha1($this->props['oldname'] . microtime(true));
         $newDir = substr($newName, 0, 1) . '/' . substr($newName, 0, 3);

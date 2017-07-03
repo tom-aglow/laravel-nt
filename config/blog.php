@@ -6,7 +6,7 @@ return [
      */
 
 //    'storagePath' => storage_path() . '/app',
-    'uploadPath' => storage_path() . '/uploads/',
+    'uploadPath' => storage_path() . '/uploads',
     'defaultUploadSection' => 'files',
     'imageUploadSection' => 'images',
     'docsUploadSection' => 'docs',

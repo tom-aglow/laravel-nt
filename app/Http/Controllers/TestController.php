@@ -107,8 +107,10 @@ class TestController extends Controller
 
 
         if ($uploader->validate($request, 'file', $rules)) {
-            $uploadedPath = $uploader->upload('images');
-//            TODO pick parameter for upload method according MIME type of the file
+
+            $dir = getFileUploadSection($request->file('file')->getMimeType());
+
+            $uploadedPath = $uploader->upload($dir);
             if ($uploadedPath !== false) {
                 $uploadsModel = $uploader->register($uploadModel);
                 $uploadedProps = $uploader->getProps();

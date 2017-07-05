@@ -19,7 +19,8 @@ class AuthController extends ClientController
 
     public function signupPost (Request $request) {
         $this->validate($request, [
-            'name' => 'required|max:10',
+            'name' => 'required|max:30',
+            'username' => 'required|alpha_dash|max:10',
             'email' => 'required|email|unique:users|max:30',
             'password' => 'required|max:10|min:6',
             'password2' => 'required|same:password',
@@ -28,6 +29,7 @@ class AuthController extends ClientController
 
         DB::table('users')->insert([
             'name' => $request->input('name'),
+            'username' => $request->input('username'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
             'created_at' => \Carbon\Carbon::createFromTimestamp(time())->format('Y-m-d H:i:s'),

@@ -40,6 +40,10 @@ class LoginController extends Controller
 //        $this->middleware('guest')->except('logout');
 //    }
 
+    public function username()
+    {
+        return 'username';
+    }
 
     public function showLoginForm()
     {
@@ -63,7 +67,7 @@ class LoginController extends Controller
             return redirect()->route('client.client.index');
         } else {
             return redirect()->route('client.auth.login')
-                ->with('authError', trans('wrongPassword'));
+                ->with('authError', trans('custom.wrongPassword'));
         }
     }
 }

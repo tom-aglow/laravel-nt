@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Tag;
 
 class TagsTableSeeder extends Seeder
 {
@@ -12,24 +12,24 @@ class TagsTableSeeder extends Seeder
      */
     public function run()
     {
-        $timeStep = \Carbon\Carbon::createFromTimestamp(time())->format('Y-m-d H:i:s');
+        $timeStep = \Carbon\Carbon::now();
 
-        DB::table('tags')->insert([
+        Tag::create([
             'tag_name' => 'Development',
             'created_at' => $timeStep,
             'updated_at' => $timeStep,
         ]);
-        DB::table('tags')->insert([
+        Tag::create([
             'tag_name' => 'Web',
             'created_at' => $timeStep,
             'updated_at' => $timeStep,
         ]);
-        DB::table('tags')->insert([
+        Tag::create([
             'tag_name' => 'UI/UX',
             'created_at' => $timeStep,
             'updated_at' => $timeStep,
         ]);
-        DB::table('tags')->insert([
+        Tag::create([
             'tag_name' => 'Lifestyle',
             'created_at' => $timeStep,
             'updated_at' => $timeStep,

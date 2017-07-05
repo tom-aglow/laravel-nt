@@ -36,6 +36,7 @@ class ClientController extends Controller
             'id' => $id,
             'article' => $article
         ]);
+//        TODO add slug (web friendly url) for one article view
     }
 
     public function showAbout () {

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Comment;
 
 class CommentsTableSeeder extends Seeder
 {
@@ -15,7 +15,7 @@ class CommentsTableSeeder extends Seeder
         $faker = Faker\Factory::create();
 
         for ($i = 0; $i <  30; $i++) {
-            DB::table('comments')->insert([
+            Comment::create([
                 'user_id' => $faker->numberBetween(1, 10),
                 'article_id' => $faker->numberBetween(1, 10),
                 'user_comment' => $faker->realText(200),

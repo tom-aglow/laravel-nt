@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="col-md-10">
-        <form method="post" class="form-horizontal">
+        <form method="post" class="form-horizontal" action="{{ $action }}">
             {{ csrf_field() }}
             <div class="form-group">
                 <label id="title" class="col-sm-1 control-label">Title</label>
@@ -27,13 +27,14 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-1 col-md-2">
-                    <input class="form-control btn btn-success" type="submit" value="Save" name="save">
+                    <button class="form-control btn btn-success" type="submit" name="button" value="save">Save</button>
                 </div>
                 <div class="col-md-2">
-                    <input class="form-control btn btn-default" type="submit" value="Cancel" name="cancel">
+                    <button class="form-control btn btn-default" type="submit" name="button" value="cancel">Cancel</button>
                 </div>
             </div>
         </form><br>
+
         @if (isset($msg) && !empty($msg))
             <div class="alert alert-info col-md-8 article_msg">{{ $msg }}</div>
         @endif

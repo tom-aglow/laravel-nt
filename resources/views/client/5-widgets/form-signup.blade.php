@@ -13,6 +13,11 @@
                             @endif
                             <input type="text" name="name" value="{{ old('name') }}" placeholder="Your Name *">
 
+                            @if ($errors->has('username'))
+                                <span style="margin-bottom: 20px; color: red;">{{ $errors->get('username')[0] }}</span>
+                            @endif
+                            <input type="text" name="username" value="{{ old('username') }}" placeholder="Your Login *">
+
                             @if ($errors->has('email'))
                                 <span style="margin-bottom: 20px; color: red;">{{ $errors->get('email')[0] }}</span>
                             @endif

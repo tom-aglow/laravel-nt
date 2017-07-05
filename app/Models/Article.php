@@ -44,7 +44,7 @@ class Article extends Model
     }
 
     public function user () {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User');
     }
 //    TODO show list of active article in client side (+ think about pagination)
 

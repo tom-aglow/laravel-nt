@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends AdminController
 {
+
     public function list() {
 
         $articles = Article::all()
@@ -17,35 +17,47 @@ class ArticleController extends AdminController
         return view('admin.3-pages.article-list', [
             'title' => 'Article list',
             'articles' => $articles,
+            'menuActive' => $this->menuActive,
             'msg' => session('msg') ?? '',
         ]);
 
 //        TODO revise list view in admin side
+//        TODO make feature to add picture to article
     }
 
 
     public function add() {
         return view('admin.3-pages.article-one', [
             'title' => 'New article',
+            'menuActive' => $this->menuActive,
             'article' => [],
             'msg' => 'Add new article',
+            'action' => route('admin.article.add'),
         ]);
     }
 
     public function addPost(Request $request) {
-        $this->validate($request, [
-            'title' => 'required',
-            'content' => 'required',
-        ]);
 
-        Article::create([
-            'author' => 'tom',
-            'title' => $request->input('title'),
-            'content' => $request->input('content')
-        ]);
+        if ($request->only('button')['button'] === 'cancel') {
+            return redirect()->route('admin.article.list');
+        } else {
+            $this->validate($request, [
+                'title' => 'required',
+                'content' => 'required',
+            ]);
 
-        return redirect()->route('admin.article.list')
-            ->with('msg', 'Article was added');
+            Article::create([
+                'user_id' => Auth::user()->id,
+                'title' => $request->input('title'),
+                'subheading' => '',
+                'content' => $request->input('content'),
+                'is_active' => 1,
+                'active_from' => \Carbon\Carbon::now()
+            ]);
+
+            return redirect()->route('admin.article.list')
+                ->with('msg', 'Article was added');
+        }
     }
 
     public function edit($id) {
@@ -57,31 +69,34 @@ class ArticleController extends AdminController
 
         return view('admin.3-pages.article-one', [
             'title' => 'Article #' . $id,
+            'menuActive' => $this->menuActive,
             'article' => $article,
             'msg' => 'Edit article',
+            'action' => route('admin.article.edit', $id),
         ]);
     }
 
     public function editPost($id, Request $request) {
-        $this->validate($request, [
-            'title' => 'required',
-            'content' => 'required',
-        ]);
 
-        $requestAll = $request->all();
-        unset($requestAll['save']);
-        unset($requestAll['cancel']);
+        if ($request->only('button')['button'] === 'cancel') {
+            return redirect()->route('admin.article.list');
+        } else {
+            $this->validate($request, [
+                'title' => 'required',
+                'content' => 'required',
+            ]);
 
-        $article = Article::findOrFail($id);
-        $article->fill($requestAll)
-            ->save();
+            Article::findOrFail($id)
+                ->fill($request->except('button'))
+                ->save();
 
-        return redirect()->route('admin.article.list')
-            ->with('msg', 'Article was updated');
+            return redirect()->route('admin.article.list')
+                ->with('msg', 'Article was updated');
+        }
     }
 
     public function delete($id) {
-        $article = Article::findOrFail($id)
+        Article::findOrFail($id)
             ->delete();
 
         return redirect()->route('admin.article.list')

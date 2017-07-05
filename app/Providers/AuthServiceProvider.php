@@ -25,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('moderate-comment', function ($user) {
+            return in_array($user->id, [12]);
+        });
     }
 }

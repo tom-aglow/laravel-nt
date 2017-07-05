@@ -2,11 +2,12 @@
 
 @section('content')
     <section class="col-md-10">
-        <form method="post" action="#admin/auth/login" class="form-horizontal">
+        <form method="post" action="{{ route('admin.auth.login') }}" class="form-horizontal">
+            {{ csrf_field() }}
             <div class="form-group">
                 <label id="login" class="col-sm-6 control-label">Enter your login:</label>
                 <div class="col-md-4">
-                    <input class="form-control"  type="text" name="login" id="login">
+                    <input class="form-control"  type="text" name="username" id="login">
                 </div>
             </div>
             <div class="form-group">
@@ -26,10 +27,10 @@
                 </div>
             </div>
         </form>
-        {{--<? if($msg != '') :?>--}}
-        {{--<div class="col-sm-offset-2 alert alert-danger col-md-4">--}}
-            {{--<?= $msg; ?>--}}
-        {{--</div>--}}
-        {{--<? endif; ?>--}}
+        <? if($authError != '') :?>
+        <div class="col-sm-offset-2 alert alert-danger col-md-4">
+            <?= $authError; ?>
+        </div>
+        <? endif; ?>
     </section>
 @endsection

@@ -4,8 +4,9 @@
     <aside class="col-md-2 col-xs-4">
         <div class="list-group">
             <a href="{{ route('admin.article.list') }}" class="list-group-item {{ $menuActive['article'] or '' }}">Articles</a>
-            <a href="#admin/tag/list" class="list-group-item {{ $menuActive['tag'] or '' }}">Tags</a>
-            <a href="#admin/user" class="list-group-item {{ $menuActive['users'] or '' }}">Users</a>
+            <a href="{{ route('admin.comment.list') }}" class="list-group-item {{ $menuActive['comment'] or '' }}">Comments</a>
+            <a href="#" class="list-group-item {{ $menuActive['tag'] or '' }}">Tags</a>
+            <a href="#" class="list-group-item {{ $menuActive['user'] or '' }}">Users</a>
         </div>
     </aside>
 @endsection

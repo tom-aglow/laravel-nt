@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Article;
+use App\Models\Comment;
+use App\Policies\ArticlePolicy;
+use App\Policies\CommentPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -13,7 +17,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        Article::class => ArticlePolicy::class,
+        Comment::class => CommentPolicy::class,
     ];
 
     /**
@@ -25,6 +30,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+//        gate example (replaced by policy, can be deleted)
         Gate::define('moderate-comment', function ($user) {
             return in_array($user->id, [12]);
         });

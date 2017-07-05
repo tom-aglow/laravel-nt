@@ -7,6 +7,7 @@
             <a href="{{ route('admin.comment.list') }}" class="list-group-item {{ $menuActive['comment'] or '' }}">Comments</a>
             <a href="#" class="list-group-item {{ $menuActive['tag'] or '' }}">Tags</a>
             <a href="#" class="list-group-item {{ $menuActive['user'] or '' }}">Users</a>
+            {{--TODO hide menu items if user doesn't have permission to the  concrete section--}}
         </div>
     </aside>
 @endsection

@@ -13,9 +13,11 @@ class CommentController extends AdminController
 
     public function list() {
 
-        if (Gate::denies('moderate-comment')) {
-            return abort(403);
-        }
+//        if (Gate::denies('moderate-comment')) {
+//            return abort(403);
+//        }
+
+        $this->authorize('view', Comment::class);
 
         $comments = Comment::all()
             ->sortByDesc('created_at');
@@ -27,6 +29,4 @@ class CommentController extends AdminController
             'msg' => session('msg') ?? '',
         ]);
     }
-
-
 }

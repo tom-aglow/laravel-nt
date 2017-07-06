@@ -46,6 +46,10 @@ class Article extends Model
     public function user () {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function image () {
+        return $this->belongsTo('App\Models\Upload');
+    }
 //    TODO show list of active article in client side (+ think about pagination)
 
 //    TODO make casting for is_active attribute

@@ -1,7 +1,7 @@
 @extends('admin.3-pages.home')
 
 @section('content')
-    <section class="col-md-7 col-xs-12">
+    <section class="col-lg-10">
         <table class="table table-striped ">
             <tr>
                 <th>Date</th>

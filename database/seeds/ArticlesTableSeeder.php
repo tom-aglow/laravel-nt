@@ -17,6 +17,7 @@ class ArticlesTableSeeder extends Seeder
         for ($i = 0; $i <  10; $i++) {
             Article::create([
                 'user_id' => mt_rand(1, 10),
+                'image_id' => mt_rand(1, 3),
                 'title' => $faker->unique()->sentence(6),
                 'subheading' => $faker->unique()->sentence(6),
                 'content' => $faker->realText(3000),

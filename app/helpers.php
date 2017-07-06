@@ -9,6 +9,10 @@ function formatStrToDate($str, $format = 'Y-m-d') {
 }
 
 function getFileUploadSection ($mime) {
+    /**
+     *  get directory name for uploading file according to its mime-type
+     */
+
     $parts = explode('/', $mime);
 
     if ($parts[0] === 'image') {
@@ -17,5 +21,16 @@ function getFileUploadSection ($mime) {
         return 'docs';
     } else {
         return 'files';
+    }
+}
+
+function getFromModelOrSession ($instance, $propName) {
+
+    if (!empty($instance)) {
+        return $instance->$propName;
+    } else if (isset(session('prev_request')[$propName])) {
+        return session('prev_request')[$propName];
+    } else {
+        return '';
     }
 }

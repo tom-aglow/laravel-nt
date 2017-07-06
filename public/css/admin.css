@@ -7,9 +7,6 @@ a {
 }
 
 .tag {
-    /*border: 1px solid #d0d0d0;*/
-    /*border-radius: 5px;*/
-    /*padding: 7px 7px;*/
     float: left;
     margin-right: 30px;
     margin-bottom: 15px;
@@ -21,9 +18,15 @@ a {
     margin-right: 10px;
     margin-top: 3px;
 }
-aside {
-    /*margin-bottom: 300px;*/
+
+
+.row {
+    margin-left: 0;
 }
+
+
+/*   articles section    */
+
 .t-col-sm {
     width: 50px;
 }
@@ -31,10 +34,16 @@ aside {
 .t-col-md {
     width: 100px;
 }
-.article_msg {
+.article_msg:first-of-type {
     margin-top: 30px;
 }
-.row {
-    margin-left: 0px;
-    /*added new style*/
+.article_img {
+    width: 100%;
+}
+.image-img {
+    padding-left: 0;
+}
+.article_img_upload {
+    margin-top: 20px;
+    margin-bottom: 10px;
 }

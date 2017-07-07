@@ -13,6 +13,13 @@ class Article extends Model
     protected $dates = ['deleted_at'];
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    /**
+     * Casting
+     */
+
+    protected $casts = [
+        'is_active' => 'boolean'
+    ];
 
     /**
      * SCOPE: Does article have flag active
@@ -51,6 +58,4 @@ class Article extends Model
         return $this->belongsTo('App\Models\Upload');
     }
 //    TODO show list of active article in client side (+ think about pagination)
-
-//    TODO make casting for is_active attribute
 }

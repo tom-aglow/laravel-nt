@@ -6,10 +6,11 @@ use App\Models\Article;
 use App\Models\Upload;
 use App\Models\Comment;
 use App\Models\Tag;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Classes\Uploader;
+use Illuminate\Support\Facades\Storage;
 
 class TestController extends Controller
 {
@@ -123,6 +124,18 @@ class TestController extends Controller
         }
 
         return $uploader->getErrors();
+    }
+
+    public function uploaderDelete (Uploader $uploader, Upload $uploadModel) {
+        $id = 37;
+
+        $path = $uploadModel->findOrFail($id)->path;
+        $pathParts = explode('.', $path);
+        $fullPath = 'images/' . implode('/', $pathParts);
+
+        Storage::disk('uploads')->delete($fullPath);
+        dump($fullPath);
+        return 'OK';
     }
 
 

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Article;
+use App\Models\Upload;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Upload;
+use Illuminate\Support\Facades\Storage;
+
 use App\Classes\Uploader;
-use App\Http\Controllers\ImageController;
 
 
 class ArticleController extends AdminController
@@ -33,8 +35,7 @@ class ArticleController extends AdminController
     }
 
 
-    public function add(Upload $upload) {
-
+    public function add(Upload $upload, Request $request) {
 
         /*
          * get the article image path from session if it was set before; otherwise load default image
@@ -58,20 +59,24 @@ class ArticleController extends AdminController
     }
 
     public function addPost(Request $request, Uploader $uploader, Upload $uploadModel) {
+        $request->flash();
 
         /*
          * check if the cancel button was clicked
-         * if yes, clear the session if anything related to new article was stored there and delete loaded image
+         * if yes, then obtain file path, delete loaded image and clear the session if anything related to new article was stored there
          *
          * return redirect to the page with list of articles
          */
         if ($request->only('button')['button'] === 'cancel') {
 
             if (session('image_id')) {
+                $path = $uploadModel->findOrFail(session('image_id'))->path;
+                $pathParts = explode('.', $path);
+                $fullPath = 'images/' . implode('/', $pathParts);
+                Storage::disk('uploads')->delete($fullPath);
+
                 $uploadModel->findOrFail(session('image_id'))->delete();
-//                TODO delete actual file after deleting row in DB
-//                TODO think about storing files in temporary folder until the article is not saved
-                $request->session()->forget(['prev_request', 'image_id']);
+                $request->session()->forget(['image_id']);
             }
 
             return redirect()->route('admin.article.list');
@@ -86,7 +91,7 @@ class ArticleController extends AdminController
          */
         if ($request->only('button')['button'] === 'upload') {
             $this->imageUpload($request,  $uploader,  $uploadModel);
-            session(['prev_request' => $request->only(['title', 'content', 'subheading'])]);
+
             return redirect()->route('admin.article.add');
         }
 
@@ -99,11 +104,7 @@ class ArticleController extends AdminController
          * - return redirect to article list page
          */
 
-        $this->validate($request, [
-            'title' => 'required',
-            'subheading' => 'required',
-            'content' => 'required',
-        ]);
+        $this->validateFormData($request);
 
         Article::create([
             'user_id' => Auth::user()->id,
@@ -111,11 +112,12 @@ class ArticleController extends AdminController
             'title' => $request->input('title'),
             'subheading' => $request->input('subheading'),
             'content' => $request->input('content'),
-            'is_active' => 1,
-            'active_from' => \Carbon\Carbon::now()
+            'is_active' => is_null($request->input('is-active')),
+            'active_from' => $request->input('active_from'),
+            'active_to' => $request->input('active_to'),
         ]);
 
-        $request->session()->forget(['prev_request', 'image_id']);
+        $request->session()->forget(['image_id']);
 
         return redirect()->route('admin.article.list')
             ->with('msg', 'Article was added');
@@ -149,6 +151,8 @@ class ArticleController extends AdminController
     }
 
     public function editPost($id, Request $request, Uploader $uploader, Upload $uploadModel) {
+
+        $request->flash();
 
         /*
          * check if the cancel button was clicked
@@ -187,10 +191,11 @@ class ArticleController extends AdminController
          * - return redirect to article list page with message
          */
 
-        $this->validate($request, [
-            'title' => 'required',
-            'subheading' => 'required',
-            'content' => 'required',
+
+        $this->validateFormData($request);
+
+        $request->replace([
+           'is_active' => !is_null($request->input('is_active'))
         ]);
 
         $article->fill($request->except('button'))
@@ -219,6 +224,22 @@ class ArticleController extends AdminController
     }
 
 
+    /**
+     *
+     * Function for validating form values received from user
+     *
+     * @param Request $request
+     */
+    private function validateFormData (Request $request) {
+
+//        TODO check if article has an image
+
+        $this->validate($request, [
+            'title' => 'required',
+            'subheading' => 'required',
+            'content' => 'required',
+        ]);
+    }
 
     /**
      * Function for uploading article image to storage and register image in database
@@ -294,5 +315,10 @@ class ArticleController extends AdminController
         }
 
         return $uploader->getErrors();
+    }
+
+
+    private function getArticleStatus () {
+
     }
 }

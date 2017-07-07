@@ -19,6 +19,7 @@ Route::get('/testrel', 'TestController@testRel');
 
 Route::get('/uploader', 'TestController@uploaderGet');
 Route::post('/uploader', 'TestController@uploaderPost');
+Route::get('/uploaderDelete', 'TestController@uploaderDelete');
 
 //    laravel's staff
 

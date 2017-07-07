@@ -6,6 +6,11 @@ use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Illuminate\Auth\Access\AuthorizationException;
+
 class Handler extends ExceptionHandler
 {
     /**
@@ -44,7 +49,44 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        switch ($exception) {
+            case ($exception instanceof ModelNotFoundException):
+            case ($exception instanceof NotFoundHttpException):
+                return response()->view('admin.3-pages.error-int', [
+                    'errorCode' => 404,
+                    'errorMessage' => 'Page not found',
+                ], 404);
+                break;
+
+            case ($exception instanceof HttpException):
+                switch ($exception->getStatusCode()) {
+                    case 403:
+                        return response()->view('admin.3-pages.error-ext', [
+                            'errorCode' => 403,
+                            'errorMessage' => 'Forbidden: access is denied',
+                        ], 403);
+                        break;
+                    case 500:
+                        return response()->view('admin.3-pages.error-int', [
+                            'errorCode' => 500,
+                            'errorMessage' => 'Internal server error',
+                        ], 500);
+                        break;
+                    default:
+                        return parent::render($request, $exception);
+                }
+                break;
+
+            case ($exception instanceof AuthorizationException):
+                return response()->view('admin.3-pages.error-int', [
+                    'errorCode' => 403,
+                    'errorMessage' => 'You don\'t have privileges to view this page',
+                ], 403);
+                break;
+            default:
+                return parent::render($request, $exception);
+        }
+
     }
 
     /**

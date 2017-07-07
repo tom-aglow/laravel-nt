@@ -5,7 +5,12 @@ function formatStrToDate($str, $format = 'Y-m-d') {
      * for admin - format = Y-m-d
      * for client - format = d M Y
      */
-    return date($format, strtotime($str));
+
+    if (is_null($str)) {
+        return '';
+    } else {
+        return date($format, strtotime($str));
+    }
 }
 
 function getFileUploadSection ($mime) {
@@ -26,10 +31,10 @@ function getFileUploadSection ($mime) {
 
 function getFromModelOrSession ($instance, $propName) {
 
-    if (!empty($instance)) {
+    if (old($propName)) {
+        return old($propName);
+    } else if (!empty($instance)) {
         return $instance->$propName;
-    } else if (isset(session('prev_request')[$propName])) {
-        return session('prev_request')[$propName];
     } else {
         return '';
     }

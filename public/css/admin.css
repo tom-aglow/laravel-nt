@@ -6,6 +6,13 @@ a {
     font-weight: 300;
 }
 
+.navbar>.container .navbar-brand.navbar-user-info {
+    color: white;
+    font-size: 1.5rem;
+    margin-left: 80px;
+}
+
+
 .tag {
     float: left;
     margin-right: 30px;
@@ -25,6 +32,8 @@ a {
 }
 
 
+
+
 /*   articles section    */
 
 .t-col-sm {
@@ -40,10 +49,14 @@ a {
 .article_img {
     width: 100%;
 }
-.image-img {
+.image-img.col-lg-8{
     padding-left: 0;
 }
 .article_img_upload {
     margin-top: 20px;
     margin-bottom: 10px;
+}
+
+#datetimepicker1, #datetimepicker2 {
+    margin-right: 20px;
 }

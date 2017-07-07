@@ -46,7 +46,61 @@
                     </div>
                 </div>
             </div>
-            
+
+            {{--is article active--}}
+            <div class="form-group">
+                <label id="active" class="col-lg-2 control-label">Visibility<br>(from / to / is active)</label>
+                <div class="col-lg-8">
+                    {{--active_from--}}
+                    <div class='col-lg-5'>
+                        <div class="form-group">
+                            <div class='input-group date' id='datetimepicker1'>
+                                <input type='text' class="form-control" name="active_from" value="{{ getFromModelOrSession($article, 'active_from') }}" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{--active_to--}}
+                    <div class='col-lg-5'>
+                        <div class="form-group">
+                            <div class='input-group date' id='datetimepicker2'>
+                                <input type='text' class="form-control" name="active_to" value="{{ getFromModelOrSession($article, 'active_to') }}" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#datetimepicker1').datetimepicker();
+                            $('#datetimepicker2').datetimepicker({
+                                useCurrent: false //Important! See issue #1075
+                            });
+                            $("#datetimepicker1").on("dp.change", function (e) {
+                                $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+                            });
+                            $("#datetimepicker2").on("dp.change", function (e) {
+                                $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+                            });
+                        });
+                    </script>
+
+                    {{--is active--}}
+                    <div class="col-lg-2">
+                        <input type="checkbox" name="is_active" value="{{ getFromModelOrSession($article, 'is_active') }}"
+                               @if(getFromModelOrSession($article, 'is_active'))
+                                checked
+                               @endif
+                               data-toggle="toggle" data-on="active" data-off="inactive" data-size="small">
+                    </div>
+                </div>
+            </div>
+
+            {{--tags--}}
             <div class="form-group">
                 <label class="col-lg-2 control-label">Tags</label>
                 <div class="col-lg-10">

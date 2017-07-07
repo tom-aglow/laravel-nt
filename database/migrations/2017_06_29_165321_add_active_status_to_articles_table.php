@@ -15,7 +15,7 @@ class AddActiveStatusToArticlesTable extends Migration
     {
         Schema::table('articles', function (Blueprint $table) {
             $table->tinyInteger('is_active')->after('content');
-            $table->timestamp('active_from')->default(\Carbon\Carbon::now())->after('is_active');
+            $table->timestamp('active_from')->useCurrent()->after('is_active');
             $table->timestamp('active_to')->nullable()->after('active_from');
         });
     }

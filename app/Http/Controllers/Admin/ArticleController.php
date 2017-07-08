@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Article;
 use App\Models\Upload;
 use App\Models\User;
+use App\Models\Tag;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +52,7 @@ class ArticleController extends AdminController
             'title' => 'New article',
             'menuActive' => $this->menuActive,
             'article' => [],
+            'tags' => Tag::all(),
             'imgPath' => $imgPath,
             'msg' => 'Add new article',
             'action' => route('admin.article.add'),
@@ -105,16 +107,26 @@ class ArticleController extends AdminController
 
         $this->validateFormData($request);
 
-        Article::create([
+        $article = Article::create([
             'user_id' => Auth::user()->id,
             'image_id' => session('image_id'),
             'title' => $request->input('title'),
             'subheading' => $request->input('subheading'),
             'content' => $request->input('content'),
             'is_active' => is_null($request->input('is-active')),
-            'active_from' => $request->input('active_from'),
-            'active_to' => $request->input('active_to'),
+            'active_from' => date_create($request->input('active_from')),
+            'active_to' => date_create($request->input('active_to')),
         ]);
+
+
+        $newTag = [];
+        if (!empty($request->input('tags'))) {
+            foreach ($request->input('tags') as $tag) {
+                array_push($newTag, (int)$tag);
+            }
+        }
+        $article->tags()->sync($newTag);
+
 
         $request->session()->forget(['image_id']);
 
@@ -126,14 +138,11 @@ class ArticleController extends AdminController
         /*
          * try to find article in database by its id
          * figure out the path to the image and fit it to 400px wide
+         * get list of all tags
          */
 
         $article = Article::findOrFail($id);
         $imgPath = str_replace($request->path(), '', $request->url()) . 'image/widen/400/' . $article->image->path . '.jpg';
-
-//        if (!$article) {
-//            abort(404);
-//        }
 
         /*
          * return the view with parameters
@@ -143,6 +152,7 @@ class ArticleController extends AdminController
             'title' => 'Article #' . $id,
             'menuActive' => $this->menuActive,
             'article' => $article,
+            'tags' => Tag::all(),
             'imgPath' => $imgPath,
             'msg' => session('msg') ?? 'Edit article',
             'action' => route('admin.article.edit', $id),
@@ -186,6 +196,7 @@ class ArticleController extends AdminController
          * if neither 'cancel' nor 'upload' button was pressed (= 'save' button was clicked), then...
          *
          * - validate form data
+         * - update intermediate table with tags
          * - update record in database
          * - return redirect to article list page with message
          */
@@ -193,12 +204,27 @@ class ArticleController extends AdminController
 
         $this->validateFormData($request);
 
+
+
+        $newTag = [];
+        if (!empty($request->input('tags'))) {
+            foreach ($request->input('tags') as $tag) {
+                array_push($newTag, (int)$tag);
+            }
+        }
+        $article->tags()->sync($newTag);
+
+
+
+
         $request->replace([
            'is_active' => !is_null($request->input('is_active'))
         ]);
-
         $article->fill($request->except('button'))
             ->save();
+
+
+
 
         return redirect()->route('admin.article.list')
             ->with('msg', 'Article was updated');

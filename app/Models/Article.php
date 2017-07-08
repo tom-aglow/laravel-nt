@@ -57,5 +57,9 @@ class Article extends Model
     public function image () {
         return $this->belongsTo('App\Models\Upload');
     }
+
+    public function tags () {
+        return $this->belongsToMany('App\Models\Tag');
+    }
 //    TODO show list of active article in client side (+ think about pagination)
 }

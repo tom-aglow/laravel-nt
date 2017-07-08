@@ -104,7 +104,14 @@
             <div class="form-group">
                 <label class="col-lg-2 control-label">Tags</label>
                 <div class="col-lg-10">
-                    This is the place for tags
+                        @foreach($tags as $tag)
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="tags[]" value="{{ $tag->id }}"
+                                @if (!empty($article) && in_array($tag->id, $article->tags->pluck('id')->toArray()))
+                                    {{ 'checked' }}
+                                @endif
+                                >{{ $tag->tag_name }}</label>
+                        @endforeach
                 </div>
             </div>
 

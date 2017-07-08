@@ -19,7 +19,7 @@ class CommentPolicy
      */
     public function view(User $user)
     {
-        return in_array($user->id, [12]);
+        return in_array($user->id, [11, 12]);
     }
 
     /**

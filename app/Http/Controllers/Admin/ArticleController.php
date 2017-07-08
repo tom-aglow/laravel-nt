@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Article;
 use App\Models\Upload;
+use App\Models\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,7 @@ use App\Classes\Uploader;
 class ArticleController extends AdminController
 {
 
-    public function list() {
+    public function list(User $user) {
 
         $articles = Article::all()
             ->sortByDesc('created_at');
@@ -30,8 +31,6 @@ class ArticleController extends AdminController
             'menuActive' => $this->menuActive,
             'msg' => session('msg') ?? '',
         ]);
-
-//        TODO revise list view in admin side
     }
 
 
@@ -319,6 +318,6 @@ class ArticleController extends AdminController
 
 
     private function getArticleStatus () {
-
+//        TODO update article status in list view
     }
 }

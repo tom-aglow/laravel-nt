@@ -18,7 +18,8 @@ class AdminAuth
     {
         $response = $next($request);
 
-        if (!Auth::check() && $request->is('admin/*') && $request->path() !== 'admin/login') {
+        if (!Auth::check() && $request->is('admin/*') && $request->path() !== 'admin/login'  && $request->path() !== 'admin/logout') {
+
             return abort(403);
         }
 

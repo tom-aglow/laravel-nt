@@ -104,6 +104,4 @@ class Handler extends ExceptionHandler
 
         return redirect()->guest(route('login'));
     }
-
-//    TODO add handlers for standard errors
 }

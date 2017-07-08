@@ -53,6 +53,21 @@ Route::group(['prefix' => 'comment'], function () {
 });
 
 /*
+ *  Routes for tags
+ */
+
+Route::group(['prefix' => 'tag'], function () {
+    Route::get('/', 'TagController@list')
+        ->name('admin.tag.list');
+
+    Route::post('update/{id}', 'TagController@update')
+        ->name('admin.tag.update');
+
+    Route::post('add', 'TagController@add')
+        ->name('admin.tag.add');
+});
+
+/*
  *  Routes for login/logout
  */
 

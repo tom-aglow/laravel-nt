@@ -45,6 +45,7 @@ class TagController extends AdminController
 
         if ($request->input('button') === 'delete') {
             $tag->delete();
+            $tag->articles()->detach();
             $msg = 'Tag was deleted';
         }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\FeedbackMail;
 use App\Models\Article;
 use App\Models\Upload;
 use App\Models\Comment;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use App\Classes\Uploader;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class TestController extends Controller
@@ -168,6 +170,16 @@ class TestController extends Controller
         dump($value);
         echo 'ok';
     }
-    
-    
+
+    /**
+     * MAIL
+     */
+
+    public function testMail () {
+
+        $user = User::find(11)->email;
+        Mail::to($user)->send(new FeedbackMail());
+
+        echo 'ok';
+    }
 }

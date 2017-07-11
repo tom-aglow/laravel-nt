@@ -183,6 +183,7 @@ return [
          * My addons...
          */
         App\Providers\HelperServiceProvider::class,
+        App\Providers\ViewServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class
 
     ],

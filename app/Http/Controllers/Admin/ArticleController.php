@@ -16,6 +16,11 @@ use App\Classes\Uploader;
 
 class ArticleController extends AdminController
 {
+    private $validationRules = [
+        'title' => 'required',
+        'subheading' => 'required',
+        'content' => 'required',
+    ];
 
     public function list(User $user) {
 
@@ -62,6 +67,7 @@ class ArticleController extends AdminController
     }
 
     public function addPost(Request $request, Uploader $uploader, Upload $uploadModel) {
+
         $request->flash();
 
         /*
@@ -107,7 +113,7 @@ class ArticleController extends AdminController
          * - return redirect to article list page
          */
 
-        $this->validateFormData($request);
+        $this->validate($request, $this->validationRules);
 
         $article = Article::create([
             'user_id' => Auth::user()->id,
@@ -206,7 +212,7 @@ class ArticleController extends AdminController
          */
 
 
-        $this->validateFormData($request);
+        $this->validate($request, $this->validationRules);
 
 
 
@@ -252,23 +258,6 @@ class ArticleController extends AdminController
             ->with('msg', 'Article was deleted');
     }
 
-
-    /**
-     *
-     * Function for validating form values received from user
-     *
-     * @param Request $request
-     */
-    private function validateFormData (Request $request) {
-
-//        TODO check if article has an image
-
-        $this->validate($request, [
-            'title' => 'required',
-            'subheading' => 'required',
-            'content' => 'required',
-        ]);
-    }
 
     /**
      * Function for uploading article image to storage and register image in database

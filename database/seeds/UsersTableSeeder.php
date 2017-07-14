@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
             'username' => 'admin',
             'name' => 'Tom Admin',
             'email' => 'tom@ohhhh.me',
-            'password' => bcrypt('qwerty'),
+            'password' => 'qwerty',
             'created_at' => $faker->dateTimeBetween('-2 years', 'now'),
             'updated_at' => $faker->dateTimeBetween('-2 years', 'now'),
         ]);
@@ -39,7 +39,7 @@ class UsersTableSeeder extends Seeder
             'username' => 'moderator',
             'name' => 'Tom Moderator',
             'email' => 'moder@ohhhh.me',
-            'password' => bcrypt('asdfgh'),
+            'password' => 'asdfgh',
             'created_at' => $faker->dateTimeBetween('-2 years', 'now'),
             'updated_at' => $faker->dateTimeBetween('-2 years', 'now'),
         ]);

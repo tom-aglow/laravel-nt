@@ -11,8 +11,6 @@ class CommentController extends AdminController
 
     public function list() {
 
-        dump(config('app.url'));
-
         $this->authorize('view', Comment::class);
 
         $comments = Comment::withTrashed()

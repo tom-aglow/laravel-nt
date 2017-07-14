@@ -40,10 +40,9 @@ class ArticleController extends AdminController
         /*
          * get the article image path from session if it was set before; otherwise load default image
          */
-        $path = (session('image_id')) ? $upload->findOrFail(session('image_id'))->path : 'default';
-
-        $imgPath = 'http://laravel-nt.local/image/widen/400/' . $path . '.jpg';
-
+        if ((session('image_id')) !== null) {
+            $upload = $upload->findOrFail(session('image_id'));
+        }
 
         /*
          * return the view with parameters
@@ -53,7 +52,10 @@ class ArticleController extends AdminController
             'menuActive' => $this->menuActive,
             'article' => [],
             'tags' => Tag::all(),
-            'imgPath' => $imgPath,
+            'img' => [
+                'path' => $upload->path ?? 'default',
+                'ext' => $upload->ext ?? 'jpg',
+            ],
             'msg' => 'Add new article',
             'action' => route('admin.article.add'),
         ]);
@@ -142,7 +144,6 @@ class ArticleController extends AdminController
          */
 
         $article = Article::findOrFail($id);
-        $imgPath = str_replace($request->path(), '', $request->url()) . 'image/widen/400/' . $article->image->path . '.jpg';
 
         /*
          * return the view with parameters
@@ -153,7 +154,10 @@ class ArticleController extends AdminController
             'menuActive' => $this->menuActive,
             'article' => $article,
             'tags' => Tag::all(),
-            'imgPath' => $imgPath,
+            'img' => [
+                'path' => $article->image->path ?? 'default',
+                'ext' => $article->image->ext ?? 'jpg',
+            ],
             'msg' => session('msg') ?? 'Edit article',
             'action' => route('admin.article.edit', $id),
         ]);

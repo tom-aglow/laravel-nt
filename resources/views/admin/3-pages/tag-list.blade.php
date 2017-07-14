@@ -14,8 +14,8 @@
                     </div>
                     <input type="text" class="form-control" placeholder="tagname" aria-describedby="basic-addon1" name="tag_name" value="{{ $tag->tag_name }}">
                     <div class="input-group-btn">
-                        <button class="btn btn-primary btn-xs" type="submit" name="button" value="update">update</button>
-                        <button class="btn btn-danger btn-xs" type="submit" name="button" value="delete">delete</button>
+                        <button class="btn btn-primary btn-xs" type="submit" name="button" value="update" data-toggle="tooltip" data-placement="top" title="Update tag">update</button>
+                        <button class="btn btn-danger btn-xs" type="submit" name="button" value="delete" data-toggle="tooltip" data-placement="top" title="Delete tag">delete</button>
                     </div>
 
                 </form>
@@ -30,7 +30,7 @@
                     </div>
                     <input type="text" class="form-control" placeholder="tagname" aria-describedby="basic-addon1" name="tag_name">
                     <div class="input-group-btn">
-                        <button class="btn btn-info btn-xs" type="submit" name="button" value="add">add</button>
+                        <button class="btn btn-info btn-xs" type="submit" name="button" value="add" data-toggle="tooltip" data-placement="top" title="Add tag">add</button>
                     </div>
 
                 </form>

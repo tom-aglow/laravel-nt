@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Http\Request;
 
 function formatStrToDate($str, $format = 'Y-m-d') {
     /**
@@ -38,4 +39,8 @@ function getFromModelOrSession ($instance, $propName) {
     } else {
         return '';
     }
+}
+
+function getImageLink ($type, $path, $ext = 'jpg') {
+    return config('app.url') . '/image/' . $type . '/' . $path . '.' . $ext;
 }

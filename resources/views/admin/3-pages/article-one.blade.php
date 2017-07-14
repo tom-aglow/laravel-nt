@@ -37,7 +37,7 @@
                 <label id="image" class="col-lg-2 control-label">Image</label>
                 <div class="col-lg-8">
                     <div class="image-img col-lg-8">
-                        <img class="img-rounded article_img" src="{{ $imgPath }}" alt="">
+                        <img class="img-rounded article_img" src="{{ getImageLink('widen/400', $img['path'], $img['ext']) }}" alt="">
                     </div>
                     <div class="image-new-file col-lg-4">
                         <strong>Upload new image:</strong>
@@ -127,16 +127,6 @@
             
         </form><br>
 
-        @if (isset($msg) && !empty($msg))
-            <div class="alert alert-info col-lg-offset-2 col-lg-8 article_msg">{{ $msg }}</div>
-        @endif
-        @if ($errors->all())
-            <div class="alert alert-danger col-lg-offset-2 col-lg-8 article_msg">
-            @foreach($errors->all() as $error)
-                    {{ $error }}<br>
-            @endforeach
-            </div>
-        @endif
 
     </section>
 @endsection

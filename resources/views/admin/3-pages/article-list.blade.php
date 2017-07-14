@@ -20,17 +20,13 @@
                 <td class="t-col-md">{{ $article->active_to }}</td>
 
 
-                <td class="t-col-sm"><a class="btn btn-xs btn-warning" href="{{ route('admin.article.edit', $article->id) }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-                <td class="t-col-sm"><a class="btn btn-xs btn-danger" href="{{ route('admin.article.delete', $article->id) }}" onclick="return confirmDelete();"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+                <td class="t-col-sm"><a class="btn btn-xs btn-warning" href="{{ route('admin.article.edit', $article->id) }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"  data-toggle="tooltip" data-placement="top" title="Edit article"></span></a></td>
+                <td class="t-col-sm"><a class="btn btn-xs btn-danger" href="{{ route('admin.article.delete', $article->id) }}" onclick="return confirmDelete();"><span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Delete article"></span></a></td>
             </tr>
             @empty
 
             @endforelse
         </table>
-        <a class="btn btn-sm btn-info" href="{{ route('admin.article.add') }}">+add</a><br>
-        {{ debug($msg) }}
-        @if (isset($msg) && !empty($msg))
-            <div class="alert alert-info col-md-8 article_msg">{{ $msg }}</div>
-        @endif
+        <a class="btn btn-sm btn-info" href="{{ route('admin.article.add') }}" data-toggle="tooltip" data-placement="top" title="Add new article">+add</a><br>
     </section>
 @endsection

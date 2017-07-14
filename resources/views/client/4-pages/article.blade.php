@@ -1,7 +1,7 @@
 <div class="container">
     <div class="boxed  push-down-60">
         <div class="meta">
-            <img class="wp-post-image" src="/img/dummy-licensed/blog-image.jpg" alt="Blog image" width="1138" height="493">
+            <img class="wp-post-image" src="{{ getImageLink('widen/1138', $article->image->path, $article->image->ext) }}" alt="Blog image" width="1138" height="493">
             <div class="row">
                 <div class="col-xs-12  col-sm-10  col-sm-offset-1  col-md-8  col-md-offset-2">
                     <div class="meta__container--without-image">

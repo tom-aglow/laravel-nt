@@ -16,9 +16,10 @@ class CommentsTableSeeder extends Seeder
 
         for ($i = 0; $i <  30; $i++) {
             Comment::create([
-                'user_id' => $faker->numberBetween(1, 10),
-                'article_id' => $faker->numberBetween(1, 10),
+                'user_id' => mt_rand(1, 10),
+                'article_id' => mt_rand(1, 10),
                 'user_comment' => $faker->realText(200),
+                'status_id' => mt_rand(1, 3),
                 'created_at' => $faker->dateTimeBetween('-2 years', 'now'),
                 'updated_at' => $faker->dateTimeBetween('-2 years', 'now'),
             ]);

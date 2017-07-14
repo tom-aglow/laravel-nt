@@ -49,7 +49,9 @@ Route::group(['prefix' => 'comment'], function () {
         ->name('admin.comment.list');
     Route::get('list', 'CommentController@list')
         ->name('admin.comment.list');
-
+    Route::get('{id}/{action}', 'CommentController@action')
+        ->name('admin.comment.action')
+        ->where('action', '[a-z]+');;
 });
 
 /*

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Comment;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 
 
@@ -15,13 +17,15 @@ class CommentController extends AdminController
 
         $comments = Comment::withTrashed()
             ->with(['user', 'article', 'status'])
-            ->orderByDesc('created_at')
+            ->latest()
             ->get()
             ->groupBy('article_id');
 
+        $commentsPag = $this->paginate($comments, 5);
+
         return view('admin.3-pages.comment-list', [
             'title' => 'Comments list',
-            'comments' => $comments,
+            'comments' => $commentsPag,
             'menuActive' => $this->menuActive,
             'msg' => session('msg') ?? '',
         ]);
@@ -68,5 +72,26 @@ class CommentController extends AdminController
 
         return redirect()->route('admin.comment.list')
             ->with('msg', $msg ?? '');
+    }
+
+    /**
+     * Create a length aware custom paginator instance.
+     *
+     * @param  Collection  $items
+     * @param  int  $perPage
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    protected function paginate($items, $perPage = 12)
+    {
+        //Get current page form url e.g. &page=1
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+
+        $col = new Collection($items);
+
+        //Slice the collection to get the items to display in current page
+        $currentPageItems = $col->slice(($currentPage - 1) * $perPage, $perPage)->all();
+
+        //Create our paginator and pass it to the view
+        return new LengthAwarePaginator($currentPageItems, count($col), $perPage);
     }
 }

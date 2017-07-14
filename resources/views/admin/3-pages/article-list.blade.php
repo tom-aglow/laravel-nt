@@ -27,6 +27,8 @@
 
             @endforelse
         </table>
+        {{ $articles->links() }}
+        <br>
         <a class="btn btn-sm btn-info" href="{{ route('admin.article.add') }}" data-toggle="tooltip" data-placement="top" title="Add new article">+add</a><br>
     </section>
 @endsection

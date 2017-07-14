@@ -80,5 +80,3 @@ Route::post('/login', 'AuthController@loginPost')
 
 Route::get('/logout', 'AuthController@logout')
     ->name('admin.auth.logout');
-
-//    TODO change the author of the article when it is added or edited to current user

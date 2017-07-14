@@ -52,6 +52,7 @@
         </div>
         @empty
         @endforelse
+        {{ $comments->setPath(route('admin.comment.list'))->render() }}
         @if (isset($msg) && !empty($msg))
             <div class="alert alert-info col-md-8 article_msg">{{ $msg }}</div>
         @endif

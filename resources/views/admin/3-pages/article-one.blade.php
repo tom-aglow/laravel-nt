@@ -91,7 +91,7 @@
 
                     {{--is active--}}
                     <div class="col-lg-2">
-                        <input type="checkbox" name="is_active" value="{{ getFromModelOrSession($article, 'is_active') }}"
+                        <input type="checkbox" name="is_active" value="1"
                                @if(getFromModelOrSession($article, 'is_active'))
                                 checked
                                @endif

@@ -45,6 +45,4 @@ class User extends Authenticatable
     public function comments () {
         return $this->hasMany('App\Model\Comment');
     }
-
-//    TODO make mutation for encrypting user's password
 }

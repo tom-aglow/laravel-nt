@@ -24,8 +24,9 @@ class ArticleController extends AdminController
 
     public function list(User $user) {
 
-        $articles = Article::all()
-            ->sortByDesc('created_at');
+        $articles = Article::latest()
+            ->paginate(5);
+
 
         /*
          * return the view with parameters
@@ -224,13 +225,12 @@ class ArticleController extends AdminController
         }
         $article->tags()->sync($newTag);
 
-
-
-
+        //  : replace 'is-active' attribute in the model that is string by boolean + if it is not set, return false
+        //  : cannot be done with mutator since the value is not in request and not passing to DB if input is unchecked
         $request->replace([
            'is_active' => !is_null($request->input('is_active'))
         ]);
-        $article->fill($request->except('button'))
+        $article->fill($request->except(['button', 'tags']))
             ->save();
 
 

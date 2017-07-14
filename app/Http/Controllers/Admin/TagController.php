@@ -4,12 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Article;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class TagController extends AdminController
 {
+    private $validationRules = [
+        'tag_name' => 'required',
+    ];
 
     public function list() {
 
@@ -34,9 +38,7 @@ class TagController extends AdminController
         $msg = '';
 
         if ($request->input('button') === 'update') {
-            $this->validate($request, [
-                'tag_name' => 'required',
-            ]);
+            $this->validate($request, $this->validationRules);
 
             $tag->fill($request->except('button'))
                 ->save();
@@ -49,18 +51,23 @@ class TagController extends AdminController
             $msg = 'Tag was deleted';
         }
 
+        $this->clearCache();
+
         return redirect()->route('admin.tag.list')
             ->with('msg', $msg);
     }
 
     public function add (Request $request) {
-        $this->validate($request, [
-            'tag_name' => 'required',
-        ]);
+        $this->validate($request, $this->validationRules);
 
         Tag::create($request->except('button'));
+        $this->clearCache();
 
         return redirect()->route('admin.tag.list')
             ->with('msg', 'New tag was added');
+    }
+
+    protected function clearCache () {
+        Cache::tags(['widgets', 'tags'])->flush();
     }
 }

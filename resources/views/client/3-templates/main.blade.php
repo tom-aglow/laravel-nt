@@ -12,7 +12,7 @@
                 @include('client.5-widgets.categories')
                 @include('client.5-widgets.featured-post')
                 @include('client.5-widgets.posts')
-                @include('client.5-widgets.tags')
+                {!! $tagList !!}
             </div>
         </div>
     </div>

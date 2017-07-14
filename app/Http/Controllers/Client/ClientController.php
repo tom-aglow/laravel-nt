@@ -6,6 +6,8 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+
+
 class ClientController extends Controller
 {
 
@@ -14,6 +16,9 @@ class ClientController extends Controller
             ->inTime()
             ->latest()
             ->get();
+
+//        TODO add pagination
+//        TODO for widgets make function in service provider or base controller to render shared view data
 
         foreach ($articles as $article) {
             $article->comments;
@@ -28,7 +33,7 @@ class ClientController extends Controller
 
 //    TODO move to ArticleController (maybe ???)
     public function showArticle ($id ) {
-        $article = Article::findOrFail($id);
+        $article = Article::with('comments.user')->findOrFail($id);
 
         return view('client.3-templates.single', [
             'page' => 'client.4-pages.article',

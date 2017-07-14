@@ -40,9 +40,9 @@ class CommentPolicy
      * @param  \App\Models\Comment  $comment
      * @return mixed
      */
-    public function update(User $user, Comment $comment)
+    public function update(User $user)
     {
-        //
+        return in_array($user->id, [11, 12]);
     }
 
     /**

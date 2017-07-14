@@ -17,7 +17,7 @@ class CommentController extends AdminController
 
         $comments = Comment::withTrashed()
             ->with(['user', 'article', 'status'])
-            ->orderByDesc('updated_at')
+            ->orderByDesc('created_at')
             ->get()
             ->groupBy('article_id');
 

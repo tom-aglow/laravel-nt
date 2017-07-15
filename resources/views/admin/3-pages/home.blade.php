@@ -24,7 +24,7 @@
             @if (isset($msg) && !empty($msg))
                 <div class="alert alert-info article_msg">{{ $msg }}</div>
             @endif
-            @if ($errors->all())
+            @if (isset($errors) && !empty($msg))
                 <div class="alert alert-danger article_msg">
                     @foreach($errors->all() as $error)
                         {{ $error }}<br>

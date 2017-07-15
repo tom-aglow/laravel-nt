@@ -17,7 +17,7 @@ Route::get('/', 'AdminController@index')
  * Routes for articles
  */
 
-Route::group(['prefix' => 'article'], function () {
+Route::group(['prefix' => 'article', 'middleware' => 'can:all,App\Models\Article'], function () {
     Route::get('/', 'ArticleController@list')
         ->name('admin.article.list');
     Route::get('list', 'ArticleController@list')
@@ -58,7 +58,7 @@ Route::group(['prefix' => 'comment'], function () {
  *  Routes for tags
  */
 
-Route::group(['prefix' => 'tag'], function () {
+Route::group(['prefix' => 'tag', 'middleware' => 'can:all,App\Models\Tag'], function () {
     Route::get('/', 'TagController@list')
         ->name('admin.tag.list');
 

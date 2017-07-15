@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Upload;
 use App\Models\User;
 use App\Models\Tag;
+use App\Models\Role;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

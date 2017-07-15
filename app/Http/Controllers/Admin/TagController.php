@@ -17,10 +17,6 @@ class TagController extends AdminController
 
     public function list() {
 
-//        if (Gate::denies('moderate-comment')) {
-//            return abort(403);
-//        }
-
         $tags = Tag::all()
             ->sortByDesc('created_at');
 

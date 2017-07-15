@@ -6,11 +6,11 @@ use App\Models\Comment;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class CommentController extends AdminController
 {
-
     public function list() {
 
         $this->authorize('view', Comment::class);
@@ -40,28 +40,33 @@ class CommentController extends AdminController
 
         switch ($action) {
             case 'accept':
+                $this->authorize('update', Comment::class);
                 $comment->status_id = 2;
                 $comment->save();
                 $msg = 'The comment was accepted';
                 break;
             case 'return':
+                $this->authorize('update', Comment::class);
                 $comment->status_id = 1;
                 $comment->save();
                 $msg = 'The comment was returned to moderation';
                 break;
             case 'delete':
+                $this->authorize('update', Comment::class);
                 $comment->status_id = 3;
                 $comment->save();
                 $comment->delete();
                 $msg = 'The comment was temporary deleted';
                 break;
             case 'restore':
+                $this->authorize('update', Comment::class);
                 $comment->status_id = 1;
                 $comment->save();
                 $comment->restore();
                 $msg = 'The comment was restored';
                 break;
             case 'kill':
+                $this->authorize('delete', Comment::class);
                 $comment->forceDelete();
                 $msg = 'The comment was permanently deleted';
                 break;

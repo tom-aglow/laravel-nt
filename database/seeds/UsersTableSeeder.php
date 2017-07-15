@@ -18,6 +18,7 @@ class UsersTableSeeder extends Seeder
         for ($i = 0; $i <  10; $i++) {
             User::create([
                 'username' => $faker->userName,
+                'role_id' => 3,
                 'name' => $faker->name,
                 'email' => $faker->unique()->email,
                 'password' => $faker->password,
@@ -28,6 +29,7 @@ class UsersTableSeeder extends Seeder
 
         User::create([
             'username' => 'admin',
+            'role_id' => 1,
             'name' => 'Tom Admin',
             'email' => 'tom@ohhhh.me',
             'password' => 'qwerty',
@@ -37,6 +39,7 @@ class UsersTableSeeder extends Seeder
 
         User::create([
             'username' => 'moderator',
+            'role_id' => 2,
             'name' => 'Tom Moderator',
             'email' => 'moder@ohhhh.me',
             'password' => 'asdfgh',

@@ -19,7 +19,7 @@ class CommentPolicy
      */
     public function view(User $user)
     {
-        return in_array($user->id, [11, 12]);
+        return $user->role->privileges->where('name', 'blog.comment.view')->isNotEmpty();
     }
 
     /**
@@ -42,7 +42,7 @@ class CommentPolicy
      */
     public function update(User $user)
     {
-        return in_array($user->id, [11, 12]);
+        return $user->role->privileges->where('name', 'blog.comment.moderate')->isNotEmpty();
     }
 
     /**
@@ -52,8 +52,8 @@ class CommentPolicy
      * @param  \App\Models\Comment  $comment
      * @return mixed
      */
-    public function delete(User $user, Comment $comment)
+    public function delete(User $user)
     {
-        //
+        return $user->role->privileges->where('name', 'blog.comment.delete')->isNotEmpty();
     }
 }

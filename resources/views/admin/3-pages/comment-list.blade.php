@@ -28,19 +28,19 @@
                                     <td>{{ $comment->user->username }}</td>
                                     <td>{{ $comment->user_comment }}</td>
                                     <td>{{ $comment->status->status }}</td>
-                                    @if($comment->status->status === 'accepted')
+                                    @if($comment->status->status === config('blog.commentStatus.accepted'))
                                         <td class="t-col-sm"><a class="btn btn-xs btn-info" href="{{ route('admin.comment.action', ['id' => $comment->id, 'action' => 'return']) }}"><span class="glyphicon glyphicon-repeat" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Return to moderation"></span></a></td>
-                                    @elseif($comment->status->status === 'on moderation')
+                                    @elseif($comment->status->status === config('blog.commentStatus.new'))
                                         <td class="t-col-sm"><a class="btn btn-xs btn-success" href="{{ route('admin.comment.action', ['id' => $comment->id, 'action' => 'accept']) }}"><span class="glyphicon glyphicon-ok" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Accept"></span></a></td>
                                     @else
                                         <td class="t-col-sm"><a class="btn btn-xs btn-info disabled" href="{{ route('admin.comment.action', ['id' => $comment->id, 'action' => 'return']) }}"><span class="glyphicon glyphicon-repeat" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Return to moderation"></span></a></td>
                                     @endif
-                                    @if($comment->status->status === 'deleted')
+                                    @if($comment->status->status === config('blog.commentStatus.deleted'))
                                         <td class="t-col-sm"><a class="btn btn-xs btn-warning" href="{{ route('admin.comment.action', ['id' => $comment->id, 'action' => 'restore']) }}" onclick="return confirmDelete();"><span class="glyphicon glyphicon-eye-open" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Restore"></span></a></td>
                                     @else
                                         <td class="t-col-sm"><a class="btn btn-xs btn-warning" href="{{ route('admin.comment.action', ['id' => $comment->id, 'action' => 'delete']) }}" onclick="return confirmDelete();"><span class="glyphicon glyphicon-eye-close" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Delete temporary"></span></a></td>
                                     @endif
-                                    <td class="t-col-sm"><a class="btn btn-xs btn-danger" href="{{ route('admin.comment.action', ['id' => $comment->id, 'action' => 'kill']) }}" onclick="return confirmDelete();"><span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Delete forever"></span></a></td>
+                                    <td class="t-col-sm"><a class="btn btn-xs btn-danger @cannot('delete', App\Models\Comment::class) {{ 'disabled' }} @endcannot" href="{{ route('admin.comment.action', ['id' => $comment->id, 'action' => 'kill']) }}" onclick="return confirmDelete();"><span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Delete forever"></span></a></td>
                                 </tr>
                             @empty
 
@@ -53,6 +53,7 @@
         @empty
         @endforelse
         {{ $comments->setPath(route('admin.comment.list'))->render() }}
+        <br><br>
         @if (isset($msg) && !empty($msg))
             <div class="alert alert-info col-md-8 article_msg">{{ $msg }}</div>
         @endif

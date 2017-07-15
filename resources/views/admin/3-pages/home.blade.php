@@ -3,7 +3,7 @@
 @section('side-bar')
     <aside class="col-lg-2">
         <div class="list-group">
-            @can('view', App\Models\Article::class)
+            @can('all', App\Models\Article::class)
             <a href="{{ route('admin.article.list') }}" class="list-group-item {{ $menuActive['article'] or '' }}">Articles</a>
             @endcan
 
@@ -15,9 +15,11 @@
             </a>
             @endcan
 
+            @can('all', App\Models\Tag::class)
             <a href="{{ route('admin.tag.list') }}" class="list-group-item {{ $menuActive['tag'] or '' }}">Tags</a>
-            <a href="#" class="list-group-item {{ $menuActive['user'] or '' }}">Users</a>
-            {{--TODO hide menu items if user doesn't have permission to the concrete section--}}
+            @endcan
+
+            {{--<a href="#" class="list-group-item {{ $menuActive['user'] or '' }}">Users</a>--}}
 
             @if (isset($msg) && !empty($msg))
                 <div class="alert alert-info article_msg">{{ $msg }}</div>

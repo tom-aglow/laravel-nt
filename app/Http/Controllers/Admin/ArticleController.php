@@ -95,7 +95,7 @@ class ArticleController extends AdminController
         }
 
         /*
-         * check if the upload button was pressed
+         * check if the upload button was clicked
          * if yes, upload image to the folder and save other data from form fields to session for displaying them after page reloading
          *
          * return redirect to the same page
@@ -111,22 +111,29 @@ class ArticleController extends AdminController
          *
          * - validate form data
          * - create record in database
+         * - get correct slug and update it in database
          * - clear session data
          * - return redirect to article list page
          */
 
         $this->validate($request, $this->validationRules);
 
+
         $article = Article::create([
             'user_id' => Auth::user()->id,
-            'image_id' => session('image_id'),
+            'image_id' => session('image_id') ?? 1,
             'title' => $request->input('title'),
+            'slug' => sha1(str_random(16) . microtime(true)),
             'subheading' => $request->input('subheading'),
             'content' => $request->input('content'),
             'is_active' => is_null($request->input('is-active')),
             'active_from' => date_create($request->input('active_from')),
             'active_to' => date_create($request->input('active_to')),
         ]);
+
+
+        $article->slug = $article->id . ':' . str_slug($article->title, '-');
+        $article->save();
 
 
         $newTag = [];
@@ -139,6 +146,7 @@ class ArticleController extends AdminController
 
 
         $request->session()->forget(['image_id']);
+
 
         return redirect()->route('admin.article.list')
             ->with('msg', 'Article was added');
@@ -209,13 +217,12 @@ class ArticleController extends AdminController
          *
          * - validate form data
          * - update intermediate table with tags
-         * - update record in database
+         * - get 'is-active' and 'slug' attributes and update record in database
          * - return redirect to article list page with message
          */
 
 
         $this->validate($request, $this->validationRules);
-
 
 
         $newTag = [];
@@ -226,14 +233,17 @@ class ArticleController extends AdminController
         }
         $article->tags()->sync($newTag);
 
-        //  : replace 'is-active' attribute in the model that is string by boolean + if it is not set, return false
-        //  : cannot be done with mutator since the value is not in request and not passing to DB if input is unchecked
-        $request->replace([
-           'is_active' => !is_null($request->input('is_active'))
-        ]);
-        $article->fill($request->except(['button', 'tags']))
-            ->save();
 
+        //  : set 'is-active' attribute to true if request has it, else set to false
+        //  :   cannot be done with mutator since if input field is unchecked, the value is not in request and not passing to DB
+        //  : replace slug with slug from new article title
+
+
+        $article->slug = $article->id . ':' . str_slug($request->input('title'), '-');
+        $article->is_active = ($request->has('is_active')) ? true : false;
+
+        $article->fill($request->except(['button', 'tags', 'is_active']))
+            ->save();
 
 
 

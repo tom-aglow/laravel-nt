@@ -20,10 +20,6 @@ class ClientController extends Controller
 //        TODO add pagination
 //        TODO for widgets make function in service provider or base controller to render shared view data
 
-        foreach ($articles as $article) {
-            $article->comments;
-        }
-
         return view('client.3-templates.main', [
             'page' => 'client.4-pages.index',
             'title' => 'Index',
@@ -32,13 +28,12 @@ class ClientController extends Controller
     }
 
 //    TODO move to ArticleController (maybe ???)
-    public function showArticle ($id ) {
-        $article = Article::with('comments.user')->findOrFail($id);
+    public function showArticle ($slug ) {
+        $article = Article::with('comments.user')->where('slug', $slug)->firstOrFail();
 
         return view('client.3-templates.single', [
             'page' => 'client.4-pages.article',
             'title' => $article->title,
-            'id' => $id,
             'article' => $article
         ]);
 //        TODO add slug (web friendly url) for one article view

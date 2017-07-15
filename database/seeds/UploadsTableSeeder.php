@@ -14,6 +14,14 @@ class UploadsTableSeeder extends Seeder
     public function run()
     {
         Upload::create([
+            'path' => '7.7c1.7c1be18e57b3c74854d195297ad0b8bcdac240ec',
+            'size' => '7592',
+            'oldname' => 'default.jpg',
+            'ext' => 'jpg',
+            'mime' => 'image/jpeg',
+        ]);
+
+        Upload::create([
             'path' => '0.044.04407a990daf25cae890be4e60c180ed49cf6a52',
             'size' => '1143741',
             'oldname' => '19_JUNI_LIFESTYLE_GMS.jpg',

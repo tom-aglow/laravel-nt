@@ -40,8 +40,11 @@ Route::group(['namespace' => 'Client'], function () {
         ->name('client.client.index');
         // namespace . controller name . method
 
-    Route::get('/article/{id}', 'ClientController@showArticle');
-    // !!! DON'T FORGET ABOUT MASKS WHILE USING VARIABLES IN URI
+    Route::get('/article/{slug}', 'ClientController@showArticle')
+        ->name('client.article.show')
+        ->where('slug', '[\:0-9A-Za-z\-]+');
+
+
     Route::get('/about', 'ClientController@showAbout');
     Route::get('/contact', 'ClientController@showContact');
 

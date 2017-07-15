@@ -21,6 +21,7 @@ class Article extends Model
         'is_active' => 'boolean'
     ];
 
+
     /**
      * SCOPE: Does article have flag active
      */

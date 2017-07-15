@@ -89,7 +89,7 @@ class TestController extends Controller
     {
         $rules = [
             'maxSize' => 10 * 1024 * 1024,
-            'minSize' => 10 * 1024,
+            'minSize' => 1 * 1024,
             'allowedExt' => [
                 'jpeg',
                 'jpg',

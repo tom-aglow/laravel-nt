@@ -23,16 +23,22 @@ class ArticleController extends AdminController
         'content' => 'required',
     ];
 
+    /**
+     *
+     * Rendering the article list view
+     *
+     * @param User $user
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function list(User $user) {
 
+        //  retrieve data from DB
         $articles = Article::latest()
             ->paginate(5);
 
 
-        /*
-         * return the view with parameters
-         */
-
+        // return the view with parameters
         return view('admin.3-pages.article-list', [
             'title' => 'Article list',
             'articles' => $articles,
@@ -41,7 +47,15 @@ class ArticleController extends AdminController
         ]);
     }
 
-
+    /**
+     *
+     * Rendering the view for article creating
+     *
+     * @param Upload  $upload
+     * @param Request $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function add(Upload $upload, Request $request) {
 
         /*
@@ -68,6 +82,16 @@ class ArticleController extends AdminController
         ]);
     }
 
+    /**
+     *
+     * Handling post request for article creating
+     *
+     * @param Request  $request
+     * @param Uploader $uploader
+     * @param Upload   $uploadModel
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function addPost(Request $request, Uploader $uploader, Upload $uploadModel) {
 
         $request->flash();
@@ -152,6 +176,15 @@ class ArticleController extends AdminController
             ->with('msg', 'Article was added');
     }
 
+    /**
+     *
+     * Rendering the view for article editing
+     *
+     * @param         $id
+     * @param Request $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit($id, Request $request) {
         /*
          * try to find article in database by its id
@@ -179,6 +212,17 @@ class ArticleController extends AdminController
         ]);
     }
 
+    /**
+     *
+     * Handling post request for article editing
+     *
+     * @param          $id
+     * @param Request  $request
+     * @param Uploader $uploader
+     * @param Upload   $uploadModel
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function editPost($id, Request $request, Uploader $uploader, Upload $uploadModel) {
 
         $request->flash();
@@ -251,6 +295,15 @@ class ArticleController extends AdminController
             ->with('msg', 'Article was updated');
     }
 
+
+    /**
+     *
+     * Handling post request for article deleting
+     *
+     * @param $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete($id) {
 
        /*
@@ -280,7 +333,6 @@ class ArticleController extends AdminController
      *
      * @return array|string
      */
-
     private function imageUpload (Request $request, Uploader $uploader, Upload $uploadModel, Article $article = null) {
 
         /*

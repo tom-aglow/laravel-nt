@@ -17,10 +17,10 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Web</a>
             </li>
             <li class="">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">About me</a>
+                <a href="{{ route('client.about.show') }}" class="dropdown-toggle" data-toggle="dropdown">About me</a>
             </li>
             <li class="">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contact me</a>
+                <a href="{{ route('client.contact.show') }}" class="dropdown-toggle" data-toggle="dropdown">Contact me</a>
             </li>
             <li class="">
                 <a href="{{ route('client.auth.signup') }}" class="dropdown-toggle" data-toggle="dropdown">Sign up</a>

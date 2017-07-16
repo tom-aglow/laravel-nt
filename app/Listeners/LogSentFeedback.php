@@ -2,11 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Events\Event;
+use App\Events\FeedbackSending;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EventListener
+class LogSentFeedback
 {
     /**
      * Create the event listener.
@@ -21,10 +21,10 @@ class EventListener
     /**
      * Handle the event.
      *
-     * @param  Event  $event
+     * @param  FeedbackSending  $event
      * @return void
      */
-    public function handle(Event $event)
+    public function handle(FeedbackSending $event)
     {
         //
     }

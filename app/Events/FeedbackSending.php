@@ -10,25 +10,22 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class Event
+class FeedbackSending
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $inputData;
+
+    public function __construct($inputData)
     {
-        //
+        $this->inputData = $inputData;
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
+    public function getInputData () {
+        return $this->inputData;
+    }
+
+
     public function broadcastOn()
     {
         return new PrivateChannel('channel-name');

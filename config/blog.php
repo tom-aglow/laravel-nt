@@ -21,6 +21,13 @@ return [
         'accepted' => 'accepted',
         'new' => 'on moderation',
         'deleted' => 'deleted',
-    ]
+    ],
 
+    /*
+     * config for mails
+     */
+    'mail' => [
+        'blogAuthor' => 'tom@ohhhh.me',
+        'feedbackSubject' => 'New feedback in your blog',
+    ]
 ];

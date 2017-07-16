@@ -10,13 +10,6 @@ class ArticlePolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view, edit, add or delete the articles.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Article  $article
-     * @return mixed
-     */
     public function all(User $user)
     {
         return $user->role->privileges->whereIn('name', [

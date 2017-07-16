@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 /**
- * Dynamic file routes
+ * Routes for file downloading
  */
 
 Route::get('download/{path}','FileController@download')

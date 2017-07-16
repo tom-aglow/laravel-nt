@@ -11,13 +11,19 @@ class AdminController extends Controller
     protected $menuActive = [];
 
     public function __construct () {
-        //name of executed class without namespace
+
+        //  get the name of executed class without namespace
         $name = join('', array_slice(explode('\\', strtolower(get_class($this))), -1));
         $name = str_replace('controller', '', $name);
 
+        //  fill array with active menu element
         $this->menuActive[$name] = 'active';
     }
 
+
+    /**
+     * Rendering admin index view
+     */
     public function index () {
 
         if (Auth::check()) {

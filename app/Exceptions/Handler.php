@@ -50,6 +50,9 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         switch ($exception) {
+
+            // NotFoundException handler
+
             case ($exception instanceof ModelNotFoundException):
             case ($exception instanceof NotFoundHttpException):
                 return response()->view('admin.3-pages.error-int', [
@@ -57,6 +60,9 @@ class Handler extends ExceptionHandler
                     'errorMessage' => 'Page not found',
                 ], 404);
                 break;
+
+
+            // HTTPException handler
 
             case ($exception instanceof HttpException):
                 switch ($exception->getStatusCode()) {
@@ -77,12 +83,19 @@ class Handler extends ExceptionHandler
                 }
                 break;
 
+
+            // AuthorizationException handler
+
             case ($exception instanceof AuthorizationException):
                 return response()->view('admin.3-pages.error-int', [
                     'errorCode' => 403,
                     'errorMessage' => 'You don\'t have privileges to view this page',
                 ], 403);
                 break;
+
+
+            // Default Exception handler
+
             default:
                 return parent::render($request, $exception);
         }

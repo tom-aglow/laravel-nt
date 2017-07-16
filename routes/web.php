@@ -45,8 +45,13 @@ Route::group(['namespace' => 'Client'], function () {
         ->where('slug', '[\:0-9A-Za-z\-]+');
 
 
-    Route::get('/about', 'ClientController@showAbout');
-    Route::get('/contact', 'ClientController@showContact');
+    Route::get('/about', 'ClientController@showAbout')
+        ->name('client.about.show');
+
+
+    Route::get('/contact', 'ClientController@showContact')
+        ->name('client.contact.show');
+    Route::post('/contact', 'ClientController@sendFeedback');
 
     Route::get('/404', 'ClientController@show404');
 

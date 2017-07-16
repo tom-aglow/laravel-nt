@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 /**
  * Dynamic image resizer routes
  */
-//http://laravel.local/image/resize/600/400/rwerwerwerwerwerwer.jpg
+
 Route::get('resize/{width}/{height}/{path}','ImageController@resize')
     ->where([
         'width' => '\d+',

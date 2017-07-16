@@ -24,7 +24,7 @@
         <div class="col-xs-10  col-xs-offset-1">
             <div class="post-content--front-page">
                 <h2 class="front-page-title">
-                    <a href="/article/{{ $article->id }}">{{ $article->title }}</a>
+                    <a href="/article/{{ $article->slug }}">{{ $article->title }}</a>
                 </h2>
                 <h3>{{ $article->subheading }}</h3>
                 <p>{{ mb_substr($article->content, 0, 500) . '...' }} </p>

@@ -4,7 +4,7 @@
             <div class="contact">
                 <h2>Login</h2>
                 <p class="contact__text">Ut ullamcorper, risus a rhoncus fringilla, dui nisl viverra nunc, quis consectetur massa purus a nulla.</p>
-                <form action="/login" method="POST">
+                <form action="{{ route('client.auth.login') }}" method="POST">
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-xs-12">

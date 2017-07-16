@@ -39,7 +39,7 @@
                     <div class="col-xs-12  col-sm-6">
 
                         <div class="post-comments">
-                            <a class="btn  btn-primary" href="single-post-without-image.html">Comments ({{ count($article->comments) }})</a>
+                            <a class="btn  btn-primary" href="#">Comments ({{ count($article->comments) }})</a>
                         </div>
 
                     </div>

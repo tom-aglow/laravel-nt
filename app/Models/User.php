@@ -28,6 +28,14 @@ class User extends Authenticatable
     ];
 
     /**
+     * Mutator for user password
+     */
+    public function setPasswordAttribute ($value) {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
+
+    /**
      *  RELATIONSHIPS
      */
     public function articles () {
@@ -35,8 +43,10 @@ class User extends Authenticatable
     }
 
     public function comments () {
-        return $this->hasMany('App\Model\Comment');
+        return $this->hasMany('App\Models\Comment');
     }
 
-//    TODO make mutation for encrypting user's password
+    public function role () {
+        return $this->belongsTo('App\Models\Role');
+    }
 }

@@ -10,50 +10,13 @@ class ArticlePolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view the article.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Article  $article
-     * @return mixed
-     */
-    public function view(User $user, Article $article = null)
+    public function all(User $user)
     {
-        return in_array($user->id, [11]);
-    }
-
-    /**
-     * Determine whether the user can create articles.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
-     */
-    public function create(User $user)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can update the article.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Article  $article
-     * @return mixed
-     */
-    public function update(User $user, Article $article)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can delete the article.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Article  $article
-     * @return mixed
-     */
-    public function delete(User $user, Article $article)
-    {
-        //
+        return $user->role->privileges->whereIn('name', [
+            'blog.article.view',
+            'blog.article.edit',
+            'blog.article.add',
+            'blog.article.delete'
+        ])->isNotEmpty();
     }
 }

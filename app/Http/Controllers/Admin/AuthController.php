@@ -20,6 +20,7 @@ class AuthController extends AdminController
 
 
     public function loginPost(Request $request) {
+
         $remember = $request->input('remember') ? true : false;
 
         $authResult = Auth::attempt([

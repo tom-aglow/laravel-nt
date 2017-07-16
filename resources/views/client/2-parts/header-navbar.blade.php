@@ -17,11 +17,10 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Web</a>
             </li>
             <li class="">
-                <a href="/about" class="dropdown-toggle" data-toggle="dropdown">About me</a>
+                <a href="{{ route('client.about.show') }}" class="dropdown-toggle" data-toggle="dropdown">About me</a>
             </li>
-            {{--TODO change href links to route method--}}
             <li class="">
-                <a href="/contact" class="dropdown-toggle" data-toggle="dropdown">Contact me</a>
+                <a href="{{ route('client.contact.show') }}" class="dropdown-toggle" data-toggle="dropdown">Contact me</a>
             </li>
             <li class="">
                 <a href="{{ route('client.auth.signup') }}" class="dropdown-toggle" data-toggle="dropdown">Sign up</a>
@@ -33,7 +32,7 @@
                 </li>
             @else
                 <li class="">
-                    <a href="/login" class="dropdown-toggle" data-toggle="dropdown">Log in</a>
+                    <a href="{{ route('client.auth.login') }}" class="dropdown-toggle" data-toggle="dropdown">Log in</a>
                 </li>
             @endif
         </ul>

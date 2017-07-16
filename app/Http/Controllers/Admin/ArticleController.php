@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Upload;
 use App\Models\User;
 use App\Models\Tag;
+use App\Models\Role;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,16 +17,28 @@ use App\Classes\Uploader;
 
 class ArticleController extends AdminController
 {
+    private $validationRules = [
+        'title' => 'required',
+        'subheading' => 'required',
+        'content' => 'required',
+    ];
 
+    /**
+     *
+     * Rendering the article list view
+     *
+     * @param User $user
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function list(User $user) {
 
-        $articles = Article::all()
-            ->sortByDesc('created_at');
+        //  retrieve data from DB
+        $articles = Article::latest()
+            ->paginate(5);
 
-        /*
-         * return the view with parameters
-         */
 
+        // return the view with parameters
         return view('admin.3-pages.article-list', [
             'title' => 'Article list',
             'articles' => $articles,
@@ -34,7 +47,15 @@ class ArticleController extends AdminController
         ]);
     }
 
-
+    /**
+     *
+     * Rendering the view for article creating
+     *
+     * @param Upload  $upload
+     * @param Request $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function add(Upload $upload, Request $request) {
 
         /*
@@ -61,7 +82,18 @@ class ArticleController extends AdminController
         ]);
     }
 
+    /**
+     *
+     * Handling post request for article creating
+     *
+     * @param Request  $request
+     * @param Uploader $uploader
+     * @param Upload   $uploadModel
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function addPost(Request $request, Uploader $uploader, Upload $uploadModel) {
+
         $request->flash();
 
         /*
@@ -87,7 +119,7 @@ class ArticleController extends AdminController
         }
 
         /*
-         * check if the upload button was pressed
+         * check if the upload button was clicked
          * if yes, upload image to the folder and save other data from form fields to session for displaying them after page reloading
          *
          * return redirect to the same page
@@ -103,22 +135,29 @@ class ArticleController extends AdminController
          *
          * - validate form data
          * - create record in database
+         * - get correct slug and update it in database
          * - clear session data
          * - return redirect to article list page
          */
 
-        $this->validateFormData($request);
+        $this->validate($request, $this->validationRules);
+
 
         $article = Article::create([
             'user_id' => Auth::user()->id,
-            'image_id' => session('image_id'),
+            'image_id' => session('image_id') ?? 1,
             'title' => $request->input('title'),
+            'slug' => sha1(str_random(16) . microtime(true)),
             'subheading' => $request->input('subheading'),
             'content' => $request->input('content'),
             'is_active' => is_null($request->input('is-active')),
             'active_from' => date_create($request->input('active_from')),
             'active_to' => date_create($request->input('active_to')),
         ]);
+
+
+        $article->slug = $article->id . ':' . str_slug($article->title, '-');
+        $article->save();
 
 
         $newTag = [];
@@ -132,10 +171,20 @@ class ArticleController extends AdminController
 
         $request->session()->forget(['image_id']);
 
+
         return redirect()->route('admin.article.list')
             ->with('msg', 'Article was added');
     }
 
+    /**
+     *
+     * Rendering the view for article editing
+     *
+     * @param         $id
+     * @param Request $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit($id, Request $request) {
         /*
          * try to find article in database by its id
@@ -163,6 +212,17 @@ class ArticleController extends AdminController
         ]);
     }
 
+    /**
+     *
+     * Handling post request for article editing
+     *
+     * @param          $id
+     * @param Request  $request
+     * @param Uploader $uploader
+     * @param Upload   $uploadModel
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function editPost($id, Request $request, Uploader $uploader, Upload $uploadModel) {
 
         $request->flash();
@@ -201,13 +261,12 @@ class ArticleController extends AdminController
          *
          * - validate form data
          * - update intermediate table with tags
-         * - update record in database
+         * - get 'is-active' and 'slug' attributes and update record in database
          * - return redirect to article list page with message
          */
 
 
-        $this->validateFormData($request);
-
+        $this->validate($request, $this->validationRules);
 
 
         $newTag = [];
@@ -219,14 +278,16 @@ class ArticleController extends AdminController
         $article->tags()->sync($newTag);
 
 
+        //  : set 'is-active' attribute to true if request has it, else set to false
+        //  :   cannot be done with mutator since if input field is unchecked, the value is not in request and not passing to DB
+        //  : replace slug with slug from new article title
 
 
-        $request->replace([
-           'is_active' => !is_null($request->input('is_active'))
-        ]);
-        $article->fill($request->except('button'))
+        $article->slug = $article->id . ':' . str_slug($request->input('title'), '-');
+        $article->is_active = ($request->has('is_active')) ? true : false;
+
+        $article->fill($request->except(['button', 'tags', 'is_active']))
             ->save();
-
 
 
 
@@ -234,6 +295,15 @@ class ArticleController extends AdminController
             ->with('msg', 'Article was updated');
     }
 
+
+    /**
+     *
+     * Handling post request for article deleting
+     *
+     * @param $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete($id) {
 
        /*
@@ -254,23 +324,6 @@ class ArticleController extends AdminController
 
 
     /**
-     *
-     * Function for validating form values received from user
-     *
-     * @param Request $request
-     */
-    private function validateFormData (Request $request) {
-
-//        TODO check if article has an image
-
-        $this->validate($request, [
-            'title' => 'required',
-            'subheading' => 'required',
-            'content' => 'required',
-        ]);
-    }
-
-    /**
      * Function for uploading article image to storage and register image in database
      *
      * @param Request      $request
@@ -280,7 +333,6 @@ class ArticleController extends AdminController
      *
      * @return array|string
      */
-
     private function imageUpload (Request $request, Uploader $uploader, Upload $uploadModel, Article $article = null) {
 
         /*

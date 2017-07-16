@@ -5,7 +5,6 @@ return [
      * Config of image uploader/downloader
      */
 
-//    'storagePath' => storage_path() . '/app',
     'uploadPath' => storage_path() . '/uploads',
     'defaultUploadSection' => 'files',
     'imageUploadSection' => 'images',
@@ -14,4 +13,21 @@ return [
     'storagePermissions' => 0755,
     'imageCacheTime' => 86400,
 
+
+    /*
+     * values for comments statuses
+     */
+    'commentStatus' => [
+        'accepted' => 'accepted',
+        'new' => 'on moderation',
+        'deleted' => 'deleted',
+    ],
+
+    /*
+     * config for mails
+     */
+    'mail' => [
+        'blogAuthor' => 'tom@ohhhh.me',
+        'feedbackSubject' => 'New feedback in your blog',
+    ]
 ];

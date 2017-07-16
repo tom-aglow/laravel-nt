@@ -21,6 +21,7 @@ class Article extends Model
         'is_active' => 'boolean'
     ];
 
+
     /**
      * SCOPE: Does article have flag active
      */
@@ -61,5 +62,4 @@ class Article extends Model
     public function tags () {
         return $this->belongsToMany('App\Models\Tag');
     }
-//    TODO show list of active article in client side (+ think about pagination)
 }

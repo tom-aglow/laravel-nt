@@ -11,24 +11,23 @@ class FeedbackMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $data;
+
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
+
     public function build()
     {
-        return $this->from(['address' => 'noreply@ohhhh.me'])
-            ->view('mails.feedback ');
+        return $this->view('mails.feedback ')
+            ->subject(config('blog.mail.feedbackSubject'))
+            ->from([
+                'address' => $this->data['email']
+            ])
+            ->with([
+                'data' => $this->data,
+            ]);
     }
 }

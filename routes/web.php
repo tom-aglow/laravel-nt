@@ -23,6 +23,10 @@ Route::get('/uploaderDelete', 'TestController@uploaderDelete');
 Route::get('/testcache', 'TestController@testCache');
 Route::get('/testmail', 'TestController@testMail');
 
+Route::get('/ajax', 'AjaxController@ajax')
+    ->name('client.test.ajax');
+Route::post('/ajax', 'AjaxController@ajaxPost');
+
 //    laravel's staff
 
 Auth::routes();

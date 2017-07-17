@@ -1,0 +1,1 @@
+@include('client.5-widgets.ajax-form')

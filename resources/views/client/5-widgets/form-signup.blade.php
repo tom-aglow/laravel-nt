@@ -1,50 +1,66 @@
-<div class="boxed  push-down-45">
-    <div class="row">
-        <div class="col-xs-10  col-xs-offset-1">
-            <div class="contact">
-                <h2>Sign up</h2>
-                <p class="contact__text">Ut ullamcorper, risus a rhoncus fringilla, dui nisl viverra nunc, quis consectetur massa purus a nulla.</p>
-                <form action="{{ route('client.auth.signup') }}" method="post">
-                    {{ csrf_field() }}
-                    <div class="row">
-                        <div class="col-xs-12">
+<div class="row">
+    <div class="col l10 offset-l1">
+        <div class="contact">
+            <h2>Sign up</h2>
+            <p class="contact__text">Ut ullamcorper, risus a rhoncus fringilla, dui nisl viverra nunc, quis consectetur massa purus a nulla.</p>
+            <form action="{{ route('client.auth.signup') }}" method="post">
+                {{ csrf_field() }}
+                <div class="row">
+                    <div class="col l8">
+                        <div class="input-field col l12">
+                            <input type="text" name="name" value="{{ old('name') }}" placeholder="Your Name *" required>
+                            <label for="name" data-error="wrong" data-success="right">Name</label>
                             @if ($errors->has('name'))
                                 <span style="margin-bottom: 20px; color: red;">{{ $errors->get('name')[0] }}</span>
                             @endif
-                            <input type="text" name="name" value="{{ old('name') }}" placeholder="Your Name *">
+                        </div>
 
+                        <div class="input-field col l12">
+                            <input type="text" name="username" value="{{ old('username') }}" placeholder="Your Login *" required>
+                            <label for="username" data-error="wrong" data-success="right">Login</label>
                             @if ($errors->has('username'))
                                 <span style="margin-bottom: 20px; color: red;">{{ $errors->get('username')[0] }}</span>
                             @endif
-                            <input type="text" name="username" value="{{ old('username') }}" placeholder="Your Login *">
+                        </div>
 
+                        <div class="input-field col l12">
+                            <input type="email" class="validate" name="email" value="{{ old('email') }}" placeholder="E-mail Address *" required>
+                            <label for="email" data-error="wrong" data-success="right">Email</label>
                             @if ($errors->has('email'))
                                 <span style="margin-bottom: 20px; color: red;">{{ $errors->get('email')[0] }}</span>
                             @endif
-                            <input type="text" name="email" value="{{ old('email') }}" placeholder="E-mail Address *">
+                        </div>
 
+                        <div class="input-field col l12">
+                            <input type="password" name="password" data-length="20" placeholder="Your password *" required>
+                            <label for="password" data-error="wrong" data-success="right">Password</label>
                             @if ($errors->has('password'))
                                 <span style="margin-bottom: 20px; color: red;">{{ $errors->get('password')[0] }}</span>
                             @endif
-                            <input type="password" name="password" placeholder="Your password *">
+                        </div>
 
+                        <div class="input-field col l12">
+                            <input type="password" name="password2" data-length="20" placeholder="Repeat your password *" required>
+                            <label for="name" data-error="wrong" data-success="right">Repeat password</label>
                             @if ($errors->has('password2'))
                                 <span style="margin-bottom: 20px; color: red;">{{ $errors->get('password2')[0] }}</span>
                             @endif
-                            <input type="password" name="password2" placeholder="Repeat your password *">
+                        </div>
 
+                        <p>
+                            <input type="checkbox" name="isConfirmed" class="filled-in" id="isConfirmed" checked required>
+                            <label for="isConfirmed">I agree with everything</label>
                             @if ($errors->has('isConfirmed'))
                                 <span style="margin-bottom: 20px; color: red;">{{ $errors->get('isConfirmed')[0] }}</span>
                             @endif
-                            <input type="checkbox" name="isConfirmed" id="isConfirmed" checked><label for="isConfirmed">I agree with everything</label>
-                            <input type="submit" value="Sign up">
+                        </p>
 
-                            {{--<a href="#" class="btn  btn-primary">Sign up</a> --}}
-                            <span class="contact__obligatory">Fields marked with * are obligatory</span>
-                        </div>
+                        <input type="submit" value="Sign up" class="btn">
+
+                        {{--<a href="#" class="btn  btn-primary">Sign up</a> --}}
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

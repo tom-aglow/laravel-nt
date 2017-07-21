@@ -25,8 +25,8 @@
     <div class="col l12">
         <div class="card grey lighten-5">
             <div class="card-content">
-                <span class="card-title">Comments ({{ count($article->comments) }})</span>
-                @forelse($article->comments as $comment)
+                <span class="card-title">Comments ({{ count($comments) }})</span>
+                @forelse($comments as $comment)
                     <div class="row">
                         <div class="card-panel col offset-l3 l6">
                             <div class="row valign-wrapper">
@@ -46,6 +46,30 @@
                 @empty
                     <p>No comments yet</p>
                 @endforelse
+                <div class="row">
+                    <div class="col offset-l3 l6">
+                        @if(Auth::check())
+                            <form action="{{ route('client.article.show', $article->slug) }}" method="post">
+                                {{ csrf_field() }}
+                                <div class="input-field col l12">
+                                    <textarea id="comment" class="materialize-textarea" rows="6" name="comment" class="validate" placeholder="Your comment" required></textarea>
+                                    <label for="comment" data-error="wrong" data-success="right">Comment</label>
+                                </div>
+                                <input type="submit" value="Leave Comment" class="btn">
+
+                            </form>
+                            @if ($errors->any())
+                                <div class="alert alert-danger article_msg">
+                                    @foreach($errors->all() as $error)
+                                        {{ $error }}<br>
+                                    @endforeach
+                                </div>
+                            @endif
+                        @else
+                            <p>Please sign in to leave a comment</p>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </div>

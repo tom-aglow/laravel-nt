@@ -44,10 +44,12 @@ Route::group(['namespace' => 'Client'], function () {
         ->name('client.client.index');
         // namespace . controller name . method
 
-    Route::get('/article/{slug}', 'ClientController@showArticle')
+    Route::get('/article/{slug}', 'ArticleController@showArticle')
         ->name('client.article.show')
         ->where('slug', '[\:0-9A-Za-z\-]+');
-
+    Route::post('/article/{slug}', 'ArticleController@processComment')
+        ->name('client.article.show')
+        ->where('slug', '[\:0-9A-Za-z\-]+');
 
     Route::get('/about', 'ClientController@showAbout')
         ->name('client.about.show');

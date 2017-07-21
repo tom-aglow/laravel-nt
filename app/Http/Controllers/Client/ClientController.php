@@ -17,27 +17,11 @@ class ClientController extends Controller
             ->latest()
             ->paginate(5);
 
-        debug($articles);
-
-//        TODO add pagination
-
         return view('client.3-templates.main', [
             'page' => 'client.4-pages.index',
             'title' => 'Index',
             'articles' => $articles,
         ]);
-    }
-
-//    TODO move to ArticleController (maybe ???)
-    public function showArticle ($slug) {
-        $article = Article::with('comments.user')->where('slug', $slug)->firstOrFail();
-
-        return view('client.3-templates.single', [
-            'page' => 'client.4-pages.article',
-            'title' => $article->title,
-            'article' => $article
-        ]);
-//        TODO add slug (web friendly url) for one article view
     }
 
     public function showAbout () {

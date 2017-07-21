@@ -52,7 +52,7 @@
         </div>
         @empty
         @endforelse
-        {{ $comments->setPath(route('admin.comment.list'))->render('vendor.pagination.bootstrap-4') }}
+        {{ $comments->links('vendor.pagination.bootstrap-4') }}
         <br><br>
         @if (isset($msg) && !empty($msg))
             <div class="alert alert-info col-md-8 article_msg">{{ $msg }}</div>

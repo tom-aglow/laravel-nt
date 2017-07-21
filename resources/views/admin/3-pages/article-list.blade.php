@@ -15,7 +15,7 @@
             <tr>
                 <td class="t-col-md">{{ formatStrToDate($article->created_at) }}</td>
                 <td>{{ $article->title }}</td>
-                <td>Draft</td>
+                <td>{{ $article->status }}</td>
                 <td class="t-col-md">{{ $article->active_from }}</td>
                 <td class="t-col-md">{{ $article->active_to }}</td>
 

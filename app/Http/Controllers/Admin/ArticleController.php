@@ -35,9 +35,27 @@ class ArticleController extends AdminController
     public function list(User $user) {
 
         //  retrieve data from DB
-        $articles = Article::latest()
-            ->paginate(5);
+        $articles = Article::latest()->get();
 
+        //  define article status
+        $articles = $articles->map(function ($item) {
+            $now = \Carbon\Carbon::now();
+
+            if (!$item['is_active']) {
+                $item['status'] = 'inactive';
+            } elseif($now < $item['active_from']) {
+                $item['status'] = 'scheduled';
+            } elseif (is_null($item['active_to']) || $now < $item['active_to']) {
+                $item['status'] = 'active';
+            } else {
+                $item['status'] = 'overdue';
+            }
+
+            return $item;
+        });
+
+        //  paginate modified collection
+        $articles = $this->paginate($articles, 5, route('admin.article.list'));
 
         // return the view with parameters
         return view('admin.3-pages.article-list', [
@@ -401,10 +419,5 @@ class ArticleController extends AdminController
         }
 
         return $uploader->getErrors();
-    }
-
-
-    private function getArticleStatus () {
-//        TODO update article status in list view
     }
 }

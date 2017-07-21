@@ -6,8 +6,6 @@
         <label id="title" class="col-lg-2 control-label">Title</label>
         <div class="col-lg-8">
             <input class="form-control" type="text" id="title" name="title" value="">
-
-            {{--TODO change separated info msg about errors into one--}}
         </div>
     </div>
 

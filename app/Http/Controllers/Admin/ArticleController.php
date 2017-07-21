@@ -304,10 +304,17 @@ class ArticleController extends AdminController
         //  : set 'is-active' attribute to true if request has it, else set to false
         //  :   cannot be done with mutator since if input field is unchecked, the value is not in request and not passing to DB
         //  : replace slug with slug from new article title
+        //  : replace sting values of dates by date objects
+
+
 
 
         $article->slug = $article->id . ':' . str_slug($request->input('title'), '-');
         $article->is_active = ($request->has('is_active')) ? true : false;
+        $request->replace([
+            'active_from' => date_create($request->input(['active_from'])),
+            'active_to' => date_create($request->input(['active_to'])),
+        ]);
 
         $article->fill($request->except(['button', 'tags', 'is_active']))
             ->save();

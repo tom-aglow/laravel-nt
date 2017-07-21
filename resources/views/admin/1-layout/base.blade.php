@@ -25,7 +25,6 @@
     <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 
 
-
     <script src="/js/admin/admin.js"></script>
 
     <title>{{ $title or 'I need a title' }}</title>

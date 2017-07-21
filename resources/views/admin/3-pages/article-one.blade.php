@@ -49,7 +49,7 @@
             <div class="form-group">
                 <label id="active" class="col-lg-2 control-label">Visibility<br>(from / to / is active)</label>
                 <div class="col-lg-8">
-                    active_from
+
                     <div class='col-lg-5'>
                         <div class="form-group">
                             <div class='input-group date' id='datetimepicker1'>
@@ -75,6 +75,7 @@
                     <script type="text/javascript">
                         $(function () {
                             $('#datetimepicker1').datetimepicker();
+                            $('#datetimepicker1').data("DateTimePicker").date(1/2013);
                             $('#datetimepicker2').datetimepicker({
                                 useCurrent: false //Important! See issue #1075
                             });

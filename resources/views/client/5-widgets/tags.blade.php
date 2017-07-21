@@ -4,7 +4,7 @@
             <div class="card-content">
                 <span class="card-title">Tags</span>
                 @forelse($tagList as $tag)
-                    <a href="#" class="chip">{{ $tag->tag_name }}</a>
+                    <a href="{{ route('client.client.listByTag', ['tag' => strtolower($tag->tag_name)]) }}" class="chip">{{ $tag->tag_name }}</a>
                 @empty
                     <p>No tags</p>
                 @endforelse

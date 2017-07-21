@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Events\FeedbackSending;
 use App\Models\Article;
+use function foo\func;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,6 +16,21 @@ class ClientController extends Controller
         $articles = Article::active()
             ->inTime()
             ->latest()
+            ->paginate(5);
+
+        return view('client.3-templates.main', [
+            'page' => 'client.4-pages.index',
+            'title' => 'Index',
+            'articles' => $articles,
+        ]);
+    }
+
+    public function listByTag ($tag) {
+
+        $articles = Article::active()
+            ->inTime()
+            ->hasTag($tag)
+            ->orderBy('articles.created_at', 'desc')
             ->paginate(5);
 
         return view('client.3-templates.main', [
@@ -66,6 +82,7 @@ class ClientController extends Controller
             'title' => 'Page not found',
         ]);
     }
+
 
     // TODO add attribute for menu
 

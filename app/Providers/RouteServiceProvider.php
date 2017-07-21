@@ -28,6 +28,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapFileRoutes();
         $this->mapAdminRoutes();
         $this->mapAdminCPRoutes();
+        $this->mapClientRoutes();
         $this->mapWebRoutes();
 
         //
@@ -62,6 +63,14 @@ class RouteServiceProvider extends ServiceProvider
             ->prefix('admincp')
             ->namespace($this->namespace . '\AdminCP')
             ->group(base_path('routes/admincp.php'));
+    }
+
+    protected function mapClientRoutes()
+    {
+        Route::prefix('/')
+            ->middleware(['web'])
+            ->namespace($this->namespace . '\Client')
+            ->group(base_path('routes/client.php'));
     }
 
     protected function mapImageRoutes()

@@ -13,7 +13,7 @@
                 <h4>{{ $article->subheading }}</h4>
                 <p>{{ $article->content }}</p>
                 @forelse($article->tags as $tag)
-                    <a href="#" class="chip article_tag_cloud">{{ $tag->tag_name }}</a>
+                    <a href="{{ route('client.client.listByTag', ['tag' => strtolower($tag->tag_name)]) }}" class="chip article_tag_cloud">{{ $tag->tag_name }}</a>
                 @empty
                     <p>No tags</p>
                 @endforelse

@@ -225,11 +225,6 @@ class ArticleController extends AdminController
      * @return \Illuminate\Http\RedirectResponse
      */
 
-    public function editAjax () {
-
-
-    }
-
     public function editPost($id, Request $request, Uploader $uploader, Upload $uploadModel) {
 
         $request->flash();

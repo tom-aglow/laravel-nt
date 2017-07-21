@@ -182,4 +182,19 @@ class TestController extends Controller
 
         echo 'ok';
     }
+
+    /**
+     * AJAX
+     */
+
+    public function ajax() {
+        return view('client.3-templates.main', [
+            'page' => 'client.4-pages.ajax-upload',
+            'title' => 'Index',
+        ]);
+    }
+
+    public function ajaxPost(Request $request) {
+        return ['title' => $request->input('title')];
+    }
 }

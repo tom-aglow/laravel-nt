@@ -15,10 +15,11 @@ class ClientController extends Controller
         $articles = Article::active()
             ->inTime()
             ->latest()
-            ->get();
+            ->paginate(5);
+
+        debug($articles);
 
 //        TODO add pagination
-//        TODO for widgets make function in service provider or base controller to render shared view data
 
         return view('client.3-templates.main', [
             'page' => 'client.4-pages.index',

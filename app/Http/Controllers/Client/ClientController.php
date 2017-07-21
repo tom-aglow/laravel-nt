@@ -28,7 +28,7 @@ class ClientController extends Controller
     }
 
 //    TODO move to ArticleController (maybe ???)
-    public function showArticle ($slug ) {
+    public function showArticle ($slug) {
         $article = Article::with('comments.user')->where('slug', $slug)->firstOrFail();
 
         return view('client.3-templates.single', [

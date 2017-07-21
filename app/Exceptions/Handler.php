@@ -87,7 +87,7 @@ class Handler extends ExceptionHandler
             // AuthorizationException handler
 
             case ($exception instanceof AuthorizationException):
-                return response()->view('admin.3-pages.error-int', [
+                return response()->view('admin.3-pages.error-ext', [
                     'errorCode' => 403,
                     'errorMessage' => 'You don\'t have privileges to view this page',
                 ], 403);

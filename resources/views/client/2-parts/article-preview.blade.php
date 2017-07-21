@@ -2,7 +2,7 @@
     <div class="col l12">
         <div class="card hoverable">
             <div class="card-image">
-                <img src="{{ getImageLink('widen/748', $article->image->path, $article->image->ext) }}" alt="Blog image" width="748" height="324">
+                <img src="{{ getImageLink('widen/748', $article->image->path, $article->image->ext) }}" alt="Blog image" width="748" height="auto">
                 <span class="card-title">{{ $article->title }}</span>
             </div>
             <div class="card-content">

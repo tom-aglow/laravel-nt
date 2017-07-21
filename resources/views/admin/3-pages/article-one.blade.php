@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="col-lg-10">
-        <form class="form-horizontal" name="article" method="post" action="{{ $action }}" enctype="multipart/form-data">
+        <form class="form-horizontal" id="blog-article" name="article" method="post" action="{{ $action }}" enctype="multipart/form-data">
             {{ csrf_field() }}
 
             {{--title field--}}
@@ -42,7 +42,7 @@
                     <div class="image-new-file col-lg-4">
                         <strong>Upload new image:</strong>
                         <input type="file" class="article_img_upload" name="file">
-                        <button class="btn btn-primary btn-xs" type="submit" name="button" value="upload">Upload</button>
+                        <button class="btn btn-primary btn-xs" id="img-upload" type="submit" name="button" value="upload">Upload</button>
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
             <div class="form-group">
                 <label id="active" class="col-lg-2 control-label">Visibility<br>(from / to / is active)</label>
                 <div class="col-lg-8">
-                    {{--active_from--}}
+                    active_from
                     <div class='col-lg-5'>
                         <div class="form-group">
                             <div class='input-group date' id='datetimepicker1'>
@@ -124,9 +124,30 @@
                     <button class="form-control btn btn-default" type="submit" name="button" value="cancel">Cancel</button>
                 </div>
             </div>
-            
+
         </form><br>
 
 
+
     </section>
+@endsection
+
+@section('footer_script')
+    <script>
+        $(function () {
+            $('#img-upload').click(function () {
+                $.ajax({
+                    url: "{{ $action }}",
+                    data: new FormData($('#blog-article')[0]),
+                    dataType: 'json',
+                    type: 'post',
+                    processData: false,
+                    contentType: false,
+                    success: function(request){
+                        console.log(request.parse());
+                    },
+                });
+            });
+        });
+    </script>
 @endsection

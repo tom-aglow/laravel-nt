@@ -14,6 +14,6 @@ class AjaxController extends Controller
     }
 
     public function ajaxPost(Request $request) {
-        return $request->input('title');
+        return ['title' => $request->input('title')];
     }
 }

@@ -33,9 +33,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-//        gate example (replaced by policy, can be deleted)
-        Gate::define('moderate-comment', function ($user) {
-            return in_array($user->id, [12]);
+        Gate::define('admin-access', function ($user) {
+            return in_array($user->role->name, config('admin.roles'));
         });
     }
 }

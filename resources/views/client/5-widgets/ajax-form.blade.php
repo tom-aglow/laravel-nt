@@ -43,14 +43,14 @@
             $.ajax({
                 url: '{{route('client.test.ajax')}}',
                 data: new FormData($('#upload-form')[0]),
-                datatype: 'json',
+                dataType: 'json',
                 type: 'post',
                 processData: false,
-                success: function(data){
-                    console.log(data);
+                contentType: false,
+                success: function(request){
+                    console.log(request);
                 },
             });
         });
-
     });
 </script>

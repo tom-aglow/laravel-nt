@@ -12,12 +12,12 @@
 
     {{--jQuery CDN--}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/bower_components/jquery/jquery.min.js"><\/script>')</script>
 
     {{--bootstrap toggles--}}
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
     {{--bootstrap datepicker--}}
-    <script type="text/javascript" src="/bower_components/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
     <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
@@ -26,7 +26,7 @@
 
 
 
-    <script src="/js/admin.js"></script>
+    <script src="/js/admin/admin.js"></script>
 
     <title>{{ $title or 'I need a title' }}</title>
 </head>
@@ -34,5 +34,6 @@
     @yield('header')
     @yield('container')
 
+    @yield('footer_script')
 </body>
 </html>

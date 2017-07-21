@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Tag;
 use App\Models\Role;
 
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -223,6 +224,12 @@ class ArticleController extends AdminController
      *
      * @return \Illuminate\Http\RedirectResponse
      */
+
+    public function editAjax () {
+
+
+    }
+
     public function editPost($id, Request $request, Uploader $uploader, Upload $uploadModel) {
 
         $request->flash();
@@ -251,6 +258,9 @@ class ArticleController extends AdminController
          */
 
         if ($request->only('button')['button'] === 'upload') {
+            $this->validate($request, [
+                'file' => 'required'
+            ]);
             $this->imageUpload($request,  $uploader,  $uploadModel, $article);
             return redirect()->route('admin.article.edit', $id)
                 ->with('msg', 'Image was updated');

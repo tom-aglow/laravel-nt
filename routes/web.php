@@ -29,7 +29,7 @@ Route::post('/ajax', 'TestController@ajaxPost');
 
 //    laravel's staff
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 

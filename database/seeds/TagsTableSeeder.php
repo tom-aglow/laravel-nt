@@ -25,7 +25,7 @@ class TagsTableSeeder extends Seeder
             'updated_at' => $timeStep,
         ]);
         Tag::create([
-            'tag_name' => 'UI/UX',
+            'tag_name' => 'UI-UX',
             'created_at' => $timeStep,
             'updated_at' => $timeStep,
         ]);

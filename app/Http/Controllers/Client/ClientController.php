@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Events\FeedbackSending;
 use App\Models\Article;
+use function foo\func;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,10 +16,7 @@ class ClientController extends Controller
         $articles = Article::active()
             ->inTime()
             ->latest()
-            ->get();
-
-//        TODO add pagination
-//        TODO for widgets make function in service provider or base controller to render shared view data
+            ->paginate(5);
 
         return view('client.3-templates.main', [
             'page' => 'client.4-pages.index',
@@ -27,16 +25,19 @@ class ClientController extends Controller
         ]);
     }
 
-//    TODO move to ArticleController (maybe ???)
-    public function showArticle ($slug ) {
-        $article = Article::with('comments.user')->where('slug', $slug)->firstOrFail();
+    public function listByTag ($tag) {
 
-        return view('client.3-templates.single', [
-            'page' => 'client.4-pages.article',
-            'title' => $article->title,
-            'article' => $article
+        $articles = Article::active()
+            ->inTime()
+            ->hasTag($tag)
+            ->orderBy('articles.created_at', 'desc')
+            ->paginate(5);
+
+        return view('client.3-templates.main', [
+            'page' => 'client.4-pages.index',
+            'title' => 'Index',
+            'articles' => $articles,
         ]);
-//        TODO add slug (web friendly url) for one article view
     }
 
     public function showAbout () {
@@ -81,6 +82,7 @@ class ClientController extends Controller
             'title' => 'Page not found',
         ]);
     }
+
 
     // TODO add attribute for menu
 

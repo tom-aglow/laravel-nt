@@ -1,40 +1,22 @@
-<nav class="navbar navbar-default" role="navigation">
-    <div class="" id="readable-navbar-collapse">
-        <ul class="navigation">
-            <li class="dropdown active">
-                <a href="{{ route('client.client.index') }}" class="dropdown-toggle" data-toggle="dropdown">Home page</a>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Test</a>
-                <ul class="navigation__dropdown">
-                    <li><a href="#">Item 1</a></li>
-                    <li><a href="#">Item 2</a></li>
-                    <li><a href="#">Item 3</a></li>
-                    <li><a href="#">Item 4</a></li>
-                </ul>
-            </li>
-            <li class="">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Web</a>
-            </li>
-            <li class="">
-                <a href="{{ route('client.about.show') }}" class="dropdown-toggle" data-toggle="dropdown">About me</a>
-            </li>
-            <li class="">
-                <a href="{{ route('client.contact.show') }}" class="dropdown-toggle" data-toggle="dropdown">Contact me</a>
-            </li>
-            <li class="">
-                <a href="{{ route('client.auth.signup') }}" class="dropdown-toggle" data-toggle="dropdown">Sign up</a>
-            </li>
+<ul id="nav-mobile" class="right hide-on-med-and-down">
+    <li class="active"><a href="{{ route('client.client.index') }}">Home</a></li>
+    <li><a href="{{ route('client.about.show') }}">About</a></li>
+    <li><a href="{{ route('client.client.index') }}">Posts</a></li>
+    <li><a href="{{ route('client.contact.show') }}">Contact</a></li>
+    <li><a href="{{ route('client.auth.signup') }}">Sign up</a></li>
+    <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons">more_vert</i></a></li>
+</ul>
 
-            @if(Auth::check())
-                <li class="">
-                    You are {{ Auth::user()->name }}<a href="{{ route('client.auth.logout') }}" class="dropdown-toggle" data-toggle="dropdown">Logout</a>
-                </li>
-            @else
-                <li class="">
-                    <a href="{{ route('client.auth.login') }}" class="dropdown-toggle" data-toggle="dropdown">Log in</a>
-                </li>
-            @endif
-        </ul>
-    </div>
-</nav>
+<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+    @if(Auth::check())
+        <li class="login_info">You are<br> {{ Auth::user()->name }}</li>
+        <li class="divider"></li>
+        <li><a href="{{ route('client.auth.logout') }}">Logout</a></li>
+    @else
+        <li class="login_info">You are not logged in</li>
+        <li class="divider"></li>
+        <li><a href="{{ route('client.auth.login') }}">Log in</a></li>
+    @endif
+</ul>
+

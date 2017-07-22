@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Tag;
 use App\Models\Role;
 
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -34,9 +35,27 @@ class ArticleController extends AdminController
     public function list(User $user) {
 
         //  retrieve data from DB
-        $articles = Article::latest()
-            ->paginate(5);
+        $articles = Article::latest()->get();
 
+        //  define article status
+        $articles = $articles->map(function ($item) {
+            $now = \Carbon\Carbon::now();
+
+            if (!$item['is_active']) {
+                $item['status'] = 'inactive';
+            } elseif($now < $item['active_from']) {
+                $item['status'] = 'scheduled';
+            } elseif (is_null($item['active_to']) || $now < $item['active_to']) {
+                $item['status'] = 'active';
+            } else {
+                $item['status'] = 'overdue';
+            }
+
+            return $item;
+        });
+
+        //  paginate modified collection
+        $articles = $this->paginate($articles, 5, route('admin.article.list'));
 
         // return the view with parameters
         return view('admin.3-pages.article-list', [
@@ -223,6 +242,7 @@ class ArticleController extends AdminController
      *
      * @return \Illuminate\Http\RedirectResponse
      */
+
     public function editPost($id, Request $request, Uploader $uploader, Upload $uploadModel) {
 
         $request->flash();
@@ -251,6 +271,9 @@ class ArticleController extends AdminController
          */
 
         if ($request->only('button')['button'] === 'upload') {
+            $this->validate($request, [
+                'file' => 'required'
+            ]);
             $this->imageUpload($request,  $uploader,  $uploadModel, $article);
             return redirect()->route('admin.article.edit', $id)
                 ->with('msg', 'Image was updated');
@@ -281,10 +304,17 @@ class ArticleController extends AdminController
         //  : set 'is-active' attribute to true if request has it, else set to false
         //  :   cannot be done with mutator since if input field is unchecked, the value is not in request and not passing to DB
         //  : replace slug with slug from new article title
+        //  : replace sting values of dates by date objects
+
+
 
 
         $article->slug = $article->id . ':' . str_slug($request->input('title'), '-');
         $article->is_active = ($request->has('is_active')) ? true : false;
+        $request->replace([
+            'active_from' => date_create($request->input(['active_from'])),
+            'active_to' => date_create($request->input(['active_to'])),
+        ]);
 
         $article->fill($request->except(['button', 'tags', 'is_active']))
             ->save();
@@ -396,10 +426,5 @@ class ArticleController extends AdminController
         }
 
         return $uploader->getErrors();
-    }
-
-
-    private function getArticleStatus () {
-//        TODO update article status in list view
     }
 }

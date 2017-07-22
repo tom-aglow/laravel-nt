@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AdminController extends Controller
 {
@@ -26,13 +28,30 @@ class AdminController extends Controller
      */
     public function index () {
 
-        if (Auth::check()) {
+        if (!Auth::check() || Gate::denies('admin-access')) {
+            abort(403);
+        } else {
             return view('admin.3-pages.home', [
                 'title' => 'Admin index',
                 'msg' => '',
             ]);
-        } else {
-            return redirect()->route('admin.auth.login');
         }
+    }
+
+    /**
+     * Custom paginator
+     */
+    protected function paginate($col, $perPage = 10, $path)
+    {
+        //  Get current page form url e.g. &page=1
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+
+        //  Slice the collection to get the items to display in current page
+        $currentPageItems = $col->slice(($currentPage - 1) * $perPage, $perPage)->all();
+
+        //  Create paginator and pass it to the view
+        return new LengthAwarePaginator($currentPageItems, count($col), $perPage, $currentPage, [
+            'path' => $path
+        ]);
     }
 }

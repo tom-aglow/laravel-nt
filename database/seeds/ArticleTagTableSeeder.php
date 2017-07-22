@@ -15,6 +15,17 @@ class ArticleTagTableSeeder extends Seeder
             ['article' => 5, 'tag' => 1],
             ['article' => 5, 'tag' => 3],
             ['article' => 5, 'tag' => 4],
+            ['article' => 6, 'tag' => 1],
+            ['article' => 6, 'tag' => 4],
+            ['article' => 7, 'tag' => 3],
+            ['article' => 7, 'tag' => 4],
+            ['article' => 8, 'tag' => 2],
+            ['article' => 8, 'tag' => 3],
+            ['article' => 8, 'tag' => 4],
+            ['article' => 9, 'tag' => 1],
+            ['article' => 9, 'tag' => 4],
+            ['article' => 10, 'tag' => 1],
+            ['article' => 10, 'tag' => 2],
         ];
     /**
      * Run the database seeds.

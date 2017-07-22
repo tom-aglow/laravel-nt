@@ -40,23 +40,31 @@ class AuthController extends ClientController
 
     }
 
+    public function login () {
+        return view('client.3-templates.single', [
+            'page' => 'client.4-pages.login',
+            'title' => 'Login',
+            'content' => '',
+            'activeMenu' => 'login',
+        ]);
+    }
 
-    /*
-     *  for login form loading see \Auth\LoginController -> showLoginForm
-     */
+    public function loginPost (Request $request) {
 
-//    public function login () {
+        $remember = $request->input('remember') ? true : false;
 
-//    }
+        $authResult = Auth::attempt([
+            'username' => $request->input('login'),
+            'password' => $request->input('password')
+        ], $remember);
 
-
-    /*
-     *  for login form posting see \Auth\LoginController -> login
-     */
-
-//    public function loginPost (Request $request) {
-//
-//    }
+        if ($authResult) {
+            return redirect()->route('client.client.index');
+        } else {
+            return redirect()->route('client.auth.login')
+                ->with('authError', trans('custom.wrongPassword'));
+        }
+    }
 
     public function logout () {
         Auth::logout();

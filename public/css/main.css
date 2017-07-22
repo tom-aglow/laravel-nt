@@ -1,0 +1,65 @@
+/*  STICKY FOOTER   */
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+/*  HOME PAGE   */
+.logo {
+    margin-left: 40px;
+}
+.login_info {
+    padding: 16px 25px;
+}
+nav .dropdown-content {
+    width: 200px !important;
+}
+
+.article_date {
+    display: flex;
+    justify-content: flex-end;
+    color: grey;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.article_action {
+    display: flex;
+    justify-content: space-between;
+}
+
+.author {
+    text-align: center;
+}
+.author img {
+    margin-top: 20px;
+}
+
+
+/*  ARTICLE PAGE   */
+.article_tag_cloud {
+    margin-top: 30px;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    align-items: baseline;
+}
+.comment-date {
+    font-size: 0.9rem;
+    color: grey;
+}
+
+/*  CONTACT PAGE   */
+.contact__obligatory {
+    margin-top: 20px;
+}

@@ -46,5 +46,15 @@ class UsersTableSeeder extends Seeder
             'created_at' => $faker->dateTimeBetween('-2 years', 'now'),
             'updated_at' => $faker->dateTimeBetween('-2 years', 'now'),
         ]);
+
+        User::create([
+            'username' => 'tester',
+            'role_id' => 3,
+            'name' => 'Guest user',
+            'email' => 'guest@ohhhh.me',
+            'password' => 'zxcvbn',
+            'created_at' => $faker->dateTimeBetween('-2 years', 'now'),
+            'updated_at' => $faker->dateTimeBetween('-2 years', 'now'),
+        ]);
     }
 }

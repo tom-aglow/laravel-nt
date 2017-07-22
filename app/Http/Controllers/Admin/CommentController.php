@@ -30,13 +30,14 @@ class CommentController extends AdminController
             ->get()
             ->groupBy('article_id');
 
-        //  paginate comments
-        $commentsPag = $this->paginate($comments, 5);
+        //  paginate grouped collection
+        $col = new Collection($comments);
+        $comments = $this->paginate($col, 5, route('admin.comment.list'));
 
         //  return view with parameters
         return view('admin.3-pages.comment-list', [
             'title' => 'Comments list',
-            'comments' => $commentsPag,
+            'comments' => $comments,
             'menuActive' => $this->menuActive,
             'msg' => session('msg') ?? '',
         ]);
@@ -105,27 +106,5 @@ class CommentController extends AdminController
         //  redirect to comment's list view with message
         return redirect()->route('admin.comment.list')
             ->with('msg', $msg ?? '');
-    }
-
-    /**
-     * Create a length aware custom paginator instance.
-     *
-     * @param  Collection  $items
-     * @param  int  $perPage
-     * @return \Illuminate\Pagination\LengthAwarePaginator
-     */
-    protected function paginate($items, $perPage = 12)
-    {
-        //  Get current page form url e.g. &page=1
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-
-        //  Create collection from input array
-        $col = new Collection($items);
-
-        //  Slice the collection to get the items to display in current page
-        $currentPageItems = $col->slice(($currentPage - 1) * $perPage, $perPage)->all();
-
-        //  Create paginator and pass it to the view
-        return new LengthAwarePaginator($currentPageItems, count($col), $perPage);
     }
 }

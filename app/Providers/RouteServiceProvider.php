@@ -7,56 +7,33 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 
 class RouteServiceProvider extends ServiceProvider
 {
-    /**
-     * This namespace is applied to your controller routes.
-     *
-     * In addition, it is set as the URL generator's root namespace.
-     *
-     * @var string
-     */
     protected $namespace = 'App\Http\Controllers';
 
-    /**
-     * Define your route model bindings, pattern filters, etc.
-     *
-     * @return void
-     */
+
     public function boot()
     {
         Route::pattern('id', '[0-9]+');
 
         parent::boot();
+
     }
 
     /**
      * Define the routes for the application.
-     *
-     * @return void
      */
     public function map()
     {
         $this->mapApiRoutes();
-
         $this->mapImageRoutes();
-
         $this->mapFileRoutes();
-
         $this->mapAdminRoutes();
-
         $this->mapAdminCPRoutes();
-
+        $this->mapClientRoutes();
         $this->mapWebRoutes();
 
         //
     }
 
-    /**
-     * Define the "web" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
-     * @return void
-     */
     protected function mapWebRoutes()
     {
         Route::middleware('web')
@@ -64,13 +41,6 @@ class RouteServiceProvider extends ServiceProvider
              ->group(base_path('routes/web.php'));
     }
 
-    /**
-     * Define the "api" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
-     * @return void
-     */
     protected function mapApiRoutes()
     {
         Route::prefix('api')
@@ -79,13 +49,6 @@ class RouteServiceProvider extends ServiceProvider
              ->group(base_path('routes/api.php'));
     }
 
-    /**
-     * Define the "Admin" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
-     * @return void
-     */
     protected function mapAdminRoutes()
     {
         Route::middleware(['web', 'admin'])
@@ -94,13 +57,6 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/admin.php'));
     }
 
-    /**
-     * Define the "AdminCP" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
-     * @return void
-     */
     protected function mapAdminCPRoutes()
     {
         Route::middleware(['api'])
@@ -109,13 +65,14 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/admincp.php'));
     }
 
-    /**
-     * Define the "image" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
-     * @return void
-     */
+    protected function mapClientRoutes()
+    {
+        Route::prefix('/')
+            ->middleware(['web'])
+            ->namespace($this->namespace . '\Client')
+            ->group(base_path('routes/client.php'));
+    }
+
     protected function mapImageRoutes()
     {
         Route::prefix('image')
@@ -123,13 +80,6 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/image.php'));
     }
 
-    /**
-     * Define the "file" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
-     * @return void
-     */
     protected function mapFileRoutes()
     {
         Route::prefix('file')

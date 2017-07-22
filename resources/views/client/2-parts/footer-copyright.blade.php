@@ -1,11 +1,5 @@
-<footer class="copyrights">
+<div class="footer-copyright">
     <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-6">
-                <div class="copyrights--right">
-                    Blog HTML Template © Copyright 2015.
-                </div>
-            </div>
-        </div>
+        © 2017 Copyright Text
     </div>
-</footer>
+</div>

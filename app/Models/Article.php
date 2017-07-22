@@ -44,6 +44,16 @@ class Article extends Model
     }
 
     /**
+     * SCOPE: Does article have given tag
+     */
+    public function scopeHasTag($query, $tag) {
+        return $query->join('article_tag', 'articles.id', '=', 'article_tag.article_id')
+            ->join('tags', 'article_tag.tag_id', '=', 'tags.id')
+            ->where('tags.tag_name', $tag);
+    }
+
+
+    /**
      * RELATIONSHIPS
      */
 

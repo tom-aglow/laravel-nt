@@ -15,7 +15,7 @@
             <tr>
                 <td class="t-col-md">{{ formatStrToDate($article->created_at) }}</td>
                 <td>{{ $article->title }}</td>
-                <td>Draft</td>
+                <td>{{ $article->status }}</td>
                 <td class="t-col-md">{{ $article->active_from }}</td>
                 <td class="t-col-md">{{ $article->active_to }}</td>
 
@@ -27,7 +27,7 @@
 
             @endforelse
         </table>
-        {{ $articles->links() }}
+        {{ $articles->links('vendor.pagination.bootstrap-4') }}
         <br>
         <a class="btn btn-sm btn-info" href="{{ route('admin.article.add') }}" data-toggle="tooltip" data-placement="top" title="Add new article">+add</a><br>
     </section>

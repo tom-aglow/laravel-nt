@@ -112,7 +112,7 @@ class ImageController extends Controller
 
     protected function createResponse($imgObj, $ext = 'jpg', $quality = 75)
     {
-        //TODO put requested file in public/img folder
+        //TODO put requested file in public/img folder (see Karina's code)
         /*
         $arrayName = explode('/', $this->request->path());
         array_pop($arrayName);

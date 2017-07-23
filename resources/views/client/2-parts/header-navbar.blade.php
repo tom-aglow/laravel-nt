@@ -17,7 +17,7 @@
         <li class="login_info">You are not logged in</li>
         <li class="divider"></li>
         <li><a href="{{ route('client.auth.login') }}">Log in</a></li>
-        <li><a href="{{ route('client.auth.facebook') }}">Log in via Facebook</a></li>
+        <li><a href="{{ route('client.auth.provider', 'facebook') }}">Log in via Facebook</a></li>
     @endif
 </ul>
 

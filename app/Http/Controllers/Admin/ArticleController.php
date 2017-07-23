@@ -32,7 +32,7 @@ class ArticleController extends AdminController
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function list(User $user) {
+    public function articleList() {
 
         //  retrieve data from DB
         $articles = Article::latest()->get();

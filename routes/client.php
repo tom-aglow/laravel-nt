@@ -53,6 +53,13 @@ Route::post('/login', 'AuthController@loginPost')
 Route::get('/logout', 'AuthController@logout')
     ->name('client.auth.logout');
 
+//  SOCIAL MEDIA LOGIN
+Route::get('login/facebook', 'AuthController@redirectToProvider')
+    ->name('client.auth.facebook');
+Route::get('login/facebook/callback', 'AuthController@handleProviderCallback');
+
+
 //  INDEX
 Route::get('/', 'ClientController@index')
     ->name('client.client.index');
+

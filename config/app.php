@@ -184,8 +184,8 @@ return [
          */
         App\Providers\HelperServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class
-
+        Intervention\Image\ImageServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
     ],
 
     /*
@@ -236,7 +236,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
 //        my addons
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];

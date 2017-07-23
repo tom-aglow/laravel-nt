@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends ClientController
 {
@@ -59,7 +60,7 @@ class AuthController extends ClientController
         ], $remember);
 
         if ($authResult) {
-            return redirect()->route('client.client.index');
+            return redirect()->intended('client.client.index');
         } else {
             return redirect()->route('client.auth.login')
                 ->with('authError', trans('custom.wrongPassword'));
@@ -71,4 +72,26 @@ class AuthController extends ClientController
         return redirect()->route('client.client.index');
     }
 
+    /**
+     * Redirect the user to the Facebook authentication page.
+     *
+     * @return Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    /**
+     * Obtain the user information from Facebook.
+     *
+     * @return Response
+     */
+    public function handleProviderCallback()
+    {
+        $user = Socialite::driver('facebook')->user();
+//        $token = $user->token;
+
+        dump($user);
+    }
 }

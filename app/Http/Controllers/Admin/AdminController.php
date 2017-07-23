@@ -29,7 +29,7 @@ class AdminController extends Controller
     public function index () {
 
         if (!Auth::check() || Gate::denies('admin-access')) {
-            abort(403);
+            return redirect()->route('admin.auth.login');
         } else {
             return view('admin.3-pages.home', [
                 'title' => 'Admin index',

@@ -38,6 +38,6 @@ return [
     'facebook' => [
         'client_id' => '1525285214198869',
         'client_secret' => '6993e0514c2f2ad4789219ae52854e82',
-        'redirect' => 'http://laravel-nt.local/login/facebook/callback',
+        'redirect' => env('APP_URL') . '/login/facebook/callback',
     ],
 ];

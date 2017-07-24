@@ -44,7 +44,4 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Role');
     }
 
-    public function socialAccounts () {
-        return $this->hasMany('App\Models\SocialAccount');
-    }
 }

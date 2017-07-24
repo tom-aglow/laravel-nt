@@ -17,10 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
 
-//        share variable for all views
-//        View::share('isAuth', false);
 
     }
 
@@ -43,9 +40,6 @@ class AppServiceProvider extends ServiceProvider
             return new Uploader();
         });
 
-        $this->app->singleton('SocialAccountLogin', function ($app) {
-            return new SocialAccountLogin();
-        });
     }
 
 }

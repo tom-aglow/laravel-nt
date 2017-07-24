@@ -9,6 +9,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
 
 class AuthController extends ClientController
 {
@@ -93,6 +94,11 @@ class AuthController extends ClientController
 
     public function handleProviderCallback($provider)
     {
+        if(Input::get('error') == 'access_denied'){
+            return redirect()->route('client.auth.login')
+                ->with('msg', trans('auth.providers.failed'));
+        }
+
         $socialUser = Socialite::driver($provider)->user();
 
         $user = User::firstOrCreate(['email' => $socialUser->getEmail()],[

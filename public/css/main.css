@@ -73,3 +73,10 @@ nav .dropdown-content {
     padding-top: 20px;
     border-top: 1px solid #d81b60;
 }
+.card-content.msg {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.msg__alert{
+    color: #f44336;
+}

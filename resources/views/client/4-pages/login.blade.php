@@ -5,6 +5,9 @@
                 <h5>Login or create a new account</h5>
                 <p>Ut ullamcorper, risus a rhoncus fringilla, dui nisl viverra nunc, quis consectetur massa purus a nulla.</p>
             </div>
+            @if(session()->has('msg'))
+                <div class="card-content msg msg__alert">{{ session('msg') }}</div>
+            @endif
             <div class="card-tabs">
                 <ul class="tabs tabs-fixed-width">
                     <li class="tab"><a class="active" href="#login">Log in</a></li>

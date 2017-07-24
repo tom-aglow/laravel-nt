@@ -29,5 +29,12 @@ return [
     'mail' => [
         'blogAuthor' => 'tom@ohhhh.me',
         'feedbackSubject' => 'New feedback in your blog',
-    ]
+    ],
+
+    /*
+    * values for user login/signup
+    */
+    'user' => [
+        'role' => 'User'
+    ],
 ];

@@ -40,8 +40,6 @@ Route::get('/404', 'ClientController@show404');
 
 //  LOGIN / SIGNUP / LOGOUT
 
-Route::get('/signup', 'AuthController@signup')
-    ->name('client.auth.signup');
 Route::post('/signup', 'AuthController@signupPost')
     ->name('client.auth.signupPost');
 
@@ -53,6 +51,15 @@ Route::post('/login', 'AuthController@loginPost')
 Route::get('/logout', 'AuthController@logout')
     ->name('client.auth.logout');
 
+//  SOCIAL MEDIA LOGIN
+Route::get('login/{provider}', 'AuthController@redirectToProvider')
+    ->name('client.auth.provider')
+    ->where('provider', '[a-z]+');
+Route::get('login/{provider}/callback', 'AuthController@handleProviderCallback')
+    ->where('provider', '[a-z]+');
+
+
 //  INDEX
 Route::get('/', 'ClientController@index')
     ->name('client.client.index');
+

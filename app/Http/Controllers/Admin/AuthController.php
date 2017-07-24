@@ -29,7 +29,8 @@ class AuthController extends AdminController
         ], $remember);
 
         if ($authResult) {
-            return redirect()->route('admin.admin.index');
+            return redirect()->intended(route('admin.admin.index'));
+            //TODO intended url not working without middleware 'web'
         } else {
             return redirect()->route('admin.auth.login')
                 ->with('authError', trans('custom.wrongPassword'));
@@ -38,6 +39,6 @@ class AuthController extends AdminController
 
     public function logout() {
         Auth::logout();
-        return redirect()->route('admin.auth.login');
+        return redirect()->route('client.client.index');
     }
 }

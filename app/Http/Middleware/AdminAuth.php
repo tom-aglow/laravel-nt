@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 use Closure;
 
@@ -18,7 +19,7 @@ class AdminAuth
     {
         $response = $next($request);
 
-        if (!Auth::check() && $request->is('admin/*') && $request->path() !== 'admin/login'  && $request->path() !== 'admin/logout') {
+        if ((!Auth::check() || Gate::denies('admin-access')) && $request->path() !== 'admin/logout') {
 
             return abort(403);
         }

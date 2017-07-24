@@ -61,7 +61,7 @@ class Handler extends ExceptionHandler
                 ], 404);
                 break;
 
-
+            //TODO make handler for client side 404 error
             // HTTPException handler
 
             case ($exception instanceof HttpException):
@@ -87,7 +87,7 @@ class Handler extends ExceptionHandler
             // AuthorizationException handler
 
             case ($exception instanceof AuthorizationException):
-                return response()->view('admin.3-pages.error-ext', [
+                return response()->view('admin.3-pages.error-int', [
                     'errorCode' => 403,
                     'errorMessage' => 'You don\'t have privileges to view this page',
                 ], 403);

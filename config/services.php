@@ -30,9 +30,14 @@ return [
     ],
 
     'stripe' => [
-        'model' => App\User::class,
+        'model' => App\Models\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'facebook' => [
+        'client_id' => '1525285214198869',
+        'client_secret' => '6993e0514c2f2ad4789219ae52854e82',
+        'redirect' => 'http://laravel-nt.local/login/facebook/callback',
+    ],
 ];

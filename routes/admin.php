@@ -18,9 +18,9 @@ Route::get('/', 'AdminController@index')
  */
 
 Route::group(['prefix' => 'article', 'middleware' => 'can:all,App\Models\Article'], function () {
-    Route::get('/', 'ArticleController@list')
+    Route::get('/', 'ArticleController@articleList')
         ->name('admin.article.list');
-    Route::get('list', 'ArticleController@list')
+    Route::get('list', 'ArticleController@articleList')
         ->name('admin.article.list');
 
 

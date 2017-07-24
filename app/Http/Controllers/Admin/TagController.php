@@ -15,12 +15,6 @@ class TagController extends AdminController
         'tag_name' => 'required',
     ];
 
-    /**
-     *
-     * Rendering the tag list view
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function list() {
 
         $tags = Tag::all()
@@ -34,15 +28,6 @@ class TagController extends AdminController
         ]);
     }
 
-    /**
-     *
-     * Handling post request for tag editing
-     *
-     * @param         $id
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function update ($id, Request $request) {
 
         //  retrieve tag fromDB
@@ -83,14 +68,6 @@ class TagController extends AdminController
             ->with('msg', $msg);
     }
 
-    /**
-     *
-     * Handling post request for tag adding
-     *
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function add (Request $request) {
 
         //  validate data from form

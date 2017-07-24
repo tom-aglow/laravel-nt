@@ -45,29 +45,29 @@ class LoginController extends Controller
         return 'username';
     }
 
-    public function showLoginForm()
-    {
-        return view('client.3-templates.single', [
-            'page' => 'client.4-pages.login',
-            'title' => 'Login',
-            'content' => '',
-            'activeMenu' => 'login',
-        ]);
-    }
-
-    public function login(Request $request) {
-        $remember = $request->input('remember') ? true : false;
-
-        $authResult = Auth::attempt([
-            'email' => $request->input('email'),
-            'password' => $request->input('password')
-        ], $remember);
-
-        if ($authResult) {
-            return redirect()->route('client.client.index');
-        } else {
-            return redirect()->route('client.auth.login')
-                ->with('authError', trans('custom.wrongPassword'));
-        }
-    }
+//    public function showLoginForm()
+//    {
+//        return view('client.3-templates.single', [
+//            'page' => 'client.4-pages.login',
+//            'title' => 'Login',
+//            'content' => '',
+//            'activeMenu' => 'login',
+//        ]);
+//    }
+//
+//    public function login(Request $request) {
+//        $remember = $request->input('remember') ? true : false;
+//
+//        $authResult = Auth::attempt([
+//            'email' => $request->input('email'),
+//            'password' => $request->input('password')
+//        ], $remember);
+//
+//        if ($authResult) {
+//            return redirect()->route('client.client.index');
+//        } else {
+//            return redirect()->route('client.auth.login')
+//                ->with('authError', trans('custom.wrongPassword'));
+//        }
+//    }
 }

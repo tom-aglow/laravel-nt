@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Classes\AwesomeClass;
 use App\Classes\Uploader;
+use App\Classes\SocialAccountLogin;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 
@@ -16,10 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
 
-//        share variable for all views
-//        View::share('isAuth', false);
 
     }
 
@@ -41,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton('Uploader', function ($app) {
             return new Uploader();
         });
-    }
 
+    }
 
 }

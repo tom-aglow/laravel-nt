@@ -10,7 +10,7 @@
                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-{{ $key }}" aria-expanded="true" aria-controls="collapse-{{ $key }}">
                             Article #{{ $key }}: {{ $commentCollection[0]->article->title }}
                         </a>
-                        <span class="badge pull-right">{{ $commentCollection->filter(function ($item) {return $item->status->status === 'on moderation';})->count() }}</span>
+                        <span class="badge pull-right">{{ $commentCollection->filter(function ($item) {return $item->status->status === config('blog.commentStatus.new');})->count() }}</span>
                     </h4>
                 </div>
                 <div id="collapse-{{ $key }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-{{ $key }}">
@@ -46,6 +46,7 @@
 
                             @endforelse
                         </table>
+                        <a class="btn btn-primary btn-sm" href="{{ route('client.article.show', $commentCollection[0]->article->slug) }}">Reply to comments</a>
                     </div>
                 </div>
             </div>

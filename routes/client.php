@@ -40,8 +40,6 @@ Route::get('/404', 'ClientController@show404');
 
 //  LOGIN / SIGNUP / LOGOUT
 
-Route::get('/signup', 'AuthController@signup')
-    ->name('client.auth.signup');
 Route::post('/signup', 'AuthController@signupPost')
     ->name('client.auth.signupPost');
 

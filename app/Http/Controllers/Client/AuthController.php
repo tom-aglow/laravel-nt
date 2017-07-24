@@ -8,20 +8,23 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends ClientController
 {
-    public function signup () {
+    public function login () {
         return view('client.3-templates.single', [
-            'page' => 'client.4-pages.signup',
-            'title' => 'Sign up',
+            'page' => 'client.4-pages.login',
+            'title' => 'Login',
             'content' => '',
-            'activeMenu' => 'signup',
+            'activeMenu' => 'login',
         ]);
     }
 
+
     public function signupPost (Request $request) {
-        $this->validate($request, [
+
+        $validator = Validator::make($request->all(), [
             'name' => 'required|max:30',
             'username' => 'required|alpha_dash|max:10',
             'email' => 'required|email|unique:users|max:30',
@@ -29,6 +32,12 @@ class AuthController extends ClientController
             'password2' => 'required|same:password',
             'isConfirmed' => 'accepted',
         ]);
+
+        if ($validator->fails()) {
+            return redirect(route('client.auth.login') . '?#signup')
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         $user = User::create([
             'name' => $request->input('name'),
@@ -44,15 +53,6 @@ class AuthController extends ClientController
 
         return redirect()->route('client.client.index');
 
-    }
-
-    public function login () {
-        return view('client.3-templates.single', [
-            'page' => 'client.4-pages.login',
-            'title' => 'Login',
-            'content' => '',
-            'activeMenu' => 'login',
-        ]);
     }
 
     public function loginPost (Request $request) {
@@ -77,21 +77,16 @@ class AuthController extends ClientController
         return redirect()->route('client.client.index');
     }
 
-    /**
-     * Redirect the user to social account provider authentication page.
-     *
-     * @return Response
+    /*
+     * Authentication with social media account
+     *      - redirect to provider site
+     *      - handle response
      */
     public function redirectToProvider($provider)
     {
         return Socialite::driver($provider)->redirect();
     }
 
-    /**
-     * Obtain the user information from social account provider.
-     *
-     * @return Response
-     */
     public function handleProviderCallback($provider)
     {
         $socialUser = Socialite::driver($provider)->user();

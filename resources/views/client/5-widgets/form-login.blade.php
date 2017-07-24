@@ -3,12 +3,12 @@
     <div class="row">
         <div class="col l10 offset-l1">
             <div class="input-field col l12">
-                <input type="text" name="login" id="login" value="{{ old('login') }}" placeholder="Type in your login" required>
-                <label for="login">Login</label>
+                <input type="text" name="login" id="login" value="{{ old('login') }}" placeholder="Type in your login or email" required>
+                <label for="login">Login / Email *</label>
             </div>
             <div class="input-field col l12">
-                <input type="password" name="password" id="password" value="" placeholder="Type in your login" required>
-                <label for="password">Password</label>
+                <input type="password" name="password" id="password" value="" placeholder="Type in your password" required>
+                <label for="password">Password *</label>
             </div>
             <p>
                 <input type="checkbox" name="remember" class="filled-in" id="remember">

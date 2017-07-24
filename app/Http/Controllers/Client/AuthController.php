@@ -57,12 +57,16 @@ class AuthController extends ClientController
 
     public function loginPost (Request $request) {
 
+
+        //  check what field user are using for login and add it to request with appropriate key
+        $field = filter_var($request->input('login'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $request->merge([$field => $request->input('login')]);
+
+        //  check if we need to remember user
         $remember = $request->input('remember') ? true : false;
 
-        $authResult = Auth::attempt([
-            'username' => $request->input('login'),
-            'password' => $request->input('password')
-        ], $remember);
+        //  try to authenticate user
+        $authResult = Auth::attempt($request->only($field, 'password'), $remember);
 
         if ($authResult) {
             return redirect()->intended(route('client.client.index'));

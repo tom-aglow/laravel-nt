@@ -32,7 +32,7 @@ class ArticleController extends AdminController
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function articleList() {
+    public function articleList(Request $request) {
 
         //  retrieve data from DB
         $articles = Article::latest()->get();
@@ -75,7 +75,7 @@ class ArticleController extends AdminController
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function add(Upload $upload, Request $request) {
+    public function add(Upload $upload) {
 
         /*
          * get the article image path from session if it was set before; otherwise load default image

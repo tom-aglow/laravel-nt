@@ -5,6 +5,7 @@
         <div class="jumbotron">
             <h1>Error {{ $errorCode }}</h1>
             <p>{{ $errorMessage }}</p>
+            <a href="{{ route('admin.admin.index') }}">Go to main page</a>
         </div>
     </section>
 @endsection

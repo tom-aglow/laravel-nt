@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -28,6 +30,22 @@ class Handler extends ExceptionHandler
     ];
 
     /**
+     * Settings for rendering exceptions depending on route
+     *
+     * @var array
+     */
+    private $config = [
+        'admin' => [
+            'template' => 'admin.3-pages.error',
+            'page' => ''
+        ],
+        'client' => [
+            'template' => 'client.3-templates.main',
+            'page' => 'client.4-pages.404'
+        ]
+    ];
+
+    /**
      * Report or log an exception.
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
@@ -49,31 +67,42 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if($request->is('admin/*')) {
+            $settings = $this->config['admin'];
+        } else {
+            $settings = $this->config['client'];
+        }
+
         switch ($exception) {
 
             // NotFoundException handler
 
             case ($exception instanceof ModelNotFoundException):
             case ($exception instanceof NotFoundHttpException):
-                return response()->view('admin.3-pages.error-int', [
+
+
+                return response()->view($settings['template'], [
+                    'page' => $settings['page'],
                     'errorCode' => 404,
                     'errorMessage' => 'Page not found',
                 ], 404);
+
                 break;
 
-            //TODO make handler for client side 404 error
             // HTTPException handler
 
             case ($exception instanceof HttpException):
                 switch ($exception->getStatusCode()) {
                     case 403:
-                        return response()->view('admin.3-pages.error-ext', [
+                        return response()->view($settings['template'], [
+                            'page' => $settings['page'],
                             'errorCode' => 403,
                             'errorMessage' => 'Forbidden: access is denied',
                         ], 403);
                         break;
                     case 500:
-                        return response()->view('admin.3-pages.error-int', [
+                        return response()->view($settings['template'], [
+                            'page' => $settings['page'],
                             'errorCode' => 500,
                             'errorMessage' => 'Internal server error',
                         ], 500);
@@ -87,7 +116,8 @@ class Handler extends ExceptionHandler
             // AuthorizationException handler
 
             case ($exception instanceof AuthorizationException):
-                return response()->view('admin.3-pages.error-int', [
+                return response()->view($settings['template'], [
+                    'page' => $settings['page'],
                     'errorCode' => 403,
                     'errorMessage' => 'You don\'t have privileges to view this page',
                 ], 403);

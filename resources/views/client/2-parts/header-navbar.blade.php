@@ -1,8 +1,7 @@
 <ul id="nav-mobile" class="right hide-on-med-and-down">
-    <li class="active"><a href="{{ route('client.client.index') }}">Home</a></li>
-    <li><a href="{{ route('client.about.show') }}">About</a></li>
-    <li><a href="{{ route('client.client.index') }}">Posts</a></li>
-    <li><a href="{{ route('client.contact.show') }}">Contact</a></li>
+    @foreach($menu as $key => $value)
+        <li class="{{ $value['active'] ? 'active' : '' }}"><a href="{{ route($value['path']) }}">{{ ucfirst($key) }}</a></li>
+    @endforeach
     <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons">account_circle</i></a></li>
 
 </ul>

@@ -11,6 +11,28 @@ use App\Http\Controllers\Controller;
 
 class ClientController extends Controller
 {
+    protected $menu = [
+        'home' => [
+            'active' => false,
+            'path' => 'client.client.index',
+        ],
+        'about' => [
+            'active' => false,
+            'path' => 'client.about.show',
+        ],
+        'posts' => [
+            'active' => false,
+            'path' => 'client.client.index',
+        ],
+        'contact' => [
+            'active' => false,
+            'path' => 'client.contact.show',
+        ],
+        'forum' => [
+            'active' => false,
+            'path' => 'client.threads.index',
+        ],
+    ];
 
     public function index () {
         $articles = Article::active()
@@ -18,10 +40,13 @@ class ClientController extends Controller
             ->latest()
             ->paginate(5);
 
+        $this->menu['home']['active'] = true;
+
         return view('client.3-templates.main', [
             'page' => 'client.4-pages.index',
             'title' => 'Index',
             'articles' => $articles,
+            'menu' => $this->menu,
         ]);
     }
 
@@ -33,26 +58,36 @@ class ClientController extends Controller
             ->orderBy('articles.created_at', 'desc')
             ->paginate(5);
 
+        $this->menu['posts']['active'] = true;
+
         return view('client.3-templates.main', [
             'page' => 'client.4-pages.index',
             'title' => 'Index',
             'articles' => $articles,
+            'menu' => $this->menu,
         ]);
     }
 
     public function showAbout () {
+
+        $this->menu['about']['active'] = true;
+
         return view('client.3-templates.main', [
             'page' => 'client.4-pages.about',
             'title' => 'About us',
+            'menu' => $this->menu,
         ]);
     }
 
     
     public function showContact () {
-//        dump(session('wasMessageSent'));
+
+        $this->menu['contact']['active'] = true;
+
         return view('client.3-templates.main', [
             'page' => 'client.4-pages.contact',
             'title' => 'Contact us',
+            'menu' => $this->menu,
         ]);
     }
 
@@ -77,9 +112,13 @@ class ClientController extends Controller
     }
 
     public function show404 () {
+
+        $this->menu['home']['active'] = true;
+
         return view('client.3-templates.single', [
             'page' => 'client.4-pages.404',
             'title' => 'Page not found',
+            'menu' => $this->menu,
         ]);
     }
 

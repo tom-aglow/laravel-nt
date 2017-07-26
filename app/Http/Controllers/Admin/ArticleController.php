@@ -144,6 +144,9 @@ class ArticleController extends AdminController
          * return redirect to the same page
          */
         if ($request->only('button')['button'] === 'upload') {
+            $this->validate($request, [
+                'file' => 'required'
+            ]);
             $this->imageUpload($request,  $uploader,  $uploadModel);
 
             return redirect()->route('admin.article.add');

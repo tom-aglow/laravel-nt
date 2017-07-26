@@ -55,6 +55,5 @@ class AdminController extends Controller
 //TODO feature: recent events (logs)
 //TODO add description to roles in tb
 //TODO feature: search on the site
-//TODO create repository (pattern) for article controller (as example)
 //TODO feature: capture in forms
 //TODO feature: nested comments

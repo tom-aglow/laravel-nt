@@ -18,7 +18,7 @@ class AuthController extends ClientController
             'page' => 'client.4-pages.login',
             'title' => 'Login',
             'content' => '',
-            'activeMenu' => 'login',
+            'menu' => $this->menu,
         ]);
     }
 

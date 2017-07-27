@@ -67,6 +67,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        //  for testing
+
+        if(app()->environment() === 'testing') throw $exception;
+
+        //  ***********
+
         if($request->is('admin/*')) {
             $settings = $this->config['admin'];
         } else {

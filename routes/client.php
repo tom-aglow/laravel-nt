@@ -64,7 +64,7 @@ Route::get('/threads', 'ThreadController@index')
     ->name('client.threads.index');
 Route::get('threads/{thread}', 'ThreadController@show')
     ->name('client.threads.show');
-
+Route::post('threads/{thread}/replies', 'ReplyController@store');
 
 //  INDEX
 Route::get('/', 'ClientController@index')

@@ -10,7 +10,7 @@ class ThreadController extends ClientController
 
     public function __construct () {
         $this->menu['forum']['active'] = true;
-        $this->middleware('auth')->only('store');
+        $this->middleware('auth')->except(['index', 'show']);
     }
     public function index()
     {
@@ -23,7 +23,9 @@ class ThreadController extends ClientController
 
     public function create()
     {
-        //
+        $menu = $this->menu;
+        $page = 'client.4-pages.thread-create';
+        return view('client.3-templates.single', compact( 'page', 'menu'));
     }
 
     public function store(Request $request)

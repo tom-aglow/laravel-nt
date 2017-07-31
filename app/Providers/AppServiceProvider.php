@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use App\Classes\AwesomeClass;
+use App\Classes\TestHandler;
 use App\Classes\Uploader;
-use App\Classes\SocialAccountLogin;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 
@@ -40,6 +40,9 @@ class AppServiceProvider extends ServiceProvider
             return new Uploader();
         });
 
+        $this->app->singleton('Handler', function ($app) {
+            return new TestHandler();
+        });
     }
 
 }

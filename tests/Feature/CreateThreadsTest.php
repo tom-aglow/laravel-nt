@@ -20,6 +20,14 @@ class CreateThreadsTest extends DatabaseTestCase
     }
 
     /** @test */
+    public function guests_can_not_see_create_thread_page () {
+
+        $this->withExceptionHandling()
+            ->get('/threads/create')
+            ->assertRedirect(route('client.auth.login'));
+    }
+
+    /** @test */
     public function an_authenticated_user_can_create_new_forum_threads () {
 
         //  Given we have an signed in user

@@ -67,11 +67,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        //  for testing
-
-        if(app()->environment() === 'testing') throw $exception;
-
-        //  ***********
 
         if($request->is('admin/*')) {
             $settings = $this->config['admin'];
@@ -151,6 +146,6 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 
-        return redirect()->guest(route('login'));
+        return redirect()->guest(route('client.auth.login'));
     }
 }

@@ -53,6 +53,7 @@ Route::get('/logout', 'AuthController@logout')
 
 
 //  SOCIAL MEDIA LOGIN
+
 Route::get('login/{provider}', 'AuthController@redirectToProvider')
     ->name('client.auth.provider')
     ->where('provider', '[a-z]+');
@@ -61,12 +62,11 @@ Route::get('login/{provider}/callback', 'AuthController@handleProviderCallback')
 
 
 //  FORUM
+
+Route::resource('threads', 'ThreadController');
 Route::get('/threads', 'ThreadController@index')
     ->name('client.threads.index');
-Route::post('/threads', 'ThreadController@store');
 
-Route::get('threads/{thread}', 'ThreadController@show')
-    ->name('client.threads.show');
 Route::post('threads/{thread}/replies', 'ReplyController@store');
 
 

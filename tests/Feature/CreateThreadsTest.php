@@ -13,19 +13,16 @@ class CreateThreadsTest extends DatabaseTestCase
     /** @test */
     public function guests_can_not_create_a_thread () {
 
-        $this->expectException('Illuminate\Auth\AuthenticationException');
+        $this->withExceptionHandling();
 
-        $thread = make('App\Models\Thread');
-        $this->post('/threads', $thread->toArray());
-    }
-
-    /** @test */
-    public function guests_can_not_see_create_thread_page () {
-
-        $this->withExceptionHandling()
-            ->get('/threads/create')
+        $this->post('/threads')
             ->assertRedirect(route('client.auth.login'));
+
+        $this->get('/threads/create')
+            ->assertRedirect(route('client.auth.login'));
+
     }
+
 
     /** @test */
     public function an_authenticated_user_can_create_new_forum_threads () {
@@ -41,7 +38,7 @@ class CreateThreadsTest extends DatabaseTestCase
 
         //$thread = factory('App\Models\Thread')->raw();
         //**** using make() helper to simplify the code (see Utilities/functions.php) ****
-        $thread = make('App\Models\Thread');
+        $thread = create('App\Models\Thread');
         $this->post('/threads', $thread->toArray());
 
         //  Then, when we visit the thread page

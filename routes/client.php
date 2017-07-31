@@ -62,12 +62,17 @@ Route::get('login/{provider}/callback', 'AuthController@handleProviderCallback')
 
 
 //  FORUM
-
-Route::resource('threads', 'ThreadController');
 Route::get('/threads', 'ThreadController@index')
     ->name('client.threads.index');
+Route::post('/threads', 'ThreadController@store');
 
-Route::post('threads/{thread}/replies', 'ReplyController@store');
+Route::get('/threads/create', 'ThreadController@create');
+
+Route::get('threads/{channel}/{thread}', 'ThreadController@show')
+    ->name('client.threads.show');
+
+
+Route::post('threads/{channel}/{thread}/replies', 'ReplyController@store');
 
 
 //  INDEX

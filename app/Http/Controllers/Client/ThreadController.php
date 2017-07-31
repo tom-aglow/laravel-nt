@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Models\Channel;
 use App\Models\Thread;
 use Illuminate\Http\Request;
 
@@ -32,6 +33,7 @@ class ThreadController extends ClientController
     {
         $thread = Thread::create([
             'user_id' => auth()->id(),
+            'channel_id' => request('channel_id'),
             'title' => request('title'),
             'body' => request('body'),
         ]);
@@ -39,7 +41,7 @@ class ThreadController extends ClientController
         return redirect($thread->path());
     }
 
-    public function show(Thread $thread)
+    public function show($channelId, Thread $thread)
     {
         $page = 'client.4-pages.thread-one';
         $menu = $this->menu;

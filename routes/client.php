@@ -59,12 +59,16 @@ Route::get('login/{provider}', 'AuthController@redirectToProvider')
 Route::get('login/{provider}/callback', 'AuthController@handleProviderCallback')
     ->where('provider', '[a-z]+');
 
+
 //  FORUM
 Route::get('/threads', 'ThreadController@index')
     ->name('client.threads.index');
+Route::post('/threads', 'ThreadController@store');
+
 Route::get('threads/{thread}', 'ThreadController@show')
     ->name('client.threads.show');
 Route::post('threads/{thread}/replies', 'ReplyController@store');
+
 
 //  INDEX
 Route::get('/', 'ClientController@index')

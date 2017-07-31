@@ -10,6 +10,7 @@ class ThreadController extends ClientController
 
     public function __construct () {
         $this->menu['forum']['active'] = true;
+        $this->middleware('auth')->only('store');
     }
     public function index()
     {
@@ -27,7 +28,13 @@ class ThreadController extends ClientController
 
     public function store(Request $request)
     {
-        //
+        $thread = Thread::create([
+            'user_id' => auth()->id(),
+            'title' => request('title'),
+            'body' => request('body'),
+        ]);
+
+        return redirect($thread->path());
     }
 
     public function show(Thread $thread)

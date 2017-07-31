@@ -11,7 +11,7 @@ class ReadThreadTest extends DatabaseTestCase
     public function setUp () {
         parent::setUp();
 
-        $this->thread = factory('App\Models\Thread')->create();
+        $this->thread = create('App\Models\Thread');
     }
 
     /** @test */
@@ -33,7 +33,7 @@ class ReadThreadTest extends DatabaseTestCase
     public function a_user_can_read_replies_that_are_associated_with_the_thread () {
         //  Given we have a thread
         //  And that thread includes replies
-        $reply = factory('App\Models\Reply')->create(['thread_id' => $this->thread->id]);
+        $reply = create('App\Models\Reply', ['thread_id' => $this->thread->id]);
 
         //  When we visit a thread page, then we should see the replies
         $response = $this->get($this->thread->path())

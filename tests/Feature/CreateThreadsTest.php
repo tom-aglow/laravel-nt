@@ -15,7 +15,7 @@ class CreateThreadsTest extends DatabaseTestCase
 
         $this->expectException('Illuminate\Auth\AuthenticationException');
 
-        $thread = factory('App\Models\Thread')->make();
+        $thread = make('App\Models\Thread');
         $this->post('/threads', $thread->toArray());
     }
 
@@ -23,7 +23,8 @@ class CreateThreadsTest extends DatabaseTestCase
     public function an_authenticated_user_can_create_new_forum_threads () {
 
         //  Given we have an signed in user
-        $this->actingAs(factory('App\Models\User')->create());
+        //**** using method of parent class ****
+        $this->signIn();
 
         //  When we hit an endpoint to create a new thread
         //**** raw() returns an array of user attribute, while make() returns the actual object ****
@@ -31,7 +32,8 @@ class CreateThreadsTest extends DatabaseTestCase
         //**** but later we want to use an object, so we use make() and convert it to array when submitting post request ****
 
         //$thread = factory('App\Models\Thread')->raw();
-        $thread = factory('App\Models\Thread')->make();
+        //**** using make() helper to simplify the code (see Utilities/functions.php) ****
+        $thread = make('App\Models\Thread');
         $this->post('/threads', $thread->toArray());
 
         //  Then, when we visit the thread page

@@ -64,10 +64,13 @@ Route::get('login/{provider}/callback', 'AuthController@handleProviderCallback')
 //  FORUM
 Route::get('/threads', 'ThreadController@index')
     ->name('client.threads.index');
+
 Route::post('/threads', 'ThreadController@store');
 
 Route::get('/threads/create', 'ThreadController@create');
 
+Route::get('/threads/{channel}', 'ThreadController@index')
+    ->name('client.threads.channel');
 Route::get('threads/{channel}/{thread}', 'ThreadController@show')
     ->name('client.threads.show');
 
@@ -76,6 +79,6 @@ Route::post('threads/{channel}/{thread}/replies', 'ReplyController@store');
 
 
 //  INDEX
-Route::get('/', 'ClientController@index')
+Route::get('/', 'ClientController@home')
     ->name('client.client.index');
 

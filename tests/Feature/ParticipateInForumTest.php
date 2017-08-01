@@ -12,7 +12,7 @@ class ParticipateInForumTest extends DatabaseTestCase
     /** @test */
     public function an_authenticated_user_can_participate_in_forum_threads () {
         //  Given we have an authenticated user
-        $this->singIn();
+        $this->signIn();
 
         //  And an existing thread
         $thread = create('App\Models\Thread');

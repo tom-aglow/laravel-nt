@@ -28,13 +28,13 @@ class ClientController extends Controller
             'active' => false,
             'path' => 'client.contact.show',
         ],
-        'forum' => [
+        'all threads' => [
             'active' => false,
             'path' => 'client.threads.index',
         ],
     ];
 
-    public function index () {
+    public function home () {
         $articles = Article::active()
             ->inTime()
             ->latest()

@@ -2,6 +2,7 @@
     @foreach($menu as $key => $value)
         <li class="{{ $value['active'] ? 'active' : '' }}"><a href="{{ route($value['path']) }}">{{ ucfirst($key) }}</a></li>
     @endforeach
+    <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Channels</a></li>
     <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons">account_circle</i></a></li>
 
 </ul>
@@ -19,3 +20,9 @@
     @endif
 </ul>
 
+<ul id="dropdown2" class="dropdown-content">
+        @foreach(App\Models\Channel::all() as $channel)
+                {{--TODO pull to view composer--}}
+                <li><a href="{{ route('client.threads.channel', $channel->slug) }}">{{ $channel->name }}</a></li>
+        @endforeach
+</ul>

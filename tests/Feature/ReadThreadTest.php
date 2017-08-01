@@ -40,4 +40,19 @@ class ReadThreadTest extends DatabaseTestCase
             ->assertSee($reply->body);
 
     }
+
+    /** @test */
+    public function a_user_can_read_thread_according_to_a_channel () {
+
+        $channel = create('App\Models\Channel');
+
+        $threadInChannel = create('App\Models\Thread', ['channel_id' => $channel->id]);
+        $threadNotInChannel = create('App\Models\Thread');
+
+
+        $this->get('/threads/' . $channel->slug)
+            ->assertSee($threadInChannel->title)
+            ->assertDontSee($threadNotInChannel->title);
+
+    }
 }

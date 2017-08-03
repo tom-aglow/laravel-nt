@@ -2,7 +2,8 @@
     @foreach($menu as $key => $value)
         <li class="{{ $value['active'] ? 'active' : '' }}"><a href="{{ route($value['path']) }}">{{ ucfirst($key) }}</a></li>
     @endforeach
-    <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Channels</a></li>
+    <li><a class="dropdown-button" href="#!" data-activates="dropdown3">Threads<i class="material-icons right">arrow_drop_down</i></a></li>
+    <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Channels<i class="material-icons right">arrow_drop_down</i></a></li>
     <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons">account_circle</i></a></li>
 
 </ul>
@@ -22,7 +23,15 @@
 
 <ul id="dropdown2" class="dropdown-content">
         @foreach($channels as $channel)
-                {{--TODO pull to view composer--}}
                 <li><a href="{{ route('client.threads.channel', $channel->slug) }}">{{ $channel->name }}</a></li>
         @endforeach
+</ul>
+
+<ul id="dropdown3" class="dropdown-content">
+
+    <li><a href="{{ route('client.threads.index') }}">All Threads</a></li>
+    @if(auth()->check())
+        <li><a href="{{ route('client.threads.index', ['by' => auth()->user()->name]) }}">My Threads</a></li>
+    @endif
+    <li><a href="{{ route('client.threads.create') }}">New Thread</a></li>
 </ul>

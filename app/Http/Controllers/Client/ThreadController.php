@@ -5,33 +5,42 @@ namespace App\Http\Controllers\Client;
 use App\Models\Channel;
 use App\Models\Thread;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class ThreadController extends ClientController
 {
 
     public function __construct () {
-        $this->menu['all threads']['active'] = true;
         $this->middleware('auth')->except(['index', 'show']);
     }
+
+
     public function index(Channel $channel)
     {
+        //  if request has channel slug, we should make a filter by provided channel
         if ($channel->exists) {
-            $threads = $channel->threads()->latest()->get();
+            $threads = $channel->threads()->latest();
         } else {
-            $threads = Thread::latest()->get();
+            $threads = Thread::latest();
         }
+
+        //  if request('by'), we should filter by given username
+        if ($username = request('by')) {
+            $user = User::where('name', $username)->firstOrFail();
+            $threads->where('user_id', $user->id);
+        }
+
+        $threads = $threads->get();
+
         $page = 'client.4-pages.thread-list';
         $menu = $this->menu;
-
         return view('client.3-templates.single', compact('threads', 'page', 'menu'));
     }
 
     public function create()
     {
-        $this->menu['new thread']['active'] = true;
-        $this->menu['all threads']['active'] = false;
-        $menu = $this->menu;
         $page = 'client.4-pages.thread-create';
+        $menu = $this->menu;
         return view('client.3-templates.single', compact( 'page', 'menu'));
     }
 

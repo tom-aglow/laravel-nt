@@ -28,14 +28,6 @@ class ClientController extends Controller
             'active' => false,
             'path' => 'client.contact.show',
         ],
-        'all threads' => [
-            'active' => false,
-            'path' => 'client.threads.index',
-        ],
-        'new thread' => [
-            'active' => false,
-            'path' => 'client.threads.create',
-        ],
     ];
 
     public function home () {

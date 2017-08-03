@@ -19,6 +19,16 @@ class Thread extends Model
         $this->replies()->create($reply);
     }
 
+
+    /*
+     * Scopes
+     */
+
+    public function scopeFilter ($query, $filters) {
+        return $filters->apply($query);
+    }
+
+
     /*
      * Relationships
      */
@@ -34,4 +44,6 @@ class Thread extends Model
     public function channel () {
         return $this->belongsTo('App\Models\Channel');
     }
+
+
 }

@@ -21,7 +21,7 @@
 </ul>
 
 <ul id="dropdown2" class="dropdown-content">
-        @foreach(App\Models\Channel::all() as $channel)
+        @foreach($channels as $channel)
                 {{--TODO pull to view composer--}}
                 <li><a href="{{ route('client.threads.channel', $channel->slug) }}">{{ $channel->name }}</a></li>
         @endforeach

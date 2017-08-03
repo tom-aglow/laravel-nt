@@ -6,7 +6,7 @@
             <div class="input-field col l12">
                 <select id="channel" name="channel_id">
                     <option value="" disabled selected>Select channel</option>
-                    @foreach(App\Models\Channel::all() as $channel)
+                    @foreach($channels as $channel)
                         <option value="{{ $channel->id }}" {{ old('channel_id') == $channel->id ? 'selected' : '' }}>{{ $channel->name }}</option>
                     @endforeach
                 </select>

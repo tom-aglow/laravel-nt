@@ -67,7 +67,8 @@ Route::get('/threads', 'ThreadController@index')
 
 Route::post('/threads', 'ThreadController@store');
 
-Route::get('/threads/create', 'ThreadController@create');
+Route::get('/threads/create', 'ThreadController@create')
+    ->name('client.threads.create');
 
 Route::get('/threads/{channel}', 'ThreadController@index')
     ->name('client.threads.channel');

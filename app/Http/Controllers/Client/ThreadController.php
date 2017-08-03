@@ -28,6 +28,8 @@ class ThreadController extends ClientController
 
     public function create()
     {
+        $this->menu['new thread']['active'] = true;
+        $this->menu['all threads']['active'] = false;
         $menu = $this->menu;
         $page = 'client.4-pages.thread-create';
         return view('client.3-templates.single', compact( 'page', 'menu'));
@@ -35,6 +37,8 @@ class ThreadController extends ClientController
 
     public function store(Request $request)
     {
+        $request->flash();
+
         $this->validate($request, [
             'title' => 'required',
             'body' => 'required',

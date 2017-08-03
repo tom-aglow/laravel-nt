@@ -4,6 +4,16 @@
         <form action="{{ route('client.threads.index') }}" method="post">
             {{ csrf_field() }}
             <div class="input-field col l12">
+                <select id="channel" name="channel_id">
+                    <option value="" disabled selected>Select channel</option>
+                    @foreach(App\Models\Channel::all() as $channel)
+                        <option value="{{ $channel->id }}" {{ old('channel_id') == $channel->id ? 'selected' : '' }}>{{ $channel->name }}</option>
+                    @endforeach
+                </select>
+                <label for="channel">Thread channel</label>
+            </div>
+            <br><br>
+            <div class="input-field col l12">
                 <input id="title" type="text" class="validate" name="title" placeholder="Enter a title" value="{{ old('title') }}" required>
                 <label for="title" data-error="wrong" data-success="right">Title</label>
             </div>
@@ -14,9 +24,9 @@
             <input type="submit" value="Publish" class="btn">
         </form>
         @if ($errors->any())
-            <div class="alert alert-danger article_msg">
+            <div>
                 @foreach($errors->all() as $error)
-                    {{ $error }}<br>
+                    <p class="red-text text-darken-4">{{ $error }}</p>
                 @endforeach
             </div>
         @endif

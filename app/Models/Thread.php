@@ -9,6 +9,17 @@ class Thread extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /*
+     * Global scopes
+     */
+    public static function boot () {
+        parent::boot();
+
+        static::addGlobalScope('replyCount', function ($builder) {
+            $builder->withCount('replies');
+        });
+    }
+
+    /*
      * Methods
      */
     public function path () {

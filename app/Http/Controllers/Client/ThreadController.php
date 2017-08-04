@@ -20,6 +20,10 @@ class ThreadController extends ClientController
     {
         $threads = $this->getThreads($channel, $filters);
 
+        if (request()->wantsJson()) {
+            return $threads;
+        }
+
         $page = 'client.4-pages.thread-list';
         $menu = $this->menu;
         return view('client.3-templates.single', compact('threads', 'page', 'menu'));

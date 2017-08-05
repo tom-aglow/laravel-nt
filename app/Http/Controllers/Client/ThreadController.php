@@ -58,9 +58,6 @@ class ThreadController extends ClientController
 
     public function show($channelId, Thread $thread)
     {
-        $page = 'client.4-pages.thread-one';
-        $menu = $this->menu;
-
         return view('client.3-templates.single', [
             'thread' => $thread,
             'page' => 'client.4-pages.thread-one',

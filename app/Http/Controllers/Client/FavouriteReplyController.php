@@ -16,6 +16,8 @@ class FavouriteReplyController extends ClientController
 
     public function store (Reply $reply) {
 
-        return $reply->favourite();
+        $reply->favourite();
+
+        return back();
     }
 }

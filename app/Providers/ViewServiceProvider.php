@@ -39,9 +39,11 @@ class ViewServiceProvider extends ServiceProvider
             }));
         });
 
-
+        //  channel list
         View::composer(['client.4-pages.thread-create', 'client.2-parts.header-navbar'], function ($view) {
-            $view->with('channels', Channel::all());
+            $view->with('channels', Cache::tags(['navbar', 'channels'])->remember('navbar', env('CACHE_TIME', 10), function () {
+                return Channel::all();
+            }));
         });
     }
 

@@ -8,6 +8,8 @@ class Thread extends Model
 {
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    protected $with = ['creator', 'channel'];
+
     /*
      * Global scopes
      */
@@ -45,9 +47,7 @@ class Thread extends Model
      */
 
     public function replies () {
-        return $this->hasMany('App\Models\Reply')
-            ->withCount('favourites')
-            ->with('owner');
+        return $this->hasMany('App\Models\Reply');
     }
 
     public function creator () {

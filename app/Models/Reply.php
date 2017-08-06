@@ -3,10 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Traits\Favourable;
 
 class Reply extends Model
 {
+    use Favourable;
+
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    protected $with = ['owner', 'favourites'];
 
     /*
      * Relationships
@@ -19,23 +24,5 @@ class Reply extends Model
         return $this->belongsTo('App\Models\User', 'user_id');
     }
 
-    public function favourites () {
-        return $this->morphMany(Favourite::class, 'favourited');
-    }
 
-    /*
-     * Methods
-     */
-
-    public function favourite () {
-        $attributes = ['user_id' => auth()->id()];
-
-        if (!$this->isFavourited()) {
-            return $this->favourites()->create($attributes);
-        }
-    }
-
-    public function isFavourited () {
-        return $this->favourites()->where(['user_id' => auth()->id()])->exists();
-    }
 }

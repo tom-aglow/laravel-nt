@@ -88,7 +88,7 @@ class ThreadController extends ClientController
      * @return mixed
      */
     protected function getThreads (Channel $channel, ThreadFilters $filters) {
-        $threads = Thread::with('channel')->latest()->filter($filters);
+        $threads = Thread::latest()->filter($filters);
 
         //  if request has channel slug, we select all thread of this channel
         if ($channel->exists) {

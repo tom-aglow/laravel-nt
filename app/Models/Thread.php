@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Http\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
+    use RecordsActivity;
+
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     protected $with = ['creator', 'channel'];
@@ -37,7 +40,6 @@ class Thread extends Model
     public function addReply ($reply) {
         $this->replies()->create($reply);
     }
-
 
     /*
      * Scopes

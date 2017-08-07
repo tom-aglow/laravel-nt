@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Http\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Traits\Favourable;
 
 class Reply extends Model
 {
-    use Favourable;
+    use Favourable, RecordsActivity;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 

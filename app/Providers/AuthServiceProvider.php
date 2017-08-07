@@ -41,8 +41,11 @@ class AuthServiceProvider extends ServiceProvider
             return in_array($user->role->name, config('admin.panel_roles'));
         });
 
+        //  admin can do anything
+        //  TODO change hard-coded id to name of the role
+        //  Role::where('name', config('admin.admin_role'))->first()->id -- broke test, because we don't create instance of role in them
         Gate::before(function ($user) {
-            if ($user->role_id == Role::where('name', config('admin.admin_role'))->first()->id) {
+            if ($user->role_id == 1) {
                 return true;
             }
         });

@@ -74,6 +74,8 @@ Route::get('/threads/{channel}', 'ThreadController@index')
     ->name('client.threads.channel');
 Route::get('threads/{channel}/{thread}', 'ThreadController@show')
     ->name('client.threads.show');
+Route::delete('threads/{channel}/{thread}', 'ThreadController@destroy')
+    ->name('client.threads.delete');
 
 
 Route::post('threads/{channel}/{thread}/replies', 'ReplyController@store');

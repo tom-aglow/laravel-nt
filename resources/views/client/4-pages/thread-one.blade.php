@@ -3,7 +3,18 @@
         {{--thread body--}}
         <div class="card">
             <div class="card-content blue-grey darken-3 white-text">
-                <a class="light-blue-text text-lighten-2" href="#">{{ $thread->creator->name }}</a> posted:<br><br>
+                <div class="card-head-container">
+                    <span>
+                        <a class="light-blue-text text-lighten-2" href="{{ route('client.profiles.show', ['user' => $thread->creator]) }}">{{ $thread->creator->name }}</a>
+                         posted:
+                    </span>
+                    <form action="{{ $thread->path() }}" method="post">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button type="submit" class="waves-effect waves-light btn red darken-4 btn-small"><i class="material-icons">delete_forever</i></button>
+                    </form>
+                </div>
+                <br><br>
                 <span class="card-title">{{ $thread->title }}</span>
                 <p class="body">{{ $thread->body }}</p>
             </div>

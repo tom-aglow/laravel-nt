@@ -7,6 +7,7 @@ use App\Models\Channel;
 use App\Models\Thread;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
 
 class ThreadController extends ClientController
 {
@@ -78,6 +79,8 @@ class ThreadController extends ClientController
 
     public function destroy(Channel $channel, Thread $thread)
     {
+        $this->authorize('update', $thread);
+
         $thread->delete();
 
         if (request()->wantsJson()) {

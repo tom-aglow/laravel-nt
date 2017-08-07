@@ -8,8 +8,8 @@
         @foreach($profileUser->threads as $thread)
         <div class="card teal lighten-1">
             <div class="card-content white-text">
-                <a class="blue-text text-darken-3" href="#">{{ $thread->creator->name }}</a> posted {{ $thread->created_at->diffForHumans() }}:<br><br>
-                <span class="card-title">{{ $thread->title }}</span>
+                <a class="indigo-text text-darken-4 " href="#">{{ $thread->creator->name }}</a> posted {{ $thread->created_at->diffForHumans() }}:<br><br>
+                <a class="card-title indigo-text text-darken-4" href="{{ route('client.threads.show', ['channel' => $thread->channel, 'thread' => $thread]) }}">{{ $thread->title }}</a>
                 <p>{{ $thread->body }}</p>
             </div>
         </div>

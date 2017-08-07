@@ -80,22 +80,28 @@ class CreateThreadsTest extends DatabaseTestCase
      * Threads deleting
      */
     /** @test */
-    public function guest_cannot_delete_threads () {
+    public function unauthorized_user_may_not_delete_thread () {
 
         $this->withExceptionHandling();
 
         $thread = create('App\Models\Thread');
-        $response = $this->delete($thread->path());
-        $response->assertRedirect(route('client.auth.login'));
 
+        //  if user is not signed in, he should be redirected to login page
+        $this->delete($thread->path())
+            ->assertRedirect(route('client.auth.login'));
+
+        //  if user is signed in, ...
+        $this->signIn();
+        $this->delete($thread->path())
+            ->assertStatus(403);
     }
 
     /** @test */
-    public function a_thread_can_be_deleted () {
+    public function authorized_user_can_delete_thread () {
 
         $this->signIn();
 
-        $thread = create('App\Models\Thread');
+        $thread = create('App\Models\Thread', ['user_id' => auth()->id()]);
         $reply = create('App\Models\Reply', ['thread_id' => $thread->id]);
 
         $response = $this->json('DELETE', $thread->path());

@@ -1,8 +1,11 @@
 <?php
 
 return [
-    'roles' => [
+    'admin_role' => 'Admin',
+
+    'panel_roles' => [
         'Admin',
         'Moderator'
-    ]
+    ],
+
 ];

@@ -1,6 +1,6 @@
  <div class="row">
     <div class="col l8 offset-l2">
-        @foreach($threads as $thread)
+        @forelse($threads as $thread)
         <div class="card blue-grey lighten-5">
             <div class="card-content">
                 <span class="card-title">
@@ -10,6 +10,8 @@
                 <p class="body">{{ $thread->body }}</p>
             </div>
         </div>
-        @endforeach
+        @empty
+        <p>There is no relevant results at this time</p>
+        @endforelse
     </div>
 </div>

@@ -39,6 +39,31 @@ class ViewServiceProvider extends ServiceProvider
             }));
         });
 
+        //  menu
+        // TODO put menu in database
+        View::composer(['client.2-parts.header-navbar'], function ($view) {
+            $view->with('menu', Cache::tags(['navbar', 'menu'])->remember('navbar', env('CACHE_TIME', 10), function () {
+                return [
+                    'home' => [
+                        'active' => false,
+                        'path' => 'client.client.index',
+                    ],
+                    'about' => [
+                        'active' => false,
+                        'path' => 'client.about.show',
+                    ],
+                    'posts' => [
+                        'active' => false,
+                        'path' => 'client.client.index',
+                    ],
+                    'contact' => [
+                        'active' => false,
+                        'path' => 'client.contact.show',
+                    ]
+                ];
+            }));
+        });
+
         //  channel list
         View::composer(['client.4-pages.thread-create', 'client.2-parts.header-navbar'], function ($view) {
             $view->with('channels', Cache::tags(['navbar', 'channels'])->remember('navbar', env('CACHE_TIME', 10), function () {

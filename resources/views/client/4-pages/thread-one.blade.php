@@ -8,11 +8,13 @@
                         <a class="light-blue-text text-lighten-2" href="{{ route('client.profiles.show', ['user' => $thread->creator]) }}">{{ $thread->creator->name }}</a>
                          posted:
                     </span>
+                    @can('update', $thread)
                     <form action="{{ $thread->path() }}" method="post">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <button type="submit" class="waves-effect waves-light btn red darken-4 btn-small"><i class="material-icons">delete_forever</i></button>
                     </form>
+                    @endcan
                 </div>
                 <br><br>
                 <span class="card-title">{{ $thread->title }}</span>

@@ -11,6 +11,9 @@ class User extends Authenticatable
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    public function getRouteKeyName () {
+        return 'username';
+    }
 
     /**
      * The attributes that should be hidden for arrays.
@@ -49,6 +52,6 @@ class User extends Authenticatable
     }
 
     public function threads () {
-        return $this->hasMany('App\Models\Threads');
+        return $this->hasMany('App\Models\Thread');
     }
 }

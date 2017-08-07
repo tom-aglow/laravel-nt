@@ -8,10 +8,13 @@
 
 </ul>
 
-<!-- Dropdown Structure -->
+
+{{--dropdown: authentication and user profile--}}
 <ul id="dropdown1" class="dropdown-content">
-    @if(Auth::check())
-        <li class="login_info"><strong>{{ Auth::user()->name }}</strong></li>
+    @if(auth()->check())
+        <li class="login_info"><strong>{{ auth()->user()->name }}</strong></li>
+        <li class="divider"></li>
+        <li><a href="{{ route('client.profiles.show', ['uesr' => auth()->user()]) }}">My profile</a></li>
         <li class="divider"></li>
         <li><a href="{{ route('client.auth.logout') }}">Logout</a></li>
     @else
@@ -21,12 +24,14 @@
     @endif
 </ul>
 
+{{--dropdown: channels--}}
 <ul id="dropdown2" class="dropdown-content">
         @foreach($channels as $channel)
                 <li><a href="{{ route('client.threads.channel', $channel->slug) }}">{{ $channel->name }}</a></li>
         @endforeach
 </ul>
 
+{{--dropdown: threads--}}
 <ul id="dropdown3" class="dropdown-content">
 
     <li><a href="{{ route('client.threads.index') }}">All Threads</a></li>

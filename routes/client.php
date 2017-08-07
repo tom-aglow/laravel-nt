@@ -81,7 +81,8 @@ Route::post('threads/{channel}/{thread}/replies', 'ReplyController@store');
 Route::post('replies/{reply}/favourites', 'FavouriteReplyController@store')
     ->name('client.replies.favourite');
 
-
+Route::get('/profiles/{user}', 'ProfileController@show')
+    ->name('client.profiles.show');
 
 //  INDEX
 Route::get('/', 'ClientController@home')

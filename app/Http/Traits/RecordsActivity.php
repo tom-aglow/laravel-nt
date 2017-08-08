@@ -39,6 +39,6 @@ trait RecordsActivity {
 
     protected function getActivityType ($event) {
         $type = strtolower((new \ReflectionClass($this))->getShortName());
-        return $event . '_' . $type;
+        return $event . '-' . $type;
     }
 }

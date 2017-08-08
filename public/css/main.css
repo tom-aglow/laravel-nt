@@ -80,3 +80,21 @@ nav .dropdown-content {
 .msg__alert{
     color: #f44336;
 }
+
+/*  THREADS    */
+.btn-floating.halfway-fab.btn-like {
+    bottom: calc(50% - 10px);
+    right: -30px;
+}
+.btn-small {
+    padding: 0 5px;
+    height: 26px;
+}
+.btn-small i {
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+}
+.card-head-container {
+    display: flex;
+    justify-content: space-between;
+}

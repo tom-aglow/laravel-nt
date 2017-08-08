@@ -20,6 +20,9 @@ class CreateArticlesTable extends Migration
             $table->string('title', 100);
             $table->string('subheading', 100);
             $table->text('content');
+            $table->tinyInteger('is_active')->default(0);
+            $table->timestamp('active_from')->useCurrent();
+            $table->timestamp('active_to')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -51,7 +51,9 @@ Route::post('/login', 'AuthController@loginPost')
 Route::get('/logout', 'AuthController@logout')
     ->name('client.auth.logout');
 
+
 //  SOCIAL MEDIA LOGIN
+
 Route::get('login/{provider}', 'AuthController@redirectToProvider')
     ->name('client.auth.provider')
     ->where('provider', '[a-z]+');
@@ -59,7 +61,32 @@ Route::get('login/{provider}/callback', 'AuthController@handleProviderCallback')
     ->where('provider', '[a-z]+');
 
 
+//  FORUM
+Route::get('/threads', 'ThreadController@index')
+    ->name('client.threads.index');
+
+Route::post('/threads', 'ThreadController@store');
+
+Route::get('/threads/create', 'ThreadController@create')
+    ->name('client.threads.create');
+
+Route::get('/threads/{channel}', 'ThreadController@index')
+    ->name('client.threads.channel');
+Route::get('threads/{channel}/{thread}', 'ThreadController@show')
+    ->name('client.threads.show');
+Route::delete('threads/{channel}/{thread}', 'ThreadController@destroy')
+    ->name('client.threads.delete');
+
+
+Route::post('threads/{channel}/{thread}/replies', 'ReplyController@store');
+
+Route::post('replies/{reply}/favourites', 'FavouriteReplyController@store')
+    ->name('client.replies.favourite');
+
+Route::get('/profiles/{user}', 'ProfileController@show')
+    ->name('client.profiles.show');
+
 //  INDEX
-Route::get('/', 'ClientController@index')
+Route::get('/', 'ClientController@home')
     ->name('client.client.index');
 

@@ -16,7 +16,7 @@ class ArticlesTableSeeder extends Seeder
 
         for ($i = 0; $i <  10; $i++) {
             $articleModel = Article::create([
-                'user_id' => mt_rand(1, 10),
+                'user_id' => mt_rand(1, 3),
                 'image_id' => mt_rand(2, 4),
                 'title' => $faker->unique()->sentence(6),
                 'slug' => sha1(str_random(16) . microtime(true)),

@@ -22,11 +22,12 @@ class ProfilesTest extends DatabaseTestCase
     /** @test */
     public function profiles_display_all_threads_created_by_associated_user () {
 
-        $user = create('App\Models\User');
-        $thread = create('App\Models\Thread', ['user_id' => $user->id]);
+        $this->signIn();
 
-        $this->get('/profiles/' . $user->username)
-            ->assertSee($user->name)
+        $thread = create('App\Models\Thread', ['user_id' => auth()->id()]);
+
+        $this->get('/profiles/' . auth()->user()->username)
+            ->assertSee(auth()->user()->name)
             ->assertSee($thread->title)
             ->assertSee($thread->body);
 

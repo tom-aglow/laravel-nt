@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Activity;
+use Carbon\Carbon;
 use Tests\DatabaseTestCase;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -17,10 +18,10 @@ class ActivityTest extends DatabaseTestCase
         $thread = create('App\Models\Thread');
 
         $this->assertDatabaseHas('activities', [
-            'type' => 'created_thread',
             'user_id' => auth()->id(),
             'subject_id' => $thread->id,
-            'subject_type' => 'App\Models\Thread'
+            'subject_type' => 'App\Models\Thread',
+            'type' => 'created-thread',
         ]);
 
         //  check if activity subject and thread are the same
@@ -42,5 +43,29 @@ class ActivityTest extends DatabaseTestCase
 
 
         $this->assertEquals(2, Activity::count());
+    }
+
+    /** @test */
+    public function it_fetches_a_feed_for_any_user () {
+
+        $this->signIn();
+
+        //  Given we have a thread
+        create('App\Models\Thread', ['user_id' => auth()->id()], 2);
+
+        //  And another thread from a week ago
+        auth()->user()->activities()->first()->update(['created_at' => Carbon::now()->subWeek()]);
+
+        //  When we fetch their feed
+        $feed = Activity::feed(auth()->user());
+
+        //  It should be returned in the proper format
+        $this->assertTrue($feed->keys()->contains(
+            Carbon::now()->format('Y-m-d')
+        ));
+
+        $this->assertTrue($feed->keys()->contains(
+            Carbon::now()->format('Y-m-d')
+        ));
     }
 }

@@ -10,6 +10,8 @@ Creating site forum:
 - set up threads and replies to them
 - adding reply to particular thread for authenticated users
 - writing unit tests while implementing new features
+- creating channels for threads
+- making user activity feed
 
 
 

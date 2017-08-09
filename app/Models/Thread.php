@@ -26,7 +26,7 @@ class Thread extends Model
 
         //  when we delete a thread, all associated replies should be deleted as well
         static::deleting(function ($thread) {
-            $thread->replies()->delete();
+            $thread->replies->each->delete();   //  instead of each function
         });
     }
 

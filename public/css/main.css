@@ -103,6 +103,11 @@ nav .dropdown-content {
 .card-action__group {
     display: flex;
 }
-.card-action__group form {
+.card-action__group form,
+.card-action__group button {
     margin-right: 20px;
+}
+
+[v-cloak] {
+    display: none;
 }

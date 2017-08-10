@@ -3,13 +3,15 @@
         <h4>Create a new thread</h4>
         <form action="{{ route('client.threads.index') }}" method="post">
             {{ csrf_field() }}
+
             <div class="input-field col l12">
-                <select id="channel" name="channel_id">
-                    <option value="" disabled selected>Select channel</option>
-                    @foreach($channels as $channel)
-                        <option value="{{ $channel->id }}" {{ old('channel_id') == $channel->id ? 'selected' : '' }}>{{ $channel->name }}</option>
-                    @endforeach
-                </select>
+                {{--<select id="channel" name="channel_id">--}}
+                    {{--<option value="" disabled selected>Select channel</option>--}}
+                    {{--@foreach($channels as $channel)--}}
+                        {{--<option value="{{ $channel->id }}" {{ old('channel_id') == $channel->id ? 'selected' : '' }}>{{ $channel->name }}</option>--}}
+                    {{--@endforeach--}}
+                {{--</select>--}}
+                <input id="channel" type="text" name="channel_id" value="{{ old('channel_id') }}" required>
                 <label for="channel">Thread channel</label>
             </div>
             <br><br>

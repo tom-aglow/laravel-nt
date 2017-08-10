@@ -27,7 +27,7 @@ class ParticipateInForumTest extends DatabaseTestCase
     }
 
     /** @test */
-    public function a_reply_requiers_a_body () {
+    public function a_reply_requires_a_body () {
 
         $this->withExceptionHandling()->signIn();
 
@@ -37,5 +37,33 @@ class ParticipateInForumTest extends DatabaseTestCase
         $this->post($thread->path() . '/replies', $reply->toArray())
             ->assertSessionHasErrors('body');
 
+    }
+
+    /** @test */
+    public function unauthorized_user_cannot_delete_reply () {
+
+        $this->withExceptionHandling();
+
+        //  Given we have reply
+        $reply = create('App\Models\Reply');
+
+        //  we submit delete request to the endpoint and should be redirected to login page
+//        $this->delete("replies/{$reply->id}")
+//            ->assertRedirect(route('client.auth.login'));
+
+        $this->signIn()->delete("replies/{$reply->id}")
+            ->assertStatus(403);
+    }
+
+    /** @test */
+    public function authorized_user_can_delete_reply () {
+
+        $this->signIn();
+
+        $reply = create('App\Models\Reply', ['user_id' => auth()->id()]);
+
+        $this->delete("replies/{$reply->id}")->assertStatus(302);
+
+        $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
     }
 }

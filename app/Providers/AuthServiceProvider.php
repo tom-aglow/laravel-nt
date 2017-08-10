@@ -4,11 +4,13 @@ namespace App\Providers;
 
 use App\Models\Article;
 use App\Models\Comment;
+use App\Models\Reply;
 use App\Models\Tag;
 use App\Models\Thread;
 use App\Models\Role;
 use App\Policies\ArticlePolicy;
 use App\Policies\CommentPolicy;
+use App\Policies\ReplyPolicy;
 use App\Policies\TagPolicy;
 use App\Policies\ThreadPolicy;
 use Illuminate\Support\Facades\Gate;
@@ -26,6 +28,7 @@ class AuthServiceProvider extends ServiceProvider
         Comment::class => CommentPolicy::class,
         Tag::class => TagPolicy::class,
         Thread::class => ThreadPolicy::class,
+        Reply::class => ReplyPolicy::class,
     ];
 
     /**

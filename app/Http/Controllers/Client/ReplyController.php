@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Models\Reply;
 use Illuminate\Http\Request;
 use App\Models\Thread;
 
@@ -24,5 +25,14 @@ class ReplyController extends ClientController
 
         return back()
             ->with('flash', 'You reply has been left!');
+    }
+
+    public function destroy (Reply $reply) {
+
+        $this->authorize('update', $reply);
+
+        $reply->delete();
+
+        return back();
     }
 }

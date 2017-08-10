@@ -82,6 +82,8 @@ Route::post('threads/{channel}/{thread}/replies', 'ReplyController@store');
 
 Route::post('replies/{reply}/favourites', 'FavouriteReplyController@store')
     ->name('client.replies.favourite');
+Route::delete('replies/{reply}', 'ReplyController@destroy')
+    ->name('client.replies.delete');
 
 Route::get('/profiles/{user}', 'ProfileController@show')
     ->name('client.profiles.show');

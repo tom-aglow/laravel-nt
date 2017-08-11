@@ -82,6 +82,9 @@ Route::post('threads/{channel}/{thread}/replies', 'ReplyController@store');
 
 Route::post('replies/{reply}/favourites', 'FavouriteReplyController@store')
     ->name('client.replies.favourite');
+Route::delete('replies/{reply}/favourites', 'FavouriteReplyController@destroy')
+    ->name('client.replies.unfavourite');
+
 Route::patch('replies/{reply}', 'ReplyController@update')
     ->name('client.replies.update');
 Route::delete('replies/{reply}', 'ReplyController@destroy')

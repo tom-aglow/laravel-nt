@@ -12,10 +12,7 @@
             <div v-else v-text="body"></div>
         </div>
         <div class="card-action card-action__group">
-            <form method="post" action="{{ route('client.replies.favourite', [$reply->id]) }}">
-                {{csrf_field()}}
-                <button type="submit" class="waves-effect waves-light valign-wrapper btn {{ $reply->isFavourited() ? 'disabled' : '' }}"><i class="material-icons left">favorite_border</i> <span>{{ $reply->getFavouriteCountsAttribute() }}</span> </button>
-            </form>
+            <favorite :reply="{{ $reply }}"></favorite>
             @can('update', $reply)
             <button class="waves-effect waves-light btn light-blue darken-3" @click="editing = true"><i class="material-icons">edit</i></button>
             <button class="waves-effect waves-light btn red" @click="destroy"><i class="material-icons">delete_forever</i></button>

@@ -20,11 +20,21 @@ trait Favourable {
         }
     }
 
+    public function unfavourite () {
+        $attributes = ['user_id' => auth()->id()];
+
+        $this->favourites()->where($attributes)->delete();
+    }
+
     public function isFavourited () {
         return (boolean)$this->favourites->where('user_id', auth()->id())->count();
     }
 
     public function getFavouriteCountsAttribute () {
         return $this->favourites->count();
+    }
+
+    public function getIsFavouritedAttribute () {
+        return $this->isFavourited();
     }
 }

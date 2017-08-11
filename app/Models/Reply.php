@@ -14,6 +14,8 @@ class Reply extends Model
 
     protected $with = ['owner', 'favourites'];
 
+    //  when cast array or json, we want to add these attributes to that
+    protected $appends = ['favouriteCounts', 'isFavourited'];
     /*
      * Relationships
      */

@@ -40,6 +40,10 @@ class ReplyController extends ClientController
 
         $reply->delete();
 
+        if (request()->expectsJson()) {
+            return response(['status' => 'Reply deleted']);
+        }
+
         return back();
     }
 }

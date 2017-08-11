@@ -18,11 +18,7 @@
             </form>
             @can('update', $reply)
             <button class="waves-effect waves-light btn light-blue darken-3" @click="editing = true"><i class="material-icons">edit</i></button>
-            <form method="post" action="{{ route('client.replies.delete', [$reply->id]) }}">
-                {{csrf_field()}}
-                {{ method_field("DELETE") }}
-                <button type="submit" class="waves-effect waves-light btn red"><i class="material-icons">delete_forever</i></button>
-            </form>
+            <button class="waves-effect waves-light btn red" @click="destroy"><i class="material-icons">delete_forever</i></button>
             @endcan
         </div>
     </div>

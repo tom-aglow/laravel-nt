@@ -11,13 +11,17 @@
             </div>
             <div v-else v-text="body"></div>
         </div>
-        <div class="card-action card-action__group">
-            <favorite :reply="{{ $reply }}"></favorite>
-            @can('update', $reply)
-            <button class="waves-effect waves-light btn light-blue darken-3" @click="editing = true"><i class="material-icons">edit</i></button>
-            <button class="waves-effect waves-light btn red" @click="destroy"><i class="material-icons">delete_forever</i></button>
-            @endcan
-        </div>
+        @if(Auth::check())
+            <div class="card-action card-action__group">
+                <favorite :reply="{{ $reply }}"></favorite>
+
+                @can('update', $reply)
+                <button class="waves-effect waves-light btn light-blue darken-3" @click="editing = true"><i class="material-icons">edit</i></button>
+                <button class="waves-effect waves-light btn red" @click="destroy"><i class="material-icons">delete_forever</i></button>
+                @endcan
+            </div>
+        @endif
+
     </div>
 
 </reply>

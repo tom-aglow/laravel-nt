@@ -32,6 +32,13 @@
 
     <script src="/js/main.js?{{ sha1(microtime(true)) }}"></script>
 
+    <script>
+        window.App = {!! json_encode([
+            'csrfToken' => csrf_token(),
+            'user' => Auth::user(),
+            'signedIn' => Auth::check()
+        ]) !!};
+    </script>
     @yield('head-scripts')
 
 </head>

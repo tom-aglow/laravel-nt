@@ -49,4 +49,28 @@ class ThreadTest extends DatabaseTestCase
 
         $this->assertInstanceOf('App\Models\Channel', $this->thread->channel);
     }
+
+    /** @test */
+    public function a_thread_can_be_subscribe_to () {
+
+        //  Given we have a thread
+        //  $this->thread;
+
+
+        //  when the user subscribes to thread
+        $this->thread->subscribe($userId = 1);
+
+        //  then we should be able to fetch all threads that the user has subscribed to
+        $this->assertEquals(1, $this->thread->subscriptions()->where('user_id', $userId)->count());
+    }
+
+    /** @test */
+    public function a_thread_can_be_unsubscribe_from () {
+
+        $this->thread->subscribe($userId = 1);
+
+        $this->thread->unsubscribe($userId);
+
+        $this->assertEquals(0, $this->thread->subscriptions()->where('user_id', $userId)->count());
+    }
 }

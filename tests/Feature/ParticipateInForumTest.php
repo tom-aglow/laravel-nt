@@ -22,8 +22,12 @@ class ParticipateInForumTest extends DatabaseTestCase
         $this->post($thread->path() . '/replies', $reply->toArray());
 
         //  Then his reply should be visible  on the page
-        $this->get($thread->path())
-            ->assertSee($reply->body);
+//        $this->get($thread->path())
+//            ->assertSee($reply->body);
+
+        //  Reply should be stored in database
+        $this->assertDatabaseHas('replies', ['body' => $reply->body]);
+        $this->assertEquals(1, $thread->fresh()->replies_count);
     }
 
     /** @test */
@@ -56,7 +60,7 @@ class ParticipateInForumTest extends DatabaseTestCase
     }
 
     /** @test */
-    public function authorized_user_can_update_reply () {
+    public function authorized_user_can_delete_reply () {
 
         $this->signIn();
 
@@ -65,6 +69,8 @@ class ParticipateInForumTest extends DatabaseTestCase
         $this->delete("replies/{$reply->id}")->assertStatus(302);
 
         $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
+        $this->assertEquals(0, $reply->thread->fresh()->replies_count);
+
     }
 
 
@@ -85,12 +91,12 @@ class ParticipateInForumTest extends DatabaseTestCase
     }
 
     /** @test */
-    public function authorized_user_can_delete_reply () {
+    public function authorized_user_can_update_reply () {
 
         $this->signIn();
 
         $reply = create('App\Models\Reply', ['user_id' => auth()->id()]);
-
+ 
         $updatedReply = 'You\'ve been changed, fool.';
         $this->patch("replies/{$reply->id}", ['body' => $updatedReply]);
 

@@ -36,7 +36,9 @@
 
     <li><a href="{{ route('client.threads.index') }}">All Threads</a></li>
     <li><a href="{{ route('client.threads.index', ['popular' => 1]) }}">Popular All Time</a></li>
-    @if(auth()->check())
+    <li><a href="{{ route('client.threads.index', ['unanswered' => 1]) }}">Unanswered Threads</a></li>
+
+@if(auth()->check())
         <li><a href="{{ route('client.threads.index', ['by' => auth()->user()->name]) }}">My Threads</a></li>
     @endif
     <li><a href="{{ route('client.threads.create') }}">New Thread</a></li>

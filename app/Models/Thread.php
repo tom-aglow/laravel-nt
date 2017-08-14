@@ -19,11 +19,6 @@ class Thread extends Model
     public static function boot () {
         parent::boot();
 
-        //  global scope for getting number of replies anytime when we retrieve thread info from DB
-        static::addGlobalScope('replyCount', function ($builder) {
-            $builder->withCount('replies');
-        });
-
         //  when we delete a thread, all associated replies should be deleted as well
         static::deleting(function ($thread) {
             $thread->replies->each->delete();   //  instead of each function

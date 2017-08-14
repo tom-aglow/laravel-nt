@@ -78,6 +78,7 @@ Route::delete('threads/{channel}/{thread}', 'ThreadController@destroy')
     ->name('client.threads.delete');
 
 
+Route::get('threads/{channel}/{thread}/replies', 'ReplyController@index');
 Route::post('threads/{channel}/{thread}/replies', 'ReplyController@store');
 
 Route::post('replies/{reply}/favourites', 'FavouriteReplyController@store')

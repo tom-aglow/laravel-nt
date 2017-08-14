@@ -24,9 +24,7 @@
             </div>
 
             {{--replies--}}
-            <replies :data="{{ $thread->replies }}" @added="repliesCount++" @removed="repliesCount--"></replies>
-
-            {{--{{ $replies->links() }}--}}
+            <replies @added="repliesCount++" @removed="repliesCount--"></replies>
 
             {{--form for leaving a reply--}}
 

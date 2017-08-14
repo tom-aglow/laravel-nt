@@ -1,7 +1,7 @@
 <template>
     <div class="card" :id="'reply-'+id">
         <div class="card-content blue-grey lighten-5">
-            <strong><a class="light-blue-text text-darken-4" :href="'/profiles/'+data.owner.name" v-text="data.owner.name"></a> said {{ data.created_at }}...</strong>
+            <strong><a class="light-blue-text text-darken-4" :href="'/profiles/'+data.owner.name" v-text="data.owner.name"></a> said <span v-text="ago"></span></strong>
             <hr>
             <div v-if="editing">
                 <textarea class="materialize-textarea" cols="30" rows="5" v-model="body"></textarea>
@@ -28,6 +28,8 @@
 
 <script>
     import Favorite from './Favorite.vue';
+    import moment from 'moment';
+
 
     export default {
         props: ['data'],
@@ -43,6 +45,10 @@
         },
 
         computed: {
+            ago () {
+                return moment(this.data.created_at).fromNow() + '...';
+            },
+
             signedIn () {
                 return window.App.signedIn;
             },

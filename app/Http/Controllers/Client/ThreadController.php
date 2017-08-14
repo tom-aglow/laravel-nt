@@ -64,7 +64,6 @@ class ThreadController extends ClientController
             'thread' => $thread,
             'page' => 'client.4-pages.thread-one',
             'menu' => $this->menu,
-            'replies' => $thread->replies()->paginate(10)
         ]);
     }
 

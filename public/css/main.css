@@ -100,6 +100,12 @@ nav .dropdown-content {
     justify-content: space-between;
 }
 
+.btn.btn-subscribe {
+    padding: 0px 7px;
+    height: auto;
+    text-transform: none;
+}
+
 .card-action__group {
     display: flex;
 }

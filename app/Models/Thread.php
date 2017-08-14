@@ -13,6 +13,8 @@ class Thread extends Model
 
     protected $with = ['creator', 'channel'];
 
+    protected $appends = ['isSubscribedTo'];
+
     /*
      * Global scopes
      */
@@ -25,6 +27,16 @@ class Thread extends Model
         });
     }
 
+    /*
+    * Accessors
+    */
+
+    public function getIsSubscribedToAttribute () {
+        return $this->subscriptions()
+            ->where('user_id', auth()->id())
+            ->exists();
+    }
+    
     /*
      * Methods
      */

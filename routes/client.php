@@ -96,7 +96,8 @@ Route::delete('/replies/{reply}', 'ReplyController@destroy')
 //      user profile
 Route::get('/profiles/{user}', 'ProfileController@show')
     ->name('client.profiles.show');
-
+Route::get('/profiles/{user}/notifications', 'UserNotificationController@index');
+Route::delete('/profiles/{user}/notifications/{notification}', 'UserNotificationController@destroy');
 
 //      subscription
 Route::post('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionController@store');

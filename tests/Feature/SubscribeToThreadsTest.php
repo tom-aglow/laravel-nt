@@ -22,14 +22,7 @@ class SubscribeToThreadsTest extends DatabaseTestCase
         //  user subscribes to the thread
         $this->post($thread->path() . '/subscriptions');
 
-        //  then each time a new reply is left in that thread
-        $thread->addReply([
-            'user_id' => auth()->id(),
-            'body' => 'some reply here',
-        ]);
-
-        //  a notification should be prepared for the user
-        $this->asssertCount(1, auth()->user()->notifications);
+        $this->assertCount(1, $thread->fresh()->subscriptions);
     }
 
     /** @test */

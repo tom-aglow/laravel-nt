@@ -5,7 +5,9 @@
     <li><a class="dropdown-button" href="#!" data-activates="dropdown3">Threads<i class="material-icons right">arrow_drop_down</i></a></li>
     <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Channels<i class="material-icons right">arrow_drop_down</i></a></li>
     <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons">account_circle</i></a></li>
-
+    @if(auth()->check())
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown4"><i class="material-icons">notifications_active</i></a></li>
+    @endif
 </ul>
 
 
@@ -43,3 +45,6 @@
     @endif
     <li><a href="{{ route('client.threads.create') }}">New Thread</a></li>
 </ul>
+
+{{--dropdown: notifications--}}
+<user-notifications></user-notifications>

@@ -14,7 +14,7 @@ class ReplyController extends ClientController
 
     public function index ($channelId, Thread $thread) {
 
-        return $thread->replies()->paginate(5);
+        return $thread->replies()->paginate(10);
     }
 
     public function store ($channelId, Thread $thread) {

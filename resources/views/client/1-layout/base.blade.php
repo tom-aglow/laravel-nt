@@ -36,6 +36,7 @@
         window.App = {!! json_encode([
             'csrfToken' => csrf_token(),
             'user' => Auth::user(),
+            'username' => Auth::user()->username ?? '',
             'signedIn' => Auth::check()
         ]) !!};
     </script>

@@ -48,7 +48,7 @@ class NotificationTest extends DatabaseTestCase
     }
 
     /** @test */
-    public function a_user_can_his_unread_notifications () {
+    public function a_user_can_fetch_his_unread_notifications () {
 
         create(DatabaseNotification::class);
 

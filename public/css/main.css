@@ -4,6 +4,7 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    font-family: "Helvetica Neue", Roboto, sans-serif;
 }
 
 main {
@@ -97,4 +98,22 @@ nav .dropdown-content {
 .card-head-container {
     display: flex;
     justify-content: space-between;
+}
+
+.btn.btn-subscribe {
+    padding: 0px 7px;
+    height: auto;
+    text-transform: none;
+}
+
+.card-action__group {
+    display: flex;
+}
+.card-action__group form,
+.card-action__group button {
+    margin-right: 20px;
+}
+
+[v-cloak] {
+    display: none;
 }

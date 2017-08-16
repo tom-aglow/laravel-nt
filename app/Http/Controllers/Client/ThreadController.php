@@ -54,7 +54,8 @@ class ThreadController extends ClientController
             'body' => request('body'),
         ]);
 
-        return redirect($thread->path());
+        return redirect($thread->path())
+            ->with('flash', 'You thread has been published!');
     }
 
     public function show($channelId, Thread $thread)
@@ -63,7 +64,6 @@ class ThreadController extends ClientController
             'thread' => $thread,
             'page' => 'client.4-pages.thread-one',
             'menu' => $this->menu,
-            'replies' => $thread->replies()->paginate(10)
         ]);
     }
 

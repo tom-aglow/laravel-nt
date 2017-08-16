@@ -22,6 +22,7 @@ trait RecordsActivity {
         static::deleting(function($model) {
             $model->activity()->delete();
         });
+        //  note: it will fire only if model instance exists; so we need to get a collection of models in our sql-query and than for each of them we are going to delete it
     }
 
     protected static function getActivitiesToRecord () {

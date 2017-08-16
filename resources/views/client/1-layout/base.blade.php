@@ -24,20 +24,38 @@
 
     {{--jQuery--}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="/bower_components/jquery/jquery.min.js"><\/script>')</script>
+    <script>window.jQuery || document.write('<script src="/bower_components/jquery/dist/jquery.min.js"><\/script>')</script>
+
     {{--materializecss--}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+    {{--<script src="/public/bower_components/materialize/dist/js/materialize.min.js"></script>--}}
+
     <script src="/js/main.js?{{ sha1(microtime(true)) }}"></script>
+
+    <script>
+        window.App = {!! json_encode([
+            'csrfToken' => csrf_token(),
+            'user' => Auth::user(),
+            'username' => (Auth::user()) ? Auth::user()->username : '',
+            'signedIn' => Auth::check()
+        ]) !!};
+    </script>
     @yield('head-scripts')
 
 </head>
 
 <body>
-    @yield('header')
-    @yield('content')
-    @yield('footer')
+    <div id='app'>
+        @yield('header')
+        @yield('content')
+        <flash message="{{ session('flash') }}"></flash>
 
-    @yield('bottom-scripts')
+        @yield('footer')
+        @yield('bottom-scripts')
+    </div>
+
+    {{--vue--}}
+    <script src="/js/app.js"></script>
 
 </body>
 </html>

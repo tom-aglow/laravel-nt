@@ -20,4 +20,9 @@ class FavouriteReplyController extends ClientController
 
         return back();
     }
+
+    public function destroy (Reply $reply) {
+
+        $reply->unfavourite();
+    }
 }

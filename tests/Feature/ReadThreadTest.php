@@ -30,18 +30,6 @@ class ReadThreadTest extends DatabaseTestCase
     }
 
     /** @test */
-    public function a_user_can_read_replies_that_are_associated_with_the_thread () {
-        //  Given we have a thread
-        //  And that thread includes replies
-        $reply = create('App\Models\Reply', ['thread_id' => $this->thread->id]);
-
-        //  When we visit a thread page, then we should see the replies
-        $response = $this->get($this->thread->path())
-            ->assertSee($reply->body);
-
-    }
-
-    /** @test */
     public function a_user_can_read_thread_according_to_a_channel () {
 
         $channel = create('App\Models\Channel');
@@ -90,5 +78,31 @@ class ReadThreadTest extends DatabaseTestCase
 
         //  They should be returned from most replies to least
         $this->assertEquals([3, 2, 0], array_column($response, 'replies_count'));
+    }
+
+    /** @test */
+    public function a_user_can_filter_threads_by_those_that_are_unanswered () {
+
+        //  one thread is already created in setUp method
+        //  create another one with reply
+        $thread = create('App\Models\Thread');
+        create('App\Models\Reply', ['thread_id' => $thread->id]);
+
+        $response = $this->getJson('/threads?unanswered=1')->json();
+
+        $this->assertCount(1, $response);
+    }
+
+
+    /** @test */
+    public function a_user_can_request_all_replies_for_a_given_thread () {
+
+        $thread = create('App\Models\Thread');
+        create('App\Models\Reply', ['thread_id' => $thread->id], 2);
+
+        $response = $this->getJson($thread->path() . '/replies')->json();
+
+        $this->assertCount(2, $response['data']);
+        $this->assertEquals(2, $response['total']);
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Events\ThreadHasNewReply;
 use App\Http\Traits\RecordsActivity;
+use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
@@ -13,16 +15,13 @@ class Thread extends Model
 
     protected $with = ['creator', 'channel'];
 
+    protected $appends = ['isSubscribedTo'];
+
     /*
      * Global scopes
      */
     public static function boot () {
         parent::boot();
-
-        //  global scope for getting number of replies anytime when we retrieve thread info from DB
-        static::addGlobalScope('replyCount', function ($builder) {
-            $builder->withCount('replies');
-        });
 
         //  when we delete a thread, all associated replies should be deleted as well
         static::deleting(function ($thread) {
@@ -31,6 +30,16 @@ class Thread extends Model
     }
 
     /*
+    * Accessors
+    */
+
+    public function getIsSubscribedToAttribute () {
+        return $this->subscriptions()
+            ->where('user_id', auth()->id())
+            ->exists();
+    }
+    
+    /*
      * Methods
      */
     public function path () {
@@ -38,7 +47,26 @@ class Thread extends Model
     }
 
     public function addReply ($reply) {
-        $this->replies()->create($reply);
+
+        $reply = $this->replies()->create($reply);
+
+        event(new ThreadHasNewReply($this, $reply));
+
+        return $reply;
+    }
+
+    public function subscribe ($userId = null) {
+        $this->subscriptions()->create([
+            'user_id' => $userId ?: auth()->id(),
+        ]);
+
+        return $this;
+    }
+
+    public function unsubscribe ($userId = null) {
+        $this->subscriptions()
+            ->where('user_id', $userId ?: auth()->id())
+            ->delete();
     }
 
     /*
@@ -66,5 +94,8 @@ class Thread extends Model
         return $this->belongsTo('App\Models\Channel');
     }
 
+    public function subscriptions () {
+        return $this->hasMany(ThreadSubscription::class);
+    }
 
 }

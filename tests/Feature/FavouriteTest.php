@@ -34,6 +34,19 @@ class FavouriteTest extends DatabaseTestCase {
     }
 
     /** @test */
+    public function an_authenticated_user_can_unfavourite_a_reply () {
+
+        $this->signIn();
+
+        $reply = create('App\Models\Reply');
+
+        $reply->favourite();
+        $this->delete('replies/' . $reply->id . '/favourites');
+        $this->assertCount(0, $reply->favourites);
+
+    }
+
+    /** @test */
     public function an_authenticated_user_can_only_favourite_a_reply_once () {
 
         $this->signIn();

@@ -5,7 +5,9 @@
     <li><a class="dropdown-button" href="#!" data-activates="dropdown3">Threads<i class="material-icons right">arrow_drop_down</i></a></li>
     <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Channels<i class="material-icons right">arrow_drop_down</i></a></li>
     <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons">account_circle</i></a></li>
-
+    @if(auth()->check())
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown4"><i class="material-icons">notifications_active</i></a></li>
+    @endif
 </ul>
 
 
@@ -36,8 +38,13 @@
 
     <li><a href="{{ route('client.threads.index') }}">All Threads</a></li>
     <li><a href="{{ route('client.threads.index', ['popular' => 1]) }}">Popular All Time</a></li>
-    @if(auth()->check())
+    <li><a href="{{ route('client.threads.index', ['unanswered' => 1]) }}">Unanswered Threads</a></li>
+
+@if(auth()->check())
         <li><a href="{{ route('client.threads.index', ['by' => auth()->user()->name]) }}">My Threads</a></li>
     @endif
     <li><a href="{{ route('client.threads.create') }}">New Thread</a></li>
 </ul>
+
+{{--dropdown: notifications--}}
+<user-notifications></user-notifications>

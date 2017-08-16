@@ -4,6 +4,7 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    font-family: "Helvetica Neue", Roboto, sans-serif;
 }
 
 main {
@@ -79,4 +80,40 @@ nav .dropdown-content {
 }
 .msg__alert{
     color: #f44336;
+}
+
+/*  THREADS    */
+.btn-floating.halfway-fab.btn-like {
+    bottom: calc(50% - 10px);
+    right: -30px;
+}
+.btn-small {
+    padding: 0 5px;
+    height: 26px;
+}
+.btn-small i {
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+}
+.card-head-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn.btn-subscribe {
+    padding: 0px 7px;
+    height: auto;
+    text-transform: none;
+}
+
+.card-action__group {
+    display: flex;
+}
+.card-action__group form,
+.card-action__group button {
+    margin-right: 20px;
+}
+
+[v-cloak] {
+    display: none;
 }

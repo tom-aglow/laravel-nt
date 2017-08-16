@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddQuantityToProductsTable extends Migration
+class CreateChannelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddQuantityToProductsTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->smallInteger('quantity')->after('price');
+        Schema::create('channels', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 50);
+            $table->string('slug', 50);
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddQuantityToProductsTable extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('quantity');
-        });
+        Schema::dropIfExists('channels');
     }
 }

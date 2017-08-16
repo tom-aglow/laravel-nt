@@ -15,18 +15,6 @@ class UsersTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        for ($i = 0; $i <  10; $i++) {
-            User::create([
-                'username' => $faker->userName,
-                'role_id' => 3,
-                'name' => $faker->name,
-                'email' => $faker->unique()->email,
-                'password' => $faker->password,
-                'created_at' => $faker->dateTimeBetween('-2 years', 'now'),
-                'updated_at' => $faker->dateTimeBetween('-2 years', 'now'),
-            ]);
-        }
-
         User::create([
             'username' => 'admin',
             'role_id' => 1,

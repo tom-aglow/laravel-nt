@@ -41,7 +41,8 @@ class Handler extends ExceptionHandler
         ],
         'client' => [
             'template' => 'client.3-templates.main',
-            'page' => 'client.4-pages.404'
+            'page' => 'client.4-pages.404',
+            'menu' => ''
         ]
     ];
 
@@ -67,6 +68,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+
         if($request->is('admin/*')) {
             $settings = $this->config['admin'];
         } else {
@@ -119,7 +121,7 @@ class Handler extends ExceptionHandler
                 return response()->view($settings['template'], [
                     'page' => $settings['page'],
                     'errorCode' => 403,
-                    'errorMessage' => 'You don\'t have privileges to view this page',
+                    'errorMessage' => 'This action is unauthorized',
                 ], 403);
                 break;
 
@@ -145,6 +147,6 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 
-        return redirect()->guest(route('login'));
+        return redirect()->guest(route('client.auth.login'));
     }
 }

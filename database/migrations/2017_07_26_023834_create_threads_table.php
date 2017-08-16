@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductsTable extends Migration
+class CreateThreadsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('threads', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 20);
-            $table->string('country', 40)->nullable();
-            $table->float('price', 8, 2);
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('channel_id');
+            $table->unsignedInteger('replies_count')->default(0);
+            $table->string('title');
+            $table->text('body');
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('threads');
     }
 }

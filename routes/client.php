@@ -51,7 +51,9 @@ Route::post('/login', 'AuthController@loginPost')
 Route::get('/logout', 'AuthController@logout')
     ->name('client.auth.logout');
 
+
 //  SOCIAL MEDIA LOGIN
+
 Route::get('login/{provider}', 'AuthController@redirectToProvider')
     ->name('client.auth.provider')
     ->where('provider', '[a-z]+');
@@ -59,7 +61,50 @@ Route::get('login/{provider}/callback', 'AuthController@handleProviderCallback')
     ->where('provider', '[a-z]+');
 
 
+//  FORUM
+
+//      threads
+Route::get('/threads', 'ThreadController@index')
+    ->name('client.threads.index');
+
+Route::post('/threads', 'ThreadController@store');
+
+Route::get('/threads/create', 'ThreadController@create')
+    ->name('client.threads.create');
+
+Route::get('/threads/{channel}', 'ThreadController@index')
+    ->name('client.threads.channel');
+Route::get('/threads/{channel}/{thread}', 'ThreadController@show')
+    ->name('client.threads.show');
+Route::delete('/threads/{channel}/{thread}', 'ThreadController@destroy')
+    ->name('client.threads.delete');
+
+//      channels & replies
+Route::get('/threads/{channel}/{thread}/replies', 'ReplyController@index');
+Route::post('/threads/{channel}/{thread}/replies', 'ReplyController@store');
+
+Route::post('/replies/{reply}/favourites', 'FavouriteReplyController@store')
+    ->name('client.replies.favourite');
+Route::delete('/replies/{reply}/favourites', 'FavouriteReplyController@destroy')
+    ->name('client.replies.unfavourite');
+
+Route::patch('/replies/{reply}', 'ReplyController@update')
+    ->name('client.replies.update');
+Route::delete('/replies/{reply}', 'ReplyController@destroy')
+    ->name('client.replies.delete');
+
+//      user profile
+Route::get('/profiles/{user}', 'ProfileController@show')
+    ->name('client.profiles.show');
+Route::get('/profiles/{user}/notifications', 'UserNotificationController@index');
+Route::delete('/profiles/{user}/notifications/{notification}', 'UserNotificationController@destroy');
+
+//      subscription
+Route::post('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionController@store');
+Route::delete('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionController@destroy');
+
+
 //  INDEX
-Route::get('/', 'ClientController@index')
+Route::get('/', 'ClientController@home')
     ->name('client.client.index');
 

@@ -27,8 +27,8 @@
     <script>window.jQuery || document.write('<script src="/bower_components/jquery/dist/jquery.min.js"><\/script>')</script>
 
     {{--materializecss--}}
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>--}}
-    <script src="/bower_components/materialize/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+    {{--<script src="/public/bower_components/materialize/dist/js/materialize.min.js"></script>--}}
 
     <script src="/js/main.js?{{ sha1(microtime(true)) }}"></script>
 
@@ -36,7 +36,7 @@
         window.App = {!! json_encode([
             'csrfToken' => csrf_token(),
             'user' => Auth::user(),
-            'username' => Auth::user()->username ?? '',
+            'username' => (Auth::user()) ? Auth::user()->username : '',
             'signedIn' => Auth::check()
         ]) !!};
     </script>

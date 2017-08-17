@@ -3,15 +3,25 @@ This is a exercise website (blog) created with PHP framework Laravel. The main p
 Here is the brief overview that was implemented so far:
 
 
-## Release 2.0 (unreleased)
+## Release 2.0
 
-Creating site forum:
+Creating site forum that has the following features:
 
-- set up threads and replies to them
-- adding reply to particular thread for authenticated users
-- writing unit tests while implementing new features
-- creating channels for threads
-- making user activity feed
+- threads and threads replies from authenticated users
+- threads has their channels
+- user can filter threads by their channels, popularity or by those that don't have any reply yet
+- user can like reply
+- user has a profile page where he can see his activity
+- user can subscribe to the thread and get notifications if somebody leave a new reply to thread
+
+Technical aspects:
+
+- created vue-components for threads list, one thread view, replies and add new reply, user notification, subscribe button and flash message
+- implemented unit tests for forum's units and features
+- made traits for record activity and favourable instances on forum
+- created dedicated class for filtering threads
+- introduced threads notification class
+- created database factories
 
 
 
@@ -34,16 +44,16 @@ Client side has following features:
 In admin panel was implemented:
 
 - separate middleware for admin routes (user authentication)
-- users roles and privileges (admin - superuser, moderator - can only see and accept comments to articles), gates and policies for user authorisation
+- users have roles and privileges (admin - superuser, moderator - can only see and accept comments to articles), gates and policies for user authorisation
 - adding / updating / deleting blog articles; adding image to article; setting up period when article is visible on the site
 - adding / updating / deleting article's tags
 - custom file uploader class for storing files outside public folder
 - image resizer that allows generated dinamic images via provided URL (Intervention image library was used)
-- data caching and eager loading
+- data caching with Memcached and eager loading
 - sharing variables values between all views
 - custom paginator for comment collections grouped by articles
 - casting, mutators and local scopes for models
 - visitors feedback events handler
-- mail sending via mailgun
+- mail sending via Mailgun
 
 
